@@ -1,4 +1,4 @@
-# Framework7 Vue + Webpack App Template
+# Cosmoiler-Frontend
 
 A frontend of [Cosmoiler project] (Cosmoiler - smart oiler for motorcycle chain). Based on [Framework7 Vue + Webpack App Template](https://github.com/vuejs-templates/webpack)
 

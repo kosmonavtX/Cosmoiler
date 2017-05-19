@@ -23,5 +23,5 @@ npm run build
 * `src/pages` - app `.vue` pages
 * `src/main.js` - main app file where you include/import all required libs and init app
 * `src/routes.js` - app routes
-* `src/app.vue` - main app structure/component# Cosmoiler
+* `src/app.vue` - main app structure/component
 

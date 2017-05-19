@@ -1,6 +1,6 @@
 # Cosmoiler-Frontend
 
-A frontend of [Cosmoiler project] (Cosmoiler - smart oiler for motorcycle chain). Based on [Framework7 Vue + Webpack App Template](https://github.com/vuejs-templates/webpack)
+A frontend of [Cosmoiler project] (http://cosmoiler.blogspot.ru/). Based on [Framework7 Vue + Webpack App Template](https://github.com/vuejs-templates/webpack)
 
 ## Build Setup
 

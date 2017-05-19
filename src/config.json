@@ -1,0 +1,21 @@
+{
+    "type":"config",
+    "imp":16,
+    "prediction":3,
+    "extsp":true,
+    "wheel":{"dia":17,"width":150,"height":70,"lenght":2016},
+    "pump":{"dpms":50,"dpdp":800},
+    "manual":{"dpms":250,"dpdp":500},
+    "trip":[
+        {"trip_m":8000,"dp_num":2,"imptripm":63492},
+        {"trip_m":4000,"dp_num":3,"imptripm":31746},
+        {"trip_m":1000,"dp_num":1,"imptripm":7937},
+        {"trip_m":3000,"dp_num":1,"imptripm":23810}
+    ],
+    "time":[
+        {"dp_time":20,"dp_num":2,"trail":0},
+        {"dp_time":150,"dp_num":2,"trail":0},
+        {"dp_time":100,"dp_num":2,"trail":0},
+        {"dp_time":130,"dp_num":2,"trail":0}
+    ]
+}

@@ -1,0 +1,71 @@
+/* =========
+Your custom styles go here
+ ========= */
+.list-block.media-list .icon {
+    font-size: 31px;
+    color: #800080; /*#0058ff;*/
+}
+
+.list-block.media-list .item-title {
+    font-weight: 700;
+    font-size: 16px;
+    color: #006767;
+    text-transform: uppercase;
+}
+.list-block.media-list .item-subtitle {
+    font-weight: 600;
+    font-size: 12px;
+    color: #c87137;
+}
+.badge {
+    line-height: 21px;
+}
+.navbar {
+    height: 50px;
+}
+/*.navbar i.icon, .subnavbar i.icon, .toolbar i.icon {
+    font-size: 32px;
+    display: initial;
+}*/
+.list-block {
+    margin: 20px 0;
+}
+/*.content-block-title {
+    text-transform: uppercase;
+}*/
+.row .col-100 {
+    text-align: center;  
+}
+
+.preload, .preload.col-100 {
+    margin: 16px 0px;
+    padding: 0px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+}
+/* Ввод параметров для режима "Trip" */
+.item-title.label.labelin {
+    text-transform: initial;
+    color: #c87137;
+    font-size: 16px;
+}
+
+.settings.accordion-item {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    color: #006767;    
+}
+
+.settings.accordion-item .item-after {
+    color: #800080;
+    max-height: 60px;
+    font-size: 28px;
+}
+/*.list-block .placeholder input[type=text] {
+    font-size: 12px;
+}*/
+/*.row .content-block {
+     margin-bottom: 15px;
+}*/

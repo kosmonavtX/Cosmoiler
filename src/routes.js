@@ -30,5 +30,9 @@ export default [
     {
         path: '/params/',
         component: require('./pages/params.vue')
-    }    
+    },
+    {
+        path: '/system/',
+        component: require('./pages/system.vue')
+    }
 ]

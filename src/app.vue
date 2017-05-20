@@ -13,9 +13,10 @@
                 <f7-page>
                     <f7-navbar v-if="$theme.material" sliding></f7-navbar>
                     <f7-list>
-                        <f7-list-item link="/ctrlpump/" link-view="#main-view" link-close-panel title="Управление насосом"></f7-list-item>
-                        <f7-list-item v-if="false" link="/form/" link-view="#main-view"  title="Система" link-close-panel></f7-list-item>
                         <f7-list-item link="/params/" link-view="#main-view"  title="Параметры" link-close-panel></f7-list-item>
+                        <f7-list-item link="/ctrlpump/" link-view="#main-view" link-close-panel title="Управление насосом"></f7-list-item>
+                        <f7-list-item link="/system/" link-view="#main-view"  title="Система" link-close-panel></f7-list-item>
+  
                         <f7-list-item link="/about/" title="О Cosmoiler"></f7-list-item>
                     </f7-list>
                 </f7-page>

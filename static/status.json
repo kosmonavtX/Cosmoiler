@@ -1,0 +1,12 @@
+{
+    "wifi": {
+        "connect":false,
+        "ssid": "ASUS77",
+        "psw": "36910082013"
+    },
+    "update": {
+        "status": false,
+        "fw": false,
+        "spiffs": false
+    }
+}

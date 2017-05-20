@@ -30,7 +30,7 @@
     <f7-grid no-gutter>
 
         <f7-col>
-            <f7-card title="Насос" :content="params.non"></f7-card>
+            <f7-card title="Насос" :content="Non"></f7-card>
         </f7-col>
         <f7-col>
             <f7-card title="напряжение" :content="Voltage"></f7-card>

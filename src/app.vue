@@ -106,7 +106,7 @@
     </f7-views>
 
     <!-- Popup -->
-    <f7-popup id="popup">
+<!--    <f7-popup id="popup">
         <f7-view navbar-fixed>
             <f7-pages>
                 <f7-page>
@@ -119,10 +119,10 @@
                 </f7-page>
             </f7-pages>
         </f7-view>
-    </f7-popup>
+    </f7-popup>-->
 
     <!-- Login Screen -->
-    <f7-login-screen id="login-screen">
+<!--    <f7-login-screen id="login-screen">
         <f7-view>
             <f7-pages>
                 <f7-page login-screen>
@@ -146,7 +146,7 @@
                 </f7-page>
             </f7-pages>
         </f7-view>
-    </f7-login-screen>
+    </f7-login-screen>-->
 
 </div>
 </template>
@@ -165,8 +165,6 @@
             }
         },
         created: function() {
-            console.log('app cteated');
-            console.log(this.$root.uri);
             this.fetchModes();
         },
         computed: {
@@ -221,11 +219,10 @@
 
                         this.axios.get('http://'+self.$root.uri+'/mode.json', {timeout: 1000}).then(
                                 (response) => {
-                                    console.log(response);
-                                    console.log(response.status);
                                     if (response.status === 200) {
                                         self.modejson = response.data;
                                         self.connection = true;
+                                        self.$f7.hidePreloader();
                                     }
                                 })
                             .catch(
@@ -233,9 +230,9 @@
                                     console.log(response);
                                     self.modejson.mode = 0; // выкл
                                     self.connection = false;
+                                   // self.$f7.showPreloader('Подключение к Cosmoiler...');
                                 })
-                    },
-                    750);
+                    }, 750);
             },
             
             send: function(data) {
@@ -246,12 +243,9 @@
                 dataF.append('data', new File([blob], '/mode.json', { type: 'application/json' } ));
                 
                 this.axios.post('http://'+self.$root.uri+'/mode', dataF, {timeout: 1000, headers: { 'Content-Type': 'multipart/form-data' }}).then(
-                    (response) => {
-                        console.log(response);
-                    })
+                    (response) => {})
                 .catch(
                 (response) => {
-                    console.log('error');
                     self.connection = false;
                 })
                     
@@ -290,22 +284,9 @@
                                         this.send({mode:4, preset: this.modejson.preset});
                                     break;
                         };
-/*                        break;
-                    default:
-                        console.log("mode <> 0");
-                        this.send({mode:0, preset: this.modejson.preset}); 
-                        break;
-                        
-                }*/
                 }
             },
         },
-        
-/*        beforeDestroy: function () {
-            console.log('clear interval');
-            console.log(this.interval);
-            clearInterval(this.interval);
-        }*/
     }
 
 </script>

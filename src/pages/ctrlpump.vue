@@ -28,7 +28,7 @@
                     <p>
                         <f7-button fill v-on:click="reverse">Реверс ({{dirname.properites[pump.dir].name}})</f7-button>
                     </p>
-                </f7-col>                
+                </f7-col>
             </f7-grid>
         </f7-list-item>
     </f7-list>
@@ -65,12 +65,9 @@
                 this.axios.get('http://'+self.$root.uri+'/work', {
                     params: {state: 2} // SETTINGS
                 }, {timeout: 1000}).then(
-                    (response) => {
-                        console.log(response);
-                    })
+                    (response) => {})
                 .catch(
                 (response) => {
-                    console.log('error');
                     self.connection = false;
                 })              
         },
@@ -83,12 +80,9 @@
                     dpdp: self.pump.dpdp,
                     dir: self.pump.dir
                 }}, {timeout: 1000}).then(
-                    (response) => {
-                        console.log(response);
-                    })
+                    (response) => {})
                 .catch(
                 (response) => {
-                    console.log('error');
                     self.connection = false;
                 })                
             },
@@ -110,12 +104,9 @@
             back: function () {
                 var self = this;
                 this.axios.get('http://'+self.$root.uri+'/work', {params: {state: 0 /* AUTOMATIC*/}}, {timeout: 1000}).then(
-                    (response) => {
-                        console.log(response);
-                    })
+                    (response) => {})
                 .catch(
                 (response) => {
-                    console.log('error');
                     self.connection = false;
                 })               
             }

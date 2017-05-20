@@ -28,8 +28,6 @@ import Routes from './routes.js'
 
 // Import App Component
 import App from './app'
-import ModesWork from './pages/modesWork'
-
 
 Vue.use(VueAxios, axios);
 
@@ -75,8 +73,8 @@ var MainApp = new Vue({
                     pump: {dpms: null, dpdp: null}
                 },
                 trip:{
-                    smart: {adxl: null, prediction: null},
-                    sensor: {extsp: null, imp: 16},
+                    smart: {adxl: false, prediction: null},
+                    sensor: {extsp: false, imp: 16},
                     presets: [
                         {trip_m: 2000, dp_num: 5, imptripm: null},
                         {trip_m: 1500, dp_num: 2, imptripm: null},
@@ -87,7 +85,7 @@ var MainApp = new Vue({
                     wheel: {dia: 17, width: 150, height: 70, lenght: null}
                 },
                 time:{
-                    smart: {adxl: null, trail: null, prediction: null},
+                    smart: {adxl: false, trail: true, prediction: null},
                     presets: [
                         {dp_time: null, dp_num: null, trail: null},
                         {dp_time: null, dp_num: null, trail: null},
@@ -97,7 +95,7 @@ var MainApp = new Vue({
                     pump: {dpms: null, dpdp: null},
                 }
             },
-            tripM: []
+            tripM: [] // для пересчета м в км
         }
     },
     // Register App Component
@@ -114,24 +112,17 @@ var MainApp = new Vue({
                 this.axios.get('http://'+self.$root.uri+'/config.json', {timeout: 1000}).then(
                                 (response) => {
                                     console.log('OK get config.json');
-                                    console.log(response);
-                                    console.log(response.status);
                                     if (response.status === 200) {
-                                        console.log('CODE=200 get config.json');
                                         self.config = response.data;
                                         self.connection = true;
                                         self.tripM[0] = self.config.trip.presets[0].trip_m / 1000;
                                         self.tripM[1] = self.config.trip.presets[1].trip_m / 1000;
-                                        console.log('get config.json');
-                                        console.log(self.config.trip.presets);
                                     }
                                 })
                             .catch(
                                 (response) => {
                                     console.log('ERROR get config.json');
-                                    console.log(response);
                                     self.connection = false;
-                                    console.log(self.connection);
                                     self.tripM[0] = self.config.trip.presets[0].trip_m / 1000;
                                     self.tripM[1] = self.config.trip.presets[1].trip_m / 1000;
                                 })
@@ -145,12 +136,9 @@ var MainApp = new Vue({
                 dataF.append('data', new File([blob], '/config.json', { type: 'application/json' } ));
                 
                 this.axios.post('http://'+self.$root.uri+'/config', dataF, {timeout: 1000, headers: { 'Content-Type': 'multipart/form-data' }}).then(
-                    (response) => {
-                        console.log(response);
-                    })
+                    (response) => {})
                 .catch(
                 (response) => {
-                    console.log('error');
                     self.connection = false;
                 })    
         },

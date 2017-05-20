@@ -60,7 +60,7 @@
         </f7-list-item>
         <f7-list-item accordion-item title="Колесо (с датчиком)" class="settings" after="<i class='icon icon-gauge2'>">
             <f7-accordion-content>
-  
+
                 <f7-list media-list>
                     <f7-list-item>
 
@@ -75,7 +75,7 @@
                                     <option v-bind:value="19">19"</option>
                                     <option v-bind:value="21">21"</option>
                                 </f7-input>
-                                
+
                                 <!--                                <f7-input type="number" max=19 v-model.number="config.trip.wheel.dia" placeholder="Введите диаметр шины в дюймах"></f7-input>-->
                                 <f7-label class="labelin">Ширина:</f7-label>
                                 <f7-input type="number" v-model.number="config.trip.wheel.width" placeholder="Ширина шины"></f7-input>
@@ -96,6 +96,8 @@
 
                         <!--            <div slot="root" class='icon icon-meter'></div>-->
                         <div slot="inner">
+                            <f7-label class="labelin">Питание внешнего датчика</f7-label>
+                            <f7-input type="switch" @change="onChangePwr" v-model="config.trip.sensor.extsp"></f7-input>
 
                             <div style="margin-top: 6px">
                                 <f7-label class="labelin">Импульсов на оборот:</f7-label>
@@ -104,48 +106,11 @@
                             <p></p>
                             <f7-button big fill v-on:click="AccordOpen">Сброс</f7-button>
                         </div>
-
-
                     </f7-list-item>
                 </f7-list>
             </f7-accordion-content>
         </f7-list-item>
     </f7-list>
-    <!--    <f7-block inner>
-        <f7-label>Параметры</f7-label>
-        <f7-list accordion>
-            <f7-list-item accordion-item title="ГОРОД">
-                <f7-accordion-content>
-                    <f7-block>
-                        <f7-label>Расстояние (км)</f7-label>
-                        <f7-input type="tel"></f7-input>
-                        <f7-label>Число капель</f7-label>
-                        <f7-input type="text"></f7-input>
-                    </f7-block>
-                </f7-accordion-content>
-            </f7-list-item>
-            <f7-list-item accordion-item title="ТРАССА">
-                <f7-accordion-content>
-                    <f7-block>
-                        <f7-label>Расстояние (км)</f7-label>
-                        <f7-input type="tel"></f7-input>
-                        <f7-label>Число капель</f7-label>
-                        <f7-input type="text"></f7-input>
-                    </f7-block>
-                </f7-accordion-content>
-            </f7-list-item>
-        </f7-list>
-    </f7-block>-->
-    <!--    <f7-block inner>
-        <f7-label>Насос</f7-label>
-        <f7-block inner>
-            <f7-label>Расстояние (км)</f7-label>
-            <f7-input type="tel"></f7-input>
-            <f7-label>Число капель</f7-label>
-            <f7-input type="tel"></f7-input>
-        </f7-block>
-    </f7-block>-->
-
 </f7-page>
 </template>
 
@@ -159,41 +124,12 @@
                 tripM: this.$root.tripM,
                 interval: null,
                 params: {sp: 0},
-                /* {
-                    trip: {
-                        presets: [{trip_m: null, dp_num: null},{trip_m: null, dp_num: null}],
-                        pump: {dpms: null, dpdp: null},     
-                        wheel: {dia: null, width: null, height: null}*/
             }
         },
-        created: function() {
-            console.log('created trip.vue');
-            //this.modeState = true;
-           // this.$root.fetchConfig();
-            //this.fetchState();
-            //this.modeState = this.;
-            console.log(this.$root.connection);
-            console.log(this.config);
-            console.log(this.config.trip.presets[0].trip_m);
-           // this.tripM0W = this.$root.config.trip.presets[0].trip_m / 1000;
-        },
-/*        beforeMount: function() {
-                console.log('before mount');
-            //if (this.$root.connection === true)
-              //  this.tripM0W = this.config.trip.presets[0].trip_m / 1000;  
-        },*/
         computed: {
             maxPumpOff: function () {
                 return this.config.trip.pump.dpms * 50;
             }
-/*            tripM0W: function() { 
-                    console.log('get');
-                    console.log(this.config.trip.presets[0].trip_m);
-                    return this.config.trip.presets[0].trip_m / 1000;
-            }, */
-        },
-        watch: {
-          
         },
         methods: {
             limitNumber: function(val, min, max) {
@@ -206,24 +142,17 @@
                     case '2': this.tripM[1] = this.limitNumber(this.tripM[1], 1, 100); break;
                     case '3': this.config.trip.presets[1].dp_num = this.limitNumber(this.config.trip.presets[1].dp_num, 1, 10); break;
                 }
-                console.log('doneEditTripCity', this.tripM[1]);
             },
             back: function() {
-                console.log('back');
+                clearInterval(this.interval);
                 this.config.trip.presets[0].trip_m = this.tripM[0]*1000;
                 this.config.trip.presets[1].trip_m = this.tripM[1]*1000;
-                /*console.log(this.tripM);*/
-                
-                /*this.config.trip.sensor.imp = this.params.sp;*/
-                
                 /* вычисление длины окружности колеса */
                 var dm = this.config.trip.wheel.dia*25.4;
                 var hm = this.config.trip.wheel.height * this.config.trip.wheel.width/100;
                 var Len = (dm + 2 * hm)*3.14159;
                 this.config.trip.wheel.lenght = Len;
-                console.log(Len);
-                this.imptripm();
-                
+                this.imptripm();                
                 this.$root.saveConfig();    
             },
             imptripm: function() {
@@ -231,52 +160,43 @@
 		          this.config.trip.presets[i].imptripm = Number(this.config.trip.sensor.imp *     this.config.trip.presets[i].trip_m / (this.config.trip.wheel.lenght/1000)).toFixed(0);        
             },
             AccordOpen: function () {
-                console.log('Accordion open');
+                /*console.log('Accordion open');*/
                 var self = this;
-                this.axios.get('http://'+self.$root.uri+'/work', {
-                    params: {state: 2} // SETTINGS
-                }, {timeout: 1000}).then(
-                    (response) => {
-                        /*console.log(response);*/
-                    })
-                .catch(
-                (response) => {
-                    console.log('error');
-                    self.$root.connection = false;
-                });
+                this.axios.get('http://'+self.$root.uri+'/work', {params: {state: 1}}, {timeout: 1000})
+                    .then(
+                        (response) => {})
+                    .catch(
+                        (response) => { self.$root.connection = false; });
                 this.interval = setInterval(() => {
-
-                        this.axios.get('http://'+self.$root.uri+'/paramxml', {timeout: 1000}).then(
-                                (response) => {
-                                    /*console.log(response);*/
-                                    if (response.status === 200) {
-                                        self.params = response.data;
-                                        this.config.trip.sensor.imp = this.params.sp;
-                                        self.$root.connection = true;
-                                    }
-                                })
-                            .catch(
-                                (response) => {
-                                    self.$root.connection = false;
-                                })
-                    },
-                    500);
+                    this.axios.get('http://'+self.$root.uri+'/paramxml', {timeout: 1000})
+                        .then(
+                            (response) => {
+                                if (response.status === 200) {
+                                    self.params = response.data;
+                                    this.config.trip.sensor.imp = this.params.sp;
+                                    self.$root.connection = true;
+                                }
+                        })
+                        .catch(
+                            (response) => {
+                                self.$root.connection = false;
+                        })
+                    }, 800);
             },
             AccordClose: function () {
-                console.log('Accordion close');
+                /*console.log('Accordion close\n', this.interval);*/
                 clearInterval(this.interval);
                 var self = this;
-                this.axios.get('http://'+self.$root.uri+'/work', {
-                    params: {state: 0} // SETTINGS
-                }, {timeout: 1000}).then(
-                    (response) => {
-                        console.log(response);
-                    })
-                .catch(
-                (response) => {
-                    console.log('error');
-                    self.$root.connection = false;
-                });
+                this.axios.get('http://'+self.$root.uri+'/work', {params: {state: 0}}, {timeout: 1000})
+                    .then(
+                        (response) => {})
+                    .catch(
+                        (response) => {
+                            self.$root.connection = false;
+                    });
+            },
+            onChangePwr: function(event) {
+                this.config.trip.sensor.extsp = event.srcElement.checked;
             }
         },
         components: {

@@ -19,21 +19,19 @@ export default {
         }
     },
     created: function () {
-        console.log("beforeMount About");
+        /*console.log("beforeMount About");*/
         this.fetchFW();
     },
     methods: {
         fetchFW: function() {
             var self = this;
-            this.axios.get('http://' + self.$root.uri + "/ver.json").then(
-            function(response) {
-                self.obj = response.data;//JSON.parse(response.data);
-                console.log(self.obj);
-                console.log(response);
-            }, 
-            function(err) {
-                console.log('error get ver.json');
-            })
+            this.axios.get('http://'+self.$root.uri+'/ver.json', {timeout: 1000})
+                .then(
+                    (response) => {
+                        self.obj = response.data
+                    })
+                .catch(
+                    (response) => {})
         }
     }
 }

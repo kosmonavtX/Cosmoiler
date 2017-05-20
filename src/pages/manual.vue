@@ -1,16 +1,6 @@
 <template>
 <f7-page>
     <f7-navbar title="Настройки" back-link="Back" sliding v-on:back-click="back"></f7-navbar>
-<!--    <f7-list media-list>
-        <f7-list-item title="Включение/выключение режима" after="<i class='icon icon-off'>">
-
-            <div slot="inner">
-                <f7-input type="switch" :checked="modeState"></f7-input>
-            </div>
-
-        </f7-list-item>
-    </f7-list>-->
-
     <f7-list accordion>
         <f7-list-item accordion-item title="Настройки насоса" class="settings" after="<i class='icon icon-pump'>">
             <f7-accordion-content>
@@ -20,11 +10,6 @@
                         <!--            <div slot="root" class='icon icon-meter'></div>-->
                         <div slot="inner">
                             <div style="margin-top: 6px">
-<!--                                <f7-label class="labelin">Время вкл.</f7-label>
-                                <f7-input type="number" v-model.number="config.manual.pump.dpms"  placeholder="Введите время импульса насоса (1/1000 сек)"></f7-input>
-                                <f7-label class="labelin">Время выкл:</f7-label>
-                                <f7-input type="number" v-model.number="config.manual.pump.dpdp" placeholder="Время между импульсами (1/1000 сек)"></f7-input>-->
-                                
                                 <f7-label class="labelin">Время вкл: {{config.manual.pump.dpms}}</f7-label>
                                 <f7-input type="range" min="10" max="500" step="10" v-model="config.manual.pump.dpms"></f7-input>
                                 <!--                                <f7-input type="number" v-model.number="config.trip.pump.dpms" placeholder="Введите время импульса насоса (1/1000 сек)"></f7-input>-->
@@ -38,7 +23,7 @@
             </f7-accordion-content>
         </f7-list-item>
     </f7-list>
-</f7-page>        
+</f7-page>    
 </template>
 
 <script>
@@ -50,7 +35,6 @@
         },
         methods: {
             back: function() {
-                console.log('back');
                 this.$root.saveConfig();
             }  
         },        

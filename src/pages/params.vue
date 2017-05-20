@@ -1,8 +1,6 @@
 <template>
 <f7-page>
     <f7-navbar title="Параметры" back-link="Back" sliding></f7-navbar>
-
-
     <f7-grid no-gutter>
         <f7-col>
             <f7-card title="Режим" :content="NamePreset"></f7-card>
@@ -17,8 +15,7 @@
         </f7-col>
 
     </f7-grid>
-    
-        <f7-grid no-gutter>
+    <f7-grid no-gutter>
         <f7-col>
             <f7-card title="Одометр" :content="Odo"></f7-card>
         </f7-col>
@@ -26,7 +23,6 @@
             <f7-card title="Датчик 1" :content="Imp"></f7-card>
         </f7-col>
     </f7-grid>
-    
     <f7-grid no-gutter>
 
         <f7-col>
@@ -36,15 +32,6 @@
             <f7-card title="напряжение" :content="Voltage"></f7-card>
         </f7-col>
     </f7-grid>
-    <!--    <f7-list form>
-      <f7-list-item v-for="n in 3" checkbox name="my-checkbox" :value="n" :title="'Checkbox ' + n"></f7-list-item>
-    </f7-list>
-
-    <f7-block-title>Radios</f7-block-title>
-    <f7-list form>
-      <f7-list-item v-for="n in 3" radio name="my-radio" :checked="n === 1" :value="n" :title="'Radio ' + n"></f7-list-item>
-    </f7-list>-->
-
 </f7-page>
 </template>
 
@@ -69,7 +56,6 @@ export default {
     },
     
     created: function () {
-        console.log('created params.vue');
         this.fetchParams();
     },
     
@@ -113,28 +99,22 @@ export default {
         fetchParams: function () {
             var self = this;
             this.interval = setInterval(() => {
-
-                        this.axios.get('http://'+self.$root.uri+'/paramxml', {timeout: 1000}).then(
-                                (response) => {
-                                    console.log(response);
-                                    if (response.status === 200) {
-                                        self.params = response.data;
-                                        self.$root.connection = true;
-                                    }
-                                })
-                            .catch(
-                                (response) => {
-                                    console.log(response);
-                                    self.$root.connection = false;
-                                })
-                    },
-                    750);
+                this.axios.get('http://'+self.$root.uri+'/paramxml', {timeout: 1000})
+                    .then(
+                        (response) => {
+                            if (response.status === 200) {
+                                self.params = response.data;
+                                self.$root.connection = true;
+                            }
+                    })
+                    .catch(
+                        (response) => {
+                            self.$root.connection = false;
+                    })
+            }, 750);
         },
-    },
-    
+    },    
     beforeDestroy: function () {
-        console.log('clear interval');
-        console.log(this.interval);
         clearInterval(this.interval);
     }
 }

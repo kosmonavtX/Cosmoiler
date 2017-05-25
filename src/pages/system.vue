@@ -61,10 +61,10 @@
                         (response) => {
                             if (response.status === 200) {
                                 self.status = response.data;
-                                if (self.status.wifi.connect == false) {
+/*                                if (self.status.wifi.connect == false) {
                                     self.status.wifi.ssid = null;        
                                     self.status.wifi.psw = null;
-                                }
+                                }*/
                                 self.connection = true;
                             }
                     })

@@ -99,7 +99,7 @@ export default {
         fetchParams: function () {
             var self = this;
             this.interval = setInterval(() => {
-                this.axios.get('http://'+self.$root.uri+'/paramxml', {timeout: 1000})
+                this.axios.get('http://'+self.$root.uri+'/paramxml', {timeout: 2000})
                     .then(
                         (response) => {
                             if (response.status === 200) {
@@ -108,9 +108,7 @@ export default {
                             }
                     })
                     .catch(
-                        (response) => {
-                            self.$root.connection = false;
-                    })
+                        (response) => {})
             }, 750);
         },
     },    

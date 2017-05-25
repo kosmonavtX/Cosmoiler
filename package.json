@@ -40,7 +40,8 @@
     "tls": "0.0.1",
     "vue": "^2.2.4",
     "vue-axios": "^2.0.1",
-    "vue-socket.io": "^2.1.1-a"
+    "vue-socket.io": "^2.1.1-a",
+    "web-pingjs": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

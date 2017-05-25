@@ -50,7 +50,7 @@
         data () {
             return {
                 pump: {
-                    dpms: 50, dpdp: 800,
+                    dpms: 150, dpdp: 800,
                     state: 0,
                     dir: direction.OUT
                 },

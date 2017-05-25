@@ -95,7 +95,8 @@ var MainApp = new Vue({
                     pump: {dpms: null, dpdp: null},
                 }
             },
-            tripM: [] // для пересчета м в км
+            tripM: [], // для пересчета м в км
+            cntOKPing: {},
         }
     },
     // Register App Component
@@ -105,6 +106,7 @@ var MainApp = new Vue({
     created: function () {
         console.log('created');
         this.fetchConfig();
+        this.pingmy();
     },
     methods: {
         fetchConfig: function() {
@@ -142,5 +144,44 @@ var MainApp = new Vue({
                     self.connection = false;
                 })    
         },
+            pingmy: function () {
+                var self = this;
+                this.interval = setInterval(() => { 
+                    ping('http://'+self.$root.uri)
+                        .then(
+                            (delta) => { 
+                                console.log('Ping time was ' + String(delta) + ' ms');
+                                self.connection = true;
+                                self.cntOKPing++;
+                                if (self.cntOKPing > 5) {
+                                    self.$f7.hidePreloader();
+                                    self.cntOKPing = 0;
+                                }
+                            })
+                        .catch(
+                            (err) => {
+                                console.error('Could not ping remote URL', err);
+                                self.connection = false;
+                                self.cntOKPing = 0;
+                                self.$f7.showPreloader('Подключение к Cosmoiler...');
+                        })
+                }, 1000);
+/*                this.interval = setInterval(() => {
+                    this.axios.get('http://'+self.$root.uri+'/ping', {timeout: 5000})
+                        .then(
+                            (response) => {
+                                if (response.status === 200) {                                
+                                    self.connection = true;
+                                    self.$f7.hidePreloader();
+                                }
+                        })
+                        .catch(
+                            (response) => {
+                                console.log(response);
+                                    self.connection = false;
+                                    self.$f7.showPreloader('Подключение к Cosmoiler...');
+                        })
+                    }, 1000); */               
+            },        
     }
 });

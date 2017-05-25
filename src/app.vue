@@ -39,7 +39,7 @@
             </f7-navbar>
             <!-- Pages -->
             <f7-pages>
-                <f7-page>
+                <f7-page @beforeanimation="before">
                     <!-- Material Theme Navbar -->
                     <f7-navbar v-if="$theme.material">
                         <f7-nav-left>
@@ -162,10 +162,12 @@
                 connection: this.$root.connection,
                 messonoff: ['','','',''],
                 interval: null,
+                fFetchModes: {type: Boolean, default: false}
             }
         },
         created: function() {
             this.fetchModes();
+            this.fetch();
         },
         computed: {
 
@@ -215,26 +217,35 @@
                 var self = this;
 
                 self.connection = false;
-                this.interval = setInterval(() => {
-
-                        this.axios.get('http://'+self.$root.uri+'/mode.json', {timeout: 1000}).then(
-                                (response) => {
-                                    if (response.status === 200) {
-                                        self.modejson = response.data;
-                                        self.connection = true;
-                                        self.$f7.hidePreloader();
-                                    }
-                                })
-                            .catch(
-                                (response) => {
-                                    console.log(response);
-                                    self.modejson.mode = 0; // выкл
-                                    self.connection = false;
-                                   // self.$f7.showPreloader('Подключение к Cosmoiler...');
-                                })
-                    }, 750);
+                this.axios.get('http://'+self.$root.uri+'/mode.json', {timeout: 2000})
+                    .then(
+                        (response) => {
+                            if (response.status === 200) {
+                                self.modejson = response.data;
+                                self.connection = true;
+                                //self.$f7.hidePreloader();
+                            }
+                    })
+                    .catch(
+                        (response) => {
+                            console.log(response);
+                            self.modejson.mode = 0; // выкл
+                           // self.connection = false;
+                            //self.$f7.showPreloader('Подключение к Cosmoiler...');
+                    })
             },
-            
+
+            fetch: function () {
+                var self = this;
+                this.interval = setInterval(() => {
+                    if (self.connection === false)
+                    {
+                        self.fetchModes();
+                        console.log(self.connection);
+                       // clearInterval(self.interval);
+                    }
+                }, 500)
+            },
             send: function(data) {
                 var self = this;
                 var blob = new Blob([JSON.stringify(data)]);
@@ -247,7 +258,8 @@
                 .catch(
                 (response) => {
                     self.connection = false;
-                })
+                });
+                this.fetchModes();
                     
             },
 /*            Управление режимами*/
@@ -286,6 +298,9 @@
                         };
                 }
             },
+            before: function() {
+                console.log('beforeanimPage')
+            }
         },
     }
 

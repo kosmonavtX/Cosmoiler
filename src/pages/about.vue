@@ -15,24 +15,8 @@
 export default {
     data: function() {
         return {
-            obj: {fw: {major: 999, minor: 999, build: 9999}, hw: 999, sn: 0},
+            obj: this.$store.state.ver//{fw: {major: 999, minor: 999, build: 9999}, hw: 999, sn: 0},
         }
     },
-    created: function () {
-        /*console.log("beforeMount About");*/
-        this.fetchFW();
-    },
-    methods: {
-        fetchFW: function() {
-            var self = this;
-            this.axios.get('http://'+self.$root.uri+'/ver.json', {timeout: 1000})
-                .then(
-                    (response) => {
-                        self.obj = response.data
-                    })
-                .catch(
-                    (response) => {})
-        }
-    }
 }
 </script>

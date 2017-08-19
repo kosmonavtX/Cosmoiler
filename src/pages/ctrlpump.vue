@@ -1,6 +1,6 @@
 <template>
 <f7-page>
-    <f7-navbar title="Управление насосом" back-link="Back" sliding v-on:back-click="back"></f7-navbar>
+    <f7-navbar title="Управление насосом" back-link="Back" sliding ></f7-navbar>
     <f7-list media-list>
         <f7-list-item title="Насос" after="<i class='icon icon-pump'>">
 
@@ -61,30 +61,11 @@
         components: {
         },
         created: function() {
-                var self = this;
-                this.axios.get('http://'+self.$root.uri+'/work', {
-                    params: {state: 2} // SETTINGS
-                }, {timeout: 1000}).then(
-                    (response) => {})
-                .catch(
-                (response) => {
-                    self.connection = false;
-                })              
+                this.$store.state.connection.send(JSON.stringify({get: "work", p: [2]}));    
         },
         methods: {
             send: function() {
-                var self = this;
-                this.axios.get('http://'+self.$root.uri+'/pump', {params:{
-                    state: self.pump.state,
-                    dpms: self.pump.dpms,
-                    dpdp: self.pump.dpdp,
-                    dir: self.pump.dir
-                }}, {timeout: 1000}).then(
-                    (response) => {})
-                .catch(
-                (response) => {
-                    self.connection = false;
-                })                
+                this.$store.state.connection.send(JSON.stringify({...this.pump, get: "pump"}));     
             },
             on: function() {
                 this.pump.state = 1;
@@ -101,16 +82,13 @@
                     this.pump.dir = direction.OUT;
                 this.send();
             },
-            back: function () {
-                var self = this;
-                this.axios.get('http://'+self.$root.uri+'/work', {params: {state: 0 /* AUTOMATIC*/}}, {timeout: 1000}).then(
-                    (response) => {})
-                .catch(
-                (response) => {
-                    self.connection = false;
-                })               
-            }
+/*            back: function () {
+                this.$store.state.connection.send(JSON.stringify({get: "work", p: [0]}));           
+            }*/
         },
+        beforeDestroy: function() {
+            this.$store.state.connection.send(JSON.stringify({get: "work", p: [0]}));                     
+        },        
     }
 </script>
 

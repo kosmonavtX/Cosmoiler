@@ -2,7 +2,7 @@
 <f7-page>
     <f7-navbar title="Настройки" back-link="Back" sliding v-on:back-click="back"></f7-navbar>
     <f7-list accordion>
-        <f7-list-item accordion-item title="Настройки насоса" class="settings" after="<i class='icon icon-pump'>">
+        <f7-list-item accordion-item title="Настройки насоса" class="settings" media="<i class='icon icon-pump'>">
             <f7-accordion-content>
                 <f7-list media-list>
                     <f7-list-item>
@@ -10,11 +10,11 @@
                         <!--            <div slot="root" class='icon icon-meter'></div>-->
                         <div slot="inner">
                             <div style="margin-top: 6px">
-                                <f7-label class="labelin">Время вкл: {{config.manual.pump.dpms}}</f7-label>
-                                <f7-input type="range" min="10" max="500" step="10" v-model="config.manual.pump.dpms"></f7-input>
-                                <!--                                <f7-input type="number" v-model.number="config.trip.pump.dpms" placeholder="Введите время импульса насоса (1/1000 сек)"></f7-input>-->
-                                <f7-label class="labelin">Время выкл: {{config.manual.pump.dpdp}}</f7-label>
-                                <f7-input type="range" :min="config.manual.pump.dpms * 1.5" :max="config.manual.pump.dpms * 50" step="10" v-model="config.manual.pump.dpdp"></f7-input>
+                                <f7-label class="labelin">Время вкл: {{param1}}</f7-label>
+                                <f7-input type="range" min="10" max="500" step="10" v-model="param1"></f7-input>
+
+                                <f7-label class="labelin">Время выкл: {{param2}}</f7-label>
+                                <f7-input type="range" :min="param1 * 1.5" :max="param1 * 50" step="10" v-model="param2"></f7-input>
                             </div>
                         </div>
 
@@ -27,18 +27,31 @@
 </template>
 
 <script>
+    
+   // import store from '../store/store'
+    
     export default {
         data () {
             return {
-                config: this.$root.config,
             }
         },
         methods: {
             back: function() {
-                this.$root.saveConfig();
-            }  
+                //this.$store.dispatch('changeConfig');// ??
+            },
         },        
-        components: {
+        beforeDestroy: function() {
+            this.$store.dispatch('changeConfig');// ??
+        },
+        computed: {
+            param1: {
+                get() {return this.$store.state.config.manual.pump.dpms},
+                set(value) { this.$store.commit('UPD_MAN_DPMS', value) }
+            },
+            param2: {
+                get() { return this.$store.state.config.manual.pump.dpdp },
+                set(value) { this.$store.commit('UPD_MAN_DPDP', value) }
+            }
         }
     }
 </script>

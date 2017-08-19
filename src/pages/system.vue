@@ -6,11 +6,11 @@
 
             <!--            <div slot="root" class='icon icon-meter'></div>-->
             <div slot="inner">
-                <div style="margin-top: 6px">
+                <div :style="stylediv1">
                     <f7-label class="labelin">SSID</f7-label>
-                    <f7-input type="text" v-model="status.wifi.ssid" placeholder="Введите имя точки доступа"></f7-input>
+                    <f7-input type="text" v-model="ssid" placeholder="Введите имя точки доступа"></f7-input>
                     <f7-label class="labelin">Пароль</f7-label>
-                    <f7-input type="password" v-model="status.wifi.psw" placeholder="Пароль"></f7-input>
+                    <f7-input type="password" v-model="psw" placeholder="Пароль"></f7-input>
                 </div>
             </div>
             <f7-grid>
@@ -44,61 +44,30 @@
     export default {
         data () {
             return {
-                ap: {SSID: null, PASS: null},
-                status: {wifi: {connect: false, ssid: null, psw: null}},
-                cautionStyle: 'font-size: 18px; font-weight: bold; color: #e91e63;'
-               // interval: null,
+                cautionStyle: 'font-size: 18px; font-weight: bold; color: #e91e63;',
+                stylediv1: 'margin-top: 6px'
             }
         },
-        created: function () {
-            this.fetchStatus();
-        }, 
         methods: {
-            fetchStatus: function() {
-                var self = this;
-                this.axios.get('http://'+self.$root.uri+'/status.json', {timeout: 1000})
-                    .then(
-                        (response) => {
-                            if (response.status === 200) {
-                                self.status = response.data;
-/*                                if (self.status.wifi.connect == false) {
-                                    self.status.wifi.ssid = null;        
-                                    self.status.wifi.psw = null;
-                                }*/
-                                self.connection = true;
-                            }
-                    })
-                    .catch(
-                        (response) => {
-                            self.connection = false;
-                    })
-
-            },
             saveSSID: function () {
-                var self = this;
-                var blob = new Blob([JSON.stringify(self.status)]);
-                const dataF = new FormData();
-
-                dataF.append('data', new File([blob], '/status.json', { type: 'application/json' } ));
-    
-                this.axios.post('http://'+self.$root.uri+'/update', dataF, {timeout: 1000, headers: { 'Content-Type': 'multipart/form-data' }})
-                    .then(
-                        (response) => {})
-                    .catch(
-                        (response) => {})               
+                this.$store.dispatch('changeStatus');
+       
             },
             updateFW: function () {
                 this.saveSSID();
-                var self = this;
-                this.axios.get('http://'+self.$root.uri+'/update', {timeout: 1000})
-                    .then(
-                        (response) => {})
-                    .catch(
-                        (response) => {})
+                this.$store.dispatch('Update');
             }
         },
-        components: {
-        },
+        computed: {
+            ssid: {
+                get() {return this.$store.state.status.wifi.ssid},
+                set(value) { this.$store.commit('UPD_UPDATE_SSID', value) }
+            },
+            psw: {
+                get() {return this.$store.state.status.wifi.psw},
+                set(value) { this.$store.commit('UPD_UPDATE_PSW', value) }
+            }
+        }
     }
 </script>
 

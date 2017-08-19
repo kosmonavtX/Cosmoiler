@@ -39,18 +39,6 @@
 export default {
     data () {
         return {
-            params: {
-                preset: null,
-                voltage: 0,
-                sp: 0,
-                imp: 0,
-                odo: 0,
-                speed: 0,
-                maxspeed: 0,
-                avgspeed: 0,
-                kvolt: 1,
-                non: 0,
-            },
             interval: null,
         }
     },
@@ -61,7 +49,7 @@ export default {
     
     computed: {
         NamePreset: function () {
-            switch (this.params.preset) {
+            switch (this.$store.state.params.preset) {
                 case 0: 
                     return 'Город';
                     break;
@@ -71,44 +59,34 @@ export default {
             }
         },
         Speed: function () {
-            return this.params.speed + " км/ч";
+            return this.$store.state.params.speed + " км/ч";
         },
         AvgSpeed: function () {
-            return this.params.avgspeed + " км/ч";
+            return this.$store.state.params.avgspeed + " км/ч";
         },
         Odo: function () {
-            return Number(this.params.odo / 1000).toFixed(1) + " км";
+            return Number(this.$store.state.params.odo / 1000).toFixed(1) + " км";
         },
         Voltage: function () {
-            var tmp = this.params.voltage / 1023;
-            tmp = tmp / this.params.kvolt;
+            var tmp = this.$store.state.params.voltage / 1023;
+            tmp = tmp / this.$store.state.params.kvolt;
             return Number(tmp).toFixed(1) + " В";
         },
         Sp: function () {
-            return this.params.sp + '';
+            return this.$store.state.params.sp + '';
         },
         Imp: function () {
-            return this.params.imp + '';
+            return this.$store.state.params.imp + '';
         },
         Non: function () {
-            return this.params.non + '';
+            return this.$store.state.params.non + '';
         }
     },
     
     methods: {
         fetchParams: function () {
-            var self = this;
             this.interval = setInterval(() => {
-                this.axios.get('http://'+self.$root.uri+'/paramxml', {timeout: 2000})
-                    .then(
-                        (response) => {
-                            if (response.status === 200) {
-                                self.params = response.data;
-                                self.$root.connection = true;
-                            }
-                    })
-                    .catch(
-                        (response) => {})
+                this.$store.state.connection.send(JSON.stringify({get: "params"}));    
             }, 750);
         },
     },    

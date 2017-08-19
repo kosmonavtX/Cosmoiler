@@ -39,31 +39,33 @@
             </f7-navbar>
             <!-- Pages -->
             <f7-pages>
-                <f7-page @beforeanimation="before">
+                <f7-page>
                     <!-- Material Theme Navbar -->
                     <f7-navbar v-if="$theme.material">
                         <f7-nav-left>
                             <f7-link icon="icon-cosmoiler-logo_pict_font2" icon-size="32px"></f7-link>
                         </f7-nav-left>
                         <f7-nav-center sliding>CosmOiler</f7-nav-center>
-                        <f7-nav-right>
+                        <f7-nav-right v-if=this.$store.state.connect>
                             <f7-link icon="icon-bars" open-panel="right"></f7-link>
                         </f7-nav-right>
                     </f7-navbar>
 
-
+                    
                     <!--              <f7-chip v-if="connection" text="Connected" bg="green" color="white"></f7-chip>
               <f7-chip v-else text="Нет связи с блоком управления" bg="red"></f7-chip>-->
                     <!-- Page Content -->
                    <!-- <div v-if="connection">-->
-                    <div v-if=true>
+                    <div v-if=this.$store.state.connect>
                         <!--                     <f7-grid>
                             <f7-col width="100">
                                 <f7-chip text="ПОДКЛЮЧЕНО!" bg="green" color="white"></f7-chip>
                             </f7-col>
                         </f7-grid> -->
-
-                        <f7-block-title>Выберите режим работы</f7-block-title>
+                        
+<!--<f7-button v-on:click="test">Test</f7-button>-->
+                        
+                        <f7-block-title>Выберите режим работы {{asd}} </f7-block-title>
                         <f7-list media-list>
                             <f7-list-item swipeout title="По пробегу..." media="<i class='icon icon-meter'></i>" link="#" :badge="badgeName1" badge-color="green" subtitle="Смазывать через заданное расстояние...">
                             <f7-swipeout-actions>
@@ -90,10 +92,10 @@
                             </f7-list-item>
                         </f7-list>
                     </div>
-                    <div class="preload" v-else="connection">
+                    <div class="preload" v-else=this.$store.state.connect>
                         <f7-grid>
                             <f7-col width="100">
-                                <p>Подключение к Cosmoiler...</p>
+                                <p>Подключение к Cosmoiler... {{asd}} </p>
                             </f7-col>
                             <f7-col width="100">
                                 <f7-preloader color="blue" size="40px"></f7-preloader>
@@ -155,24 +157,14 @@
     export default {
         data: function() {
             return {
-                modejson: {
-                    mode: 0,
-                    preset: 0
-                },
-                connection: this.$root.connection,
                 messonoff: ['','','',''],
-                interval: null,
-                fFetchModes: {type: Boolean, default: false}
+                asd: document.location.host
             }
-        },
-        created: function() {
-            this.fetchModes();
-            this.fetch();
         },
         computed: {
 
             badgeName1: function() { // trip
-                if (this.modejson.mode == 1) {
+                if (this.$store.state.modejson.mode == 1) {
                     this.messonoff[0] = 'ВЫКЛ';
                     return "ВКЛЮЧЕНО";
                 }
@@ -182,7 +174,7 @@
                 }
             },
             badgeName2: function() { // time
-                if (this.modejson.mode == 2) {
+                if (this.$store.state.modejson.mode == 2) {
                     this.messonoff[1] = 'ВЫКЛ';
                     return "ВКЛЮЧЕНО";
                 }
@@ -192,7 +184,7 @@
                 }
             },
             badgeName3: function() { // manual
-                if (this.modejson.mode == 3) {
+                if (this.$store.state.modejson.mode == 3) {
                     this.messonoff[2] = 'ВЫКЛ';
                     return "ВКЛЮЧЕНО";
                 }
@@ -202,7 +194,7 @@
                 }
             },
             badgeName4: function() { // pumping
-                if (this.modejson.mode == 4) {
+                if (this.$store.state.modejson.mode == 4) {
                     this.messonoff[3] = 'ВЫКЛ';
                     return "ВКЛЮЧЕНО";
                 }
@@ -213,95 +205,39 @@
             },
         },
         methods: {
-            fetchModes: function() {
-                var self = this;
-
-                self.connection = false;
-                this.axios.get('http://'+self.$root.uri+'/mode.json', {timeout: 2000})
-                    .then(
-                        (response) => {
-                            if (response.status === 200) {
-                                self.modejson = response.data;
-                                self.connection = true;
-                                //self.$f7.hidePreloader();
-                            }
-                    })
-                    .catch(
-                        (response) => {
-                            console.log(response);
-                            self.modejson.mode = 0; // выкл
-                           // self.connection = false;
-                            //self.$f7.showPreloader('Подключение к Cosmoiler...');
-                    })
-            },
-
-            fetch: function () {
-                var self = this;
-                this.interval = setInterval(() => {
-                    if (self.connection === false)
-                    {
-                        self.fetchModes();
-                        console.log(self.connection);
-                       // clearInterval(self.interval);
-                    }
-                }, 500)
-            },
-            send: function(data) {
-                var self = this;
-                var blob = new Blob([JSON.stringify(data)]);
-                const dataF = new FormData();
-
-                dataF.append('data', new File([blob], '/mode.json', { type: 'application/json' } ));
-                
-                this.axios.post('http://'+self.$root.uri+'/mode', dataF, {timeout: 1000, headers: { 'Content-Type': 'multipart/form-data' }}).then(
-                    (response) => {})
-                .catch(
-                (response) => {
-                    self.connection = false;
-                });
-                this.fetchModes();
-                    
-            },
 /*            Управление режимами*/
             ctrlMode: function(event) {
-                console.log(this.modejson.mode);
-                if (this.modejson.mode != null) {
+                console.log(this.$store.state.modejson.mode);
+                if (this.$store.state.modejson.mode != null) {
                         switch(event.currentTarget.id) {
                                 case 'trip': 
-                                    console.log('trip x');
-                                    if (this.modejson.mode === 1)
-                                        this.send({mode:0, preset: this.modejson.preset});
+                                    if (this.$store.state.modejson.mode === 1)
+                                        this.$store.dispatch('changeMode', {mode:0})
                                     else
-                                        this.send({mode:1, preset: this.modejson.preset});
+                                        this.$store.dispatch('changeMode', {mode:1})
                                     break;
                                 case 'time': 
-                                    console.log('time x'); 
-                                    if (this.modejson.mode === 2)
-                                        this.send({mode:0, preset: this.modejson.preset});
+                                    if (this.$store.state.modejson.mode === 2)
+                                        this.$store.dispatch('changeMode', {mode:0})
                                     else
-                                        this.send({mode:2, preset: this.modejson.preset});
+                                        this.$store.dispatch('changeMode', {mode:2})
                                     break;
                                 case 'manual':
-                                    console.log('manual x'); 
-                                    if (this.modejson.mode === 3)
-                                        this.send({mode:0, preset: this.modejson.preset});                       
+                                    if (this.$store.state.modejson.mode === 3)
+                                        this.$store.dispatch('changeMode', {mode:0})
                                     else
-                                        this.send({mode:3, preset: this.modejson.preset});                       
+                                        this.$store.dispatch('changeMode', {mode:3})                       
                                     break;
                                 case 'pumping':
-                                    console.log('pumping x'); 
-                                    if (this.modejson.mode === 4)
-                                        this.send({mode:0, preset: this.modejson.preset});                       
+                                    if (this.$store.state.modejson.mode === 4)
+                                        this.$store.dispatch('changeMode', {mode:0})
                                     else
-                                        this.send({mode:4, preset: this.modejson.preset});
+                                        this.$store.dispatch('changeMode', {mode:4})
                                     break;
                         };
                 }
             },
-            before: function() {
-                console.log('beforeanimPage')
-            }
-        },
+    }
     }
 
 </script>

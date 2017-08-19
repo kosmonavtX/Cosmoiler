@@ -1,23 +1,23 @@
 {
-    "type":"config",       
+    "config": 0,    
     "manual":{ 
         "pump": {"dpms":150,"dpdp":500}
     },
     "pumping":{
         "time": 30,
-	"stop": 30,
+	    "stop": 30,
         "pump": {"dpms":500,"dpdp":500}  
     },
     "trip":{ 
         "smart": {"adxl": false, "prediction": 3, "avgspeed": 80},
         "sensor": {"extsp": false, "imp":16},
         "presets":[
-                    {"trip_m":8000,"dp_num":2,"imptripm":63492},
-                    {"trip_m":10000,"dp_num":3,"imptripm":31746},
+                    {"trip_m":2000,"dp_num":2,"imptripm":63492},
+                    {"trip_m":7000,"dp_num":2,"imptripm":31746},
                     {"trip_m":1000,"dp_num":1,"imptripm":7937},
                     {"trip_m":3000,"dp_num":1,"imptripm":23810}
                   ],
-        "pump": {"dpms":150,"dpdp":800},
+        "pump": {"dpms":170,"dpdp":800},
         "wheel":{"dia":17,"width":150,"height":70,"lenght":2016}
     },
     "time":{

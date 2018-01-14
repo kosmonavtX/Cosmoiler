@@ -24,6 +24,11 @@
         }
     }
 }
+
+.text-icon {
+    margin-left: 20px;
+}
+
 .presets-icon {
     .item-after {
         .icon {
@@ -55,6 +60,7 @@
             text-transform: initial;
             color: #c87137 !important;
             font-size: 16px;
+            width: 100%
         }
     }
 }
@@ -78,8 +84,37 @@
     font-size: 16px;
     color: #006767;    
 }
+
+
+.system {
+    &.accordion-item {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 16px;
+        color: #006767;
+        .item-after {
+            color: #800080;
+            max-height: 60px;
+            font-size: 32px;
+        }
+    }
+}
+
+.caution {
+    text-transform: initial;
+}
+
 .card-content-inner {
     color: #c87137;
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: 16px;   
 }
+/*.card-content-inner {
+    &.item-title {
+    &.labelin {
+        &.label {
+        font-weight: 700;
+        }
+    }
+}
+}*/

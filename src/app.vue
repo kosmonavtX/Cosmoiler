@@ -3,7 +3,7 @@
 <div id="app">
 
     <!-- Statusbar -->
-    <f7-statusbar></f7-statusbar>
+    <!--<f7-statusbar>sdfsdfs</f7-statusbar>-->
 
     <!-- Right Panel -->
     <f7-panel right cover layout="dark">
@@ -13,8 +13,8 @@
                 <f7-page>
                     <f7-navbar v-if="$theme.material" sliding></f7-navbar>
                     <f7-list>
-                        <f7-list-item link="/params/" link-view="#main-view"  title="Параметры" link-close-panel></f7-list-item>
-                        <f7-list-item link="/ctrlpump/" link-view="#main-view" link-close-panel title="Управление насосом"></f7-list-item>
+                        <f7-list-item link="/params/" link-view="#main-view"  title="Телеметрия" link-close-panel></f7-list-item>
+                        <f7-list-item link="/ctrlpump/" link-view="#main-view" link-close-panel title="Управление"></f7-list-item>
                         <f7-list-item link="/system/" link-view="#main-view"  title="Система" link-close-panel></f7-list-item>
   
                         <f7-list-item link="/about/" title="О Cosmoiler"></f7-list-item>
@@ -32,7 +32,7 @@
                 <f7-nav-left>
                     <f7-link icon="icon-bars" open-panel="left"></f7-link>
                 </f7-nav-left>
-                <f7-nav-center sliding>CosmOiler</f7-nav-center>
+                <f7-nav-center sliding>Cosmoiler</f7-nav-center>
                 <f7-nav-right>
                     <f7-link icon="icon-bars" open-panel="right"></f7-link>
                 </f7-nav-right>
@@ -43,9 +43,9 @@
                     <!-- Material Theme Navbar -->
                     <f7-navbar v-if="$theme.material">
                         <f7-nav-left>
-                            <f7-link icon="icon-cosmoiler-logo_pict_font2" icon-size="32px"></f7-link>
+                            <!--<f7-link icon-size="32px" v-on:click="reconnect"></f7-link>--> <!--icon-cosmoiler-logo_pict_font2-->
                         </f7-nav-left>
-                        <f7-nav-center sliding>CosmOiler</f7-nav-center>
+                        <f7-nav-center sliding>Cosmoiler</f7-nav-center>
                         <f7-nav-right v-if=this.$store.state.connect>
                             <f7-link icon="icon-bars" open-panel="right"></f7-link>
                         </f7-nav-right>
@@ -65,37 +65,37 @@
                         
 <!--<f7-button v-on:click="test">Test</f7-button>-->
                         
-                        <f7-block-title>Выберите режим работы {{asd}} </f7-block-title>
+                        <f7-block-title>Выберите режим работы </f7-block-title>
                         <f7-list media-list>
                             <f7-list-item swipeout title="По пробегу..." media="<i class='icon icon-meter'></i>" link="#" :badge="badgeName1" badge-color="green" subtitle="Смазывать через заданное расстояние...">
                             <f7-swipeout-actions>
                                 <f7-swipeout-button close color="purple" id="trip" v-on:click="ctrlMode($event)">{{messonoff[0]}}</f7-swipeout-button>
-                                <f7-swipeout-button href="/trip/" color="teal">Настройки</f7-swipeout-button>     
+                                <f7-swipeout-button close href="/trip/" color="teal">Настройки</f7-swipeout-button>     
                             </f7-swipeout-actions>
                             </f7-list-item>
                             <f7-list-item swipeout title="По времени..." media="<i class='icon icon-time'></i>" link="#" :badge="badgeName2" badge-color="green" subtitle="Смазывать через заданное время...">
                             <f7-swipeout-actions>
                                 <f7-swipeout-button close color="purple" id="time" v-on:click="ctrlMode($event)">{{messonoff[1]}}</f7-swipeout-button>
-                                <f7-swipeout-button href="/time/" color="teal">Настройки</f7-swipeout-button>
+                                <f7-swipeout-button close href="/time/" color="teal">Настройки</f7-swipeout-button>
                             </f7-swipeout-actions>
                             </f7-list-item>
                             <f7-list-item swipeout title="Вручную..." media="<i class='icon icon-right-hand'></i>" link="#" :badge="badgeName3" badge-color="green" subtitle="Смазывать вручную...">
                             <f7-swipeout-actions>
                                 <f7-swipeout-button close color="purple" id="manual" v-on:click="ctrlMode($event)">{{messonoff[2]}}</f7-swipeout-button>
-                                <f7-swipeout-button href="/manual/" color="teal">Настройки</f7-swipeout-button>
+                                <f7-swipeout-button close href="/manual/" color="teal">Настройки</f7-swipeout-button>
                             </f7-swipeout-actions>                                 
                             </f7-list-item>                         
-                            <f7-list-item v-if="false" swipeout title="Прокачка..." media="<i class='icon icon-repeat'></i>" link="#" :badge="badgeName4" badge-color="green" subtitle="Прокачать систему...">
+<!--                            <f7-list-item v-if="false" swipeout title="Прокачка..." media="<i class='icon icon-repeat'></i>" link="#" :badge="badgeName4" badge-color="green" subtitle="Прокачать систему...">
                                 <f7-swipeout-actions>
                                     <f7-swipeout-button close color="purple" id="pumping" v-on:click="ctrlMode($event)">{{messonoff[3]}}</f7-swipeout-button>
                                 </f7-swipeout-actions>
-                            </f7-list-item>
+                            </f7-list-item>-->
                         </f7-list>
                     </div>
                     <div class="preload" v-else=this.$store.state.connect>
                         <f7-grid>
                             <f7-col width="100">
-                                <p>Подключение к Cosmoiler... {{asd}} </p>
+                                <p>Подключение... </p>
                             </f7-col>
                             <f7-col width="100">
                                 <f7-preloader color="blue" size="40px"></f7-preloader>
@@ -158,7 +158,7 @@
         data: function() {
             return {
                 messonoff: ['','','',''],
-                asd: document.location.host
+/*                asd: document.location.host*/
             }
         },
         computed: {
@@ -237,6 +237,9 @@
                         };
                 }
             },
+            reconnect: function() {
+                this.$store.dispatch('reconnect')
+            }
     }
     }
 

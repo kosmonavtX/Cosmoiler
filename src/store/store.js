@@ -9,7 +9,11 @@ function uri() {
     console.log(document.location.host)
 
     if (document.location.host.indexOf('localhost') + 1)
-        return '192.168.4.1'
+    {
+        /*store.state.connect = true;*/
+        //return '192.168.1.233'
+        return '192.168.1.224'  // sn = D7DDFB
+    }
     else
         if (document.location.host === "")
             return '192.168.4.1'
@@ -19,28 +23,31 @@ function uri() {
 
 let ws = socket.connect('ws://'+uri()+'/ws')
 
+let interval = setInterval(function () {    
+      if (store.state.connection.readyState !== 1) {
+          if (uri() != '192.168.4.1')
+              store.state.connect = true;
+        console.log('Unable to communicate with the WebSocket server.');  
+      }
+    }, 3000)
 
 const store = new Vuex.Store({
     state: {
         modejson: {get: "mode", mode: 0, preset: 0},
         config: {
-                manual: {
-                    pump: {dpms: null, dpdp: null} 
-                },
+                gnss: true,
+                pump: {dpms: null, dpdp: null},
                 pumping:{
                     time: null,
                     pump: {dpms: null, dpdp: null}
                 },
                 trip:{
                     smart: {adxl: false, prediction: null},
-                    sensor: {extsp: false, imp: 16},
+                    sensor: {gnss: false, extsp: false, imp: 16},
                     presets: [
                         {trip_m: 2000, dp_num: 5, imptripm: 0},
                         {trip_m: 1500, dp_num: 2, imptripm: 0},
-                        {trip_m: null, dp_num: null, imptripm: 0},
-                        {trip_m: null, dp_num: null, imptripm: 0},
                     ],
-                    pump: {dpms: null, dpdp: null},
                     wheel: {dia: 17, width: 150, height: 70, lenght: null}
                 },
                 time:{
@@ -48,13 +55,11 @@ const store = new Vuex.Store({
                     presets: [
                         {dp_time: null, dp_num: null, trail: null},
                         {dp_time: null, dp_num: null, trail: null},
-                        {dp_time: null, dp_num: null, trail: null},
-                        {dp_time: null, dp_num: null, trail: null},
                     ],
-                    pump: {dpms: null, dpdp: null},
                 }
         },
         status: {wifi: {connect: false, ssid: null, psw: null}},
+        system: {bright: 32, wifi: {connect: false, ssid: null, psw: null}},
         params: {
             preset: null,
             voltage: 0,
@@ -67,6 +72,7 @@ const store = new Vuex.Store({
             kvolt: 1,
             non: 0,
         },
+        debug: ["234", 4544],
         connection: ws,
         connect: false,
     },
@@ -76,7 +82,7 @@ const store = new Vuex.Store({
             console.log('GET_CONFIG');
         },
         CHNG_CONFIG (state) {
-            state.config = { ...state.config, post: "config.json" };
+            state.config = { cmd: "post", param: ["/config.json", {...state.config}] };
             console.log('CHNG_CONFIG');
         },
         SET_MODE (state, payload) {
@@ -85,7 +91,7 @@ const store = new Vuex.Store({
         },
         CHNG_MODE (state, data) {
             state.modejson.mode = data.mode;
-            state.modejson = { ...state.modejson, post: "mode.json" };            
+            state.modejson = { cmd:"post", param: ["/mode.json", {...state.modejson}] };            
             console.log(data);
         },
         SET_VER (state, payload) {
@@ -100,6 +106,14 @@ const store = new Vuex.Store({
         CONNECT (state, connect) {
             state.connect = connect
         },
+        RECONNECT (state, ws) {
+            state.connection = ws
+            state.connection.onmessage = 
+            console.log(state.connection)
+        },
+        PUSH_DEBUG (state, payload) {
+            state.debug.push(payload)  
+        },
     // Mode TRIP
         UPD_TRIP_TRIPM (state, payload) {
             console.log('UPD_TRIP');
@@ -109,10 +123,10 @@ const store = new Vuex.Store({
             state.config.trip.presets[payload.preset].dp_num = payload.data;  
         },
         UPD_TRIP_DPMS (state, value) {
-            state.config.trip.pump.dpms = value.data
+            state.config.pump.dpms = value.data
         },
         UPD_TRIP_DPDP (state, value) {
-            state.config.trip.pump.dpdp = value.data
+            state.config.pump.dpdp = value.data
         },
         UPD_TRIP_WHEEL_D (state, value) {
             state.config.trip.wheel.dia = value.data  
@@ -142,6 +156,12 @@ const store = new Vuex.Store({
                 state.config.trip.presets[i].imptripm = parseInt(a.toFixed(), 10);
             }
         },
+        SET_SENSOR_GNSS (state) {
+            state.config.trip.sensor.gnss = true;  
+        },
+        SET_SENSOR_IMP (state) {
+            state.config.trip.sensor.gnss = false;
+        },
     // Mode TIME
         UPD_TIME_DPTIME (state, payload) {
             console.log(payload);
@@ -151,10 +171,10 @@ const store = new Vuex.Store({
             state.config.time.presets[payload.preset].dp_num = payload.data
         },
         UPD_TIME_DPMS (state, value) {
-            state.config.time.pump.dpms = value
+            state.config.pump.dpms = value
         },
         UPD_TIME_DPDP (state, value) {
-            state.config.time.pump.dpdp = value
+            state.config.pump.dpdp = value
         },        
     // Mode MANUAL
         UPD_MAN_DPMS (state, value) {
@@ -165,42 +185,68 @@ const store = new Vuex.Store({
         },
     // System
         UPD_UPDATE_SSID (state, value) {
-            state.status.wifi.ssid = value
+            state.system.wifi.ssid = value
         },
         UPD_UPDATE_PSW (state, value) {
-            state.status.wifi.psw = value
+            state.system.wifi.psw = value
         },
-        CHNG_UPDATE (state) {
-            state.status = { ...state.status, post: "status.json" }
+        UPD_SYS_BRIGHT (state, value) {
+            state.system.bright = value
+        },
+        CHNG_SYSTEM (state) {
+            state.system = { cmd: "post", param: ["/system.json", {...state.system}] }
         }
 
     },
     actions: {
+        // Сохранение файла config.json
         changeConfig ({commit}) {
             commit('CHNG_CONFIG');            
             socket.send(store.state.connection, JSON.stringify(store.state.config));
         },
+        // 1. Команда на изменение режима
+        // 2. Сохранение файла mode.json
         changeMode ({commit}, data) {
             commit('CHNG_MODE', data);            
             socket.send(store.state.connection, JSON.stringify(store.state.modejson));
-            socket.send(store.state.connection, JSON.stringify({get: "mode"}));
+            socket.send(store.state.connection, JSON.stringify({cmd: "get", param: ["/mode.json"]}));
         },
-        changeStatus ({commit}) {
-            commit('CHNG_UPDATE');
-            socket.send(store.state.connection, JSON.stringify(store.state.status))
+        // Сохранение файла system.json
+        changeSystem ({commit}) {
+            commit('CHNG_SYSTEM');
+            socket.send(store.state.connection, JSON.stringify(store.state.system))
         },
-        Update () {
+        // Команда на обновление ПО
+        Update () { 
             console.log('UPDATE');
-            socket.send(store.state.connection, JSON.stringify({get: "update"}));
+            socket.send(store.state.connection, JSON.stringify({cmd: "update"}));
+        },
+        // Команда BRIGHT - яркость светодиода
+        Bright ({commit}, data) {
+            commit('UPD_SYS_BRIGHT', data);
+            socket.send(store.state.connection, JSON.stringify({cmd:"bright", param: data}));  
+        },
+        reconnect ({commit}) {
+            console.log('reconnect')
+/*            socket.disconnect(store.state.connection)
+            console.log(store.state.connection)
+            commit('RECONNECT', socket.connect('ws://'+uri()+'/ws'))*/
+            //store.state.connection = socket.connect('ws://'+uri()+'/ws')
         }
     }
 })
 
 export default store
 
-ws.onmessage = function(message) {
+/*function sleep(ms) {
+ms += new Date().getTime();
+while (new Date() < ms){}
+}*/
+
+store.state.connection.onmessage = function(message) {
     try {
         store.commit('CONNECT', true);
+       // store.commit('PUSH_DEBUG', message.data);
         let incoming = JSON.parse(message.data);
         console.log(incoming);
         if ("config" in incoming) {
@@ -223,17 +269,26 @@ ws.onmessage = function(message) {
     }
 }
 
-ws.onerror = function(error) {
+store.state.connection.onerror = function(error) {
     console.log('Sorry, but there\'s a problem with your connection or the server is down.');
     console.log(error);
     store.commit('CONNECT', false);
 }
 
-ws.onclose = function(event) {
+store.state.connection.onclose = function(event) {
+    store.commit('CONNECT', false)
     if (event.wasClean)
         console.log('OK close connection')
     else {
         console.log('Error close connection!');
         store.commit('CONNECT', false)
+    setTimeout(function(){
+        ws = socket.connect('ws://'+uri()+'/ws')
+    }, 5000);
     }
+}
+store.state.connection.onopen = function () {
+    console.log('Connection to socket server opened.')
+    store.commit('CONNECT', true)
+      // Send user, and any notes held locally so the socket server can store to distribute to future new connections
 }

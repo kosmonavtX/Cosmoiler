@@ -12,8 +12,8 @@ import VueAxios from 'vue-axios'*/
 
 // Import F7 iOS Theme Styles
 /*import Framework7Theme from 'framework7/dist/css/framework7.ios.min.css'
-import Framework7ThemeColors from 'framework7/dist/css/framework7.ios.colors.min.css'
-*/
+import Framework7ThemeColors from 'framework7/dist/css/framework7.ios.colors.min.css'*/
+
 // OR for Material Theme:
 import Framework7Theme from 'framework7/dist/css/framework7.material.min.css'
 import Framework7ThemeColors from 'framework7/dist/css/framework7.material.colors.min.css'
@@ -32,7 +32,6 @@ import App from './app'
 import store from './store/store.js'
 
 
-
 /*Vue.use(VueAxios, axios);*/
 
 // Init F7 Vue Plugin
@@ -46,10 +45,12 @@ var MainApp = new Vue({
     // Init Framework7 by passing parameters here
     framework7: {
         root: '#app',
+        pushState : true,
+        routes: Routes,
         /* Uncomment to enable Material theme: */
         material: true,
         materialPageLoadDelay: 20,
-        routes: Routes,
+        
     },
     
     data: function() {

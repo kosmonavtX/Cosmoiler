@@ -1,26 +1,82 @@
 <template>
 <f7-page>
-    <f7-navbar title="Настройки" back-link="Back" sliding v-on:back-click="back"></f7-navbar>
+    <f7-navbar title="Настройки" back-link="Back" sliding></f7-navbar>
 
     <f7-list accordion>
-        <f7-list-item accordion-item title="Предустановки" class="settings" media="<i class='icon icon-presets' >">
-            <f7-accordion-content>
-                <f7-list media-list>
+<f7-list-item accordion-item title="Предустановки" class="settings" media="<i class='icon icon-presets' >">
+    <f7-accordion-content>
+        <f7-list media-list>
+            <f7-list-item>
+                <f7-card>
+                    <f7-card-header>
+                        <div class="item-media">
+                            <i class='icon icon-building'></i>
+                            <p class="text-icon">Город</p>
+                        </div>
+                    </f7-card-header>
+                    <f7-card-content>
+                        <div :style="stylediv1">
+
+                            <f7-label class="labelin">Расстояние: {{param1}} км</f7-label>
+                            <f7-input type="range" id="0" v-model.number="param1" min="1" max="10" step="1" placeholder="Введите расстояние между включением">
+                            </f7-input>
+                            <f7-label class="labelin">Капли: {{param2}}</f7-label>
+                            <f7-input color="brown" type="range" id="1" v-model.number="param2" min="1" max="10" step="1" placeholder="Количество капель за цикл">
+                            </f7-input>
+                        </div>
+                    </f7-card-content>
+                </f7-card>
+                
+                                <f7-card>
+                    <f7-card-header>
+                        <div class="item-media">
+                            <i class='icon icon-highway'></i>
+                            <p class="text-icon">Трасса</p>
+                        </div>
+                    </f7-card-header>
+                    <f7-card-content>
+                        <div :style="stylediv1">
+                                <f7-label class="labelin">Расстояние: {{param3}} км</f7-label>
+                                <f7-input 
+                                          
+                                          type="range" 
+                                          id="2" 
+                                          v-model.number="param3"
+                                          min="1" max="20" step="1"
+                                          placeholder="Введите расстояние между включением">
+                                </f7-input>
+                                <f7-label class="labelin">Капли: {{param4}} </f7-label>
+                                <f7-input 
+                                          color="brown"
+                                          type="range" 
+                                          id="3" 
+                                          v-model.number="param4" 
+                                          min="1" max="10" step="1"
+                                          placeholder="Количество капель за цикл">
+                                </f7-input>
+
+                        </div>
+                    </f7-card-content>
+                </f7-card>
+                <!--                <f7-list media-list>
                     <f7-list-item title="Город" after="<i class='icon icon-building'>" class="presets-icon">
 
-                        <!--            <div slot="root" class='icon icon-meter'></div>-->
+                                    <div slot="root" class='icon icon-meter'></div>
                         <div slot="inner">
-                            <div :style="stylediv1">
+                            <div :style="stylediv1">              
+                                
                                 <f7-label class="labelin">Расстояние: {{param1}} км</f7-label>
-                                <f7-input 
+                                <f7-input           
+                                         
                                           type="range" 
                                           id="0" 
                                           v-model.number="param1"
-                                          min="1" max="20" step="1"
+                                          min="1" max="10" step="1"
                                           placeholder="Введите расстояние между включением">
                                 </f7-input>
                                 <f7-label class="labelin">Капли: {{param2}}</f7-label>
                                 <f7-input 
+                                          color="brown"
                                           type="range" 
                                           id="1" 
                                           v-model.number="param2" 
@@ -37,14 +93,16 @@
                             <div :style="stylediv1">
                                 <f7-label class="labelin">Расстояние: {{param3}} км</f7-label>
                                 <f7-input 
+                                          
                                           type="range" 
                                           id="2" 
                                           v-model.number="param3"
-                                          min="1" max="50" step="1"
+                                          min="1" max="20" step="1"
                                           placeholder="Введите расстояние между включением">
                                 </f7-input>
                                 <f7-label class="labelin">Капли: {{param4}} </f7-label>
                                 <f7-input 
+                                          color="brown"
                                           type="range" 
                                           id="3" 
                                           v-model.number="param4" 
@@ -55,9 +113,12 @@
                         </div>
 
                     </f7-list-item>
-                </f7-list>
-            </f7-accordion-content>
-        </f7-list-item>
+                </f7-list>-->
+            </f7-list-item>
+        </f7-list>
+    </f7-accordion-content>
+</f7-list-item>
+        
         <f7-list-item accordion-item title="Настройки насоса" class="settings" media="<i class='icon icon-pump' >">
             <f7-accordion-content>
                 <f7-list media-list>
@@ -66,18 +127,18 @@
                             <div :style="stylediv1">
                                 <f7-label class="labelin">Время вкл: {{param5}} мсек</f7-label>
                                 <f7-input 
+                                          color="green"
                                           type="range" 
-                                          min="10" max="500" step="10" 
+                                          min="50" max="500" step="10" 
                                           v-model="param5">
                                 </f7-input>
-                                <!--                                <f7-input type="number" v-model.number="config.trip.pump.dpms" placeholder="Введите время импульса насоса (1/1000 сек)"></f7-input>-->
                                 <f7-label class="labelin">Время выкл: {{param6}} мсек</f7-label>
                                 <f7-input 
+                                          color="red"
                                           type="range" 
-                                          :min="param5 * 4" :max="param5 * 50" step="10" 
+                                          :min="param5 * 2" :max="param5 * 4" step="10" 
                                           v-model="param6">
                                 </f7-input>
-                                <!--                                <f7-input type="number" v-model.number="config.trip.pump.dpdp" placeholder="Время между импульсами (1/1000 сек)"></f7-input>-->
                             </div>
                         </div>
 
@@ -85,7 +146,56 @@
                 </f7-list>
             </f7-accordion-content>
         </f7-list-item>
-        <f7-list-item accordion-item title="Колесо (с датчиком)" class="settings" media="<i class='icon icon-gauge2'>">
+        
+        
+        <f7-list-item accordion-item title="Датчик" @accordion:close="AccordClose" class="settings" media="<i class='icon icon-gauge'>">
+            <f7-accordion-content>
+                <f7-list media-list>
+                    <f7-list-item>
+
+                        <div slot="inner">
+
+<!--                                <f7-label class="labelin" >Тип датчика</f7-label>-->
+                                                    <f7-list>
+  <f7-list-item radio name="my-radio" v-bind:value="1" title="ГНСС" :checked=param12 @click="onSetTypeSensor(1)"></f7-list-item>
+  <f7-list-item radio name="my-radio" v-bind:value="2" title="Импульсный" :checked=!param12 @click="onSetTypeSensor(2)"></f7-list-item>
+</f7-list>
+
+</div>
+                        
+                <f7-card v-if="!param12">
+
+                    <f7-card-content>
+                            <f7-label class="labelin">Питание внешнего датчика</f7-label>
+                            <f7-input type="switch" @change="onChangePwr" v-model="param10"></f7-input>
+
+                            <div :style="stylediv1">
+                                <f7-label class="labelin">Импульсов на оборот:</f7-label>
+                                <f7-input type="number" v-model.number="param11" placeholder="Введите число импульсов на оборот"></f7-input>
+                            </div>
+                            <p></p>
+                            <f7-button big fill v-on:click="AccordOpen">Сброс</f7-button>
+                    </f7-card-content>
+                </f7-card>
+                        
+<!--                        <div slot="inner" v-if="true">
+                            <f7-label class="labelin">Питание внешнего датчика</f7-label>
+                            <f7-input type="switch" @change="onChangePwr" v-model="param10"></f7-input>
+
+                            <div :style="stylediv1">
+                                <f7-label class="labelin">Импульсов на оборот:</f7-label>
+                                <f7-input type="number" v-model.number="param11" placeholder="Введите число импульсов на оборот"></f7-input>
+                            </div>
+                            <p></p>
+                            <f7-button big fill v-on:click="AccordOpen">Сброс</f7-button>
+                        </div>-->
+                    </f7-list-item>
+                </f7-list>
+            </f7-accordion-content>
+        </f7-list-item>  
+        
+        
+        <f7-list-item v-if=!param12 accordion-item title="Колесо (с датчиком)" class="settings" media="<i class='icon icon-gauge2'>">
             <f7-accordion-content>
 
                 <f7-list media-list>
@@ -114,27 +224,7 @@
             </f7-accordion-content>
         </f7-list-item>
 
-        <f7-list-item accordion-item title="Датчик" @accordion:close="AccordClose" class="settings" media="<i class='icon icon-gauge2'>">
-            <f7-accordion-content>
-                <f7-list media-list>
-                    <f7-list-item>
 
-                        <!--            <div slot="root" class='icon icon-meter'></div>-->
-                        <div slot="inner">
-                            <f7-label class="labelin">Питание внешнего датчика</f7-label>
-                            <f7-input type="switch" @change="onChangePwr" v-model="param10"></f7-input>
-
-                            <div :style="stylediv1">
-                                <f7-label class="labelin">Импульсов на оборот:</f7-label>
-                                <f7-input type="number" v-model.number="param11" placeholder="Введите число импульсов на оборот"></f7-input>
-                            </div>
-                            <p></p>
-                            <f7-button big fill v-on:click="AccordOpen">Сброс</f7-button>
-                        </div>
-                    </f7-list-item>
-                </f7-list>
-            </f7-accordion-content>
-        </f7-list-item>
     </f7-list>
 </f7-page>
 </template>
@@ -178,13 +268,13 @@
                 }
             },             
             param5: {
-                get () { return this.$store.state.config.trip.pump.dpms },
+                get () { return this.$store.state.config.pump.dpms },
                 set(value) {
                     this.$store.commit({type:'UPD_TRIP_DPMS', data: value})
                 }
             },             
             param6: {
-                get () { return this.$store.state.config.trip.pump.dpdp },
+                get () { return this.$store.state.config.pump.dpdp },
                 set(value) {
                     this.$store.commit({type:'UPD_TRIP_DPDP', data: value})
                 }
@@ -220,7 +310,12 @@
                 set(value) {
                     this.$store.commit({type:'UPD_TRIP_SENSOR_IMP', data: value})
                 }
-            },              
+            },
+            param12: {
+                get() {
+                    return this.$store.state.config.trip.sensor.gnss
+                },
+            }
         },
         methods: {
 /*            limitNumber: function(val, min, max) {
@@ -239,25 +334,34 @@
                 }
             },*/
             AccordOpen: function () {
-                this.$store.state.connection.send(JSON.stringify({get: "work", p: [1]}));    
+                this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 1}));    
 
                 this.interval = setInterval(() => {
                     this.$store.state.connection.send(JSON.stringify({get: "params"}));
                     this.$store.commit({type:'UPD_TRIP_SENSOR_IMP', data: this.$store.state.params.sp})
-                }, 800);
+                }, 300);
             },
             AccordClose: function () {
                 /*console.log('Accordion close\n', this.interval);*/
                 clearInterval(this.interval);
-                this.$store.state.connection.send(JSON.stringify({get: "work", p: [0]}));    
+                this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0}));    
             },
             onChangePwr: function(event) {
                 //this.config.trip.sensor.extsp = event.srcElement.checked;
+            },
+            onSetTypeSensor: function (value) {                
+                switch (value) {
+                    case 1: this.$store.commit('SET_SENSOR_GNSS');
+                        break;
+                    case 2: this.$store.commit('SET_SENSOR_IMP');
+                        break;
+                }
             }
         },
         beforeDestroy: function() {
             console.log('BACK')
             clearInterval(this.interval);
+            this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0})); 
             this.$store.commit('CALC_IMPTRIPM');
             this.$store.dispatch('changeConfig');            
         },

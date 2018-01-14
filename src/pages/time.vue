@@ -1,7 +1,7 @@
 <template>
 <f7-page>
     <f7-navbar title="Настройки" back-link="Back" sliding v-on:back-click="back"></f7-navbar>
-<!--                            <f7-list media-list>
+    <!--                            <f7-list media-list>
                             <f7-list-item swipeout title="Предустановки..." media="<i class='icon icon-presets'></i>" link="#" subtitle="Смазывать через заданное расстояние...">
                             <f7-swipeout-actions>
                                 <f7-swipeout-button close color="purple" id="trip">Город</f7-swipeout-button>
@@ -9,8 +9,88 @@
                             </f7-swipeout-actions>
                             </f7-list-item>
     </f7-list>-->
+
     <f7-list accordion>
-        <f7-list-item accordion-item title="Предустановки" class="settings" media="<i class='icon icon-presets'>" subtitle="Смазывать через заданное расстояние...">
+        <f7-list-item accordion-item title="Предустановки" class="settings" media="<i class='icon icon-presets'>">
+            <f7-accordion-content>
+                                <f7-list media-list>
+                    <f7-list-item>
+                <f7-card>
+                    <f7-card-header>
+                        <div class="item-media">
+                            <i class='icon icon-building'></i>
+                            <p class="text-icon">Город</p>
+                        </div>
+                    </f7-card-header>
+                    <f7-card-content>
+                        <f7-label class="labelin">Вемя: {{param1}} сек</f7-label>
+                        <f7-input type="range" min="10" max="600" step="10" v-model.number="param1" placeholder="Введите время между включениями">
+                        </f7-input>
+                        <f7-label class="labelin">Капли: {{param2}} </f7-label>
+                        <f7-input type="range" min="1" max="10" step="1" v-model.number="param2" placeholder="Количество капель за цикл">
+                        </f7-input>
+                    </f7-card-content>
+                </f7-card>
+                <f7-card>
+                    <f7-card-header>
+                        <div class="item-media">
+                            <i class='icon icon-highway'></i>
+                            <p class="text-icon">Трасса</p>
+                        </div>
+                    </f7-card-header>
+                    <f7-card-content>
+
+
+                        <f7-label class="labelin">Вемя: {{param3}} сек</f7-label>
+                        <f7-input type="range" min="10" max="600" step="10" v-model.number="param3" placeholder="Введите время между включениями">
+                        </f7-input>
+                        <f7-label class="labelin">Капли: {{param4}} </f7-label>
+                        <f7-input type="range" min="1" max="10" step="1" v-model.number="param4" placeholder="Количество капель за цикл">
+                        </f7-input>
+
+
+
+                    </f7-card-content>
+                </f7-card>
+
+                    </f7-list-item>
+                </f7-list>
+                
+                
+
+            </f7-accordion-content>
+        </f7-list-item>
+        <f7-list-item accordion-item title="Настройки насоса" class="settings" media="<i class='icon icon-pump'>">
+            <f7-accordion-content>
+                <f7-list media-list>
+                    <f7-list-item>
+
+                        <!--            <div slot="root" class='icon icon-meter'></div>-->
+                        <div slot="inner">
+                            <div :style="stylediv1">
+                                <!--                                <f7-label class="labelin">Время вкл.</f7-label>
+                                <f7-input type="number" v-model.number="config.time.pump.dpms"  placeholder="Введите время импульса насоса (1/1000 сек)"></f7-input>
+                                <f7-label class="labelin">Время выкл:</f7-label>
+                                <f7-input type="number" v-model.number="config.time.pump.dpdp" placeholder="Время между импульсами (1/1000 сек)"></f7-input>-->
+
+                                <f7-label class="labelin">Время вкл: {{param5}} мсек </f7-label>
+                                <f7-input color="green" type="range" min="50" max="500" step="10" v-model="param5">
+                                </f7-input>
+                                <f7-label class="labelin">Время выкл: {{param6}} мсек</f7-label>
+                                <f7-input color="red" type="range" :min="param5 * 2" :max="param5 * 4" step="10" v-model="param6">
+                                </f7-input>
+                            </div>
+                        </div>
+
+                    </f7-list-item>
+                </f7-list>
+            </f7-accordion-content>
+        </f7-list-item>
+    </f7-list>
+
+
+    <f7-list accordion v-if="false">
+        <f7-list-item accordion-item title="Предустановки" class="settings" media="<i class='icon icon-presets'>">
             <f7-accordion-content>
                 <f7-list media-list>
                     <f7-list-item title="Город" after="<i class='icon icon-building'>" class="presets-icon">
@@ -19,18 +99,10 @@
                         <div slot="inner">
                             <div :style="stylediv1">
                                 <f7-label class="labelin">Вемя: {{param1}} сек</f7-label>
-                                <f7-input 
-                                          type="range" 
-                                          min="10" max="600" step="10"
-                                          v-model.number="param1" 
-                                          placeholder="Введите время между включениями">
+                                <f7-input type="range" min="10" max="600" step="10" v-model.number="param1" placeholder="Введите время между включениями">
                                 </f7-input>
                                 <f7-label class="labelin">Капли: {{param2}} </f7-label>
-                                <f7-input 
-                                          type="range" 
-                                          min="1" max="10" step="1"
-                                          v-model.number="param2" 
-                                          placeholder="Количество капель за цикл">
+                                <f7-input type="range" min="1" max="10" step="1" v-model.number="param2" placeholder="Количество капель за цикл">
                                 </f7-input>
                             </div>
                         </div>
@@ -40,18 +112,10 @@
                         <div slot="inner">
                             <div :style="stylediv1">
                                 <f7-label class="labelin">Время: {{param3}} сек</f7-label>
-                                <f7-input 
-                                          type="range" 
-                                          min="10" max="600" step="10"
-                                          v-model.number="param3" 
-                                          placeholder="Введите время между включениями">
+                                <f7-input type="range" min="10" max="600" step="10" v-model.number="param3" placeholder="Введите время между включениями">
                                 </f7-input>
                                 <f7-label class="labelin">Капли: {{param4}} </f7-label>
-                                <f7-input 
-                                          type="range" 
-                                          min="1" max="10" step="1"
-                                          v-model.number="param4" 
-                                          placeholder="Количество капель за цикл">
+                                <f7-input type="range" min="1" max="10" step="1" v-model.number="param4" placeholder="Количество капель за цикл">
                                 </f7-input>
                             </div>
                         </div>
@@ -80,16 +144,10 @@
                                 <f7-input type="number" v-model.number="config.time.pump.dpdp" placeholder="Время между импульсами (1/1000 сек)"></f7-input>-->
 
                                 <f7-label class="labelin">Время вкл: {{param5}} мсек </f7-label>
-                                <f7-input 
-                                          type="range" 
-                                          min="10" max="500" step="10" 
-                                          v-model="param5">
+                                <f7-input type="range" min="50" max="500" step="10" v-model="param5">
                                 </f7-input>
                                 <f7-label class="labelin">Время выкл: {{param6}} мсек</f7-label>
-                                <f7-input 
-                                          type="range" 
-                                          :min="param5 * 4" :max="param5 * 50" step="10" 
-                                          v-model="param6">
+                                <f7-input type="range" :min="param5 * 2" :max="param5 * 4" step="10" v-model="param6">
                                 </f7-input>
                             </div>
                         </div>
@@ -99,7 +157,7 @@
             </f7-accordion-content>
         </f7-list-item>
     </f7-list>
-</f7-page>    
+</f7-page>
 </template>
 
 <script>
@@ -111,8 +169,7 @@
         },
         methods: {
             back: function() {
-                console.log('back')
-//                this.$store.dispatch('changeConfig');
+
             }  
         },
         beforeDestroy: function() {
@@ -136,11 +193,11 @@
                 set(value) { this.$store.commit({type: 'UPD_TIME_DPNUM', data: value, preset: 1}) }
             },             
             param5: {
-                get() {return this.$store.state.config.time.pump.dpms},
+                get() {return this.$store.state.config.pump.dpms},
                 set(value) { this.$store.commit('UPD_TIME_DPMS', value) }
             },
             param6: {
-                get() {return this.$store.state.config.time.pump.dpdp},
+                get() {return this.$store.state.config.pump.dpdp},
                 set(value) { this.$store.commit('UPD_TIME_DPDP', value) }
             },            
         },

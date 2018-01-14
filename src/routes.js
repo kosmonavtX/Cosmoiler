@@ -3,10 +3,6 @@ export default [
       path: '/about/',
       component: require('./pages/about.vue')
   },
-  {
-      path: '/dynamic-route/blog/:blogId/post/:postId/',
-      component: require('./pages/dynamic-route.vue')
-  },
     {
         path: '/trip/',
         component: require('./pages/trip.vue')
@@ -30,5 +26,9 @@ export default [
     {
         path: '/system/',
         component: require('./pages/system.vue')
+    },
+    {
+        path: '/debug/',
+        component: require('./pages/debug.vue')
     }
 ]

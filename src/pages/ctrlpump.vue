@@ -2,35 +2,98 @@
 <f7-page>
     <f7-navbar title="Управление насосом" back-link="Back" sliding ></f7-navbar>
     <f7-list media-list>
-        <f7-list-item title="Насос" after="<i class='icon icon-pump'>">
+        
+                            <f7-card>
+                    <f7-card-header>
+                        <div class="item-media">
+                            <i class='icon icon-pump'></i>
+                            <p class="text-icon">Насос</p>
+                        </div>
+                    </f7-card-header>
+                    <f7-card-content>
+
+                   <div :style="stylediv">
+
+                    <f7-label class="labelin">Время вкл: {{pump.dpms}} мсек</f7-label>
+                    <f7-input 
+                              color="green"
+                                          type="range" 
+                                          min="100" max="1000" step="10" 
+                                          v-model="pump.dpms">
+                    </f7-input>
+                    <f7-label class="labelin">Время выкл: {{pump.dpdp}} мсек</f7-label>
+                    <f7-input 
+                              color="red"
+                                          type="range" 
+                                          :min="50" :max="2000" step="10" 
+                              :value="pump.dpdp"
+                                          v-model="pump.dpdp">
+                    </f7-input>
+                    
+                </div>                     
+                        
+                        
+                     <f7-grid>
+                <f7-col width="50">
+                    <p>
+                        <f7-button big raised color="green" fill v-on:click="on">Старт</f7-button>
+                    </p>
+                </f7-col>
+                <f7-col width="50">
+                    <p>
+                        <f7-button big raised color="red" fill v-on:click="off">Стоп</f7-button>
+                    </p>
+                </f7-col>
+                <f7-col width="100">
+                    <p>
+                        <f7-button raised fill color="gray" v-on:click="reverse">Реверс ({{dirname.properites[pump.dir].name}})</f7-button>
+                    </p>
+                </f7-col>
+            </f7-grid>               
+                        
+                    </f7-card-content>
+                </f7-card>
+            
+<!--        <f7-list-item title="Насос" after="<i class='icon icon-pump'>">-->
 
             <!--            <div slot="root" class='icon icon-meter'></div>-->
-            <div slot="inner">
-                <div style="margin-top: 6px">
-                    <f7-label class="labelin">Время вкл.</f7-label>
-                    <f7-input type="number" :value="pump.dpms" v-model.number="pump.dpms" placeholder="Введите время импульса насоса (1/1000 сек)"></f7-input>
-                    <f7-label class="labelin">Время выкл.</f7-label>
-                    <f7-input type="number" :value="pump.dpdp" v-model.number="pump.dpdp" placeholder="Время между импульсами (1/1000 сек)"></f7-input>
+<!--            <div slot="inner">
+                <div :style="stylediv">
+
+                    <f7-label class="labelin">Время вкл: {{pump.dpms}} мсек</f7-label>
+                    <f7-input 
+                                          type="range" 
+                                          min="100" max="1000" step="10" 
+                                          v-model="pump.dpms">
+                    </f7-input>
+                    <f7-label class="labelin">Время выкл: {{pump.dpdp}} мсек</f7-label>
+                    <f7-input 
+                                          type="range" 
+                                          :min="50" :max="2000" step="10" 
+                              :value="pump.dpdp"
+                                          v-model="pump.dpdp">
+                    </f7-input>
+                    
                 </div>
             </div>
             <f7-grid>
                 <f7-col width="50">
                     <p>
-                        <f7-button big fill v-on:click="on">Старт</f7-button>
+                        <f7-button big raised fill v-on:click="on">Старт</f7-button>
                     </p>
                 </f7-col>
                 <f7-col width="50">
                     <p>
-                        <f7-button big fill v-on:click="off">Стоп</f7-button>
+                        <f7-button big raised fill v-on:click="off">Стоп</f7-button>
                     </p>
                 </f7-col>
                 <f7-col width="100">
                     <p>
-                        <f7-button fill v-on:click="reverse">Реверс ({{dirname.properites[pump.dir].name}})</f7-button>
+                        <f7-button raised fill v-on:click="reverse">Реверс ({{dirname.properites[pump.dir].name}})</f7-button>
                     </p>
                 </f7-col>
-            </f7-grid>
-        </f7-list-item>
+            </f7-grid>-->
+        <!--</f7-list-item>-->
     </f7-list>
 </f7-page>
 </template>
@@ -50,22 +113,20 @@
         data () {
             return {
                 pump: {
-                    dpms: 150, dpdp: 800,
+                    dpms: 500, dpdp: 500,
                     state: 0,
                     dir: direction.OUT
                 },
                 dirname: direction,
-
+                stylediv: 'margin-top: 6px', 
             }
         },
-        components: {
-        },
         created: function() {
-                this.$store.state.connection.send(JSON.stringify({get: "work", p: [2]}));    
+                this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 2}))   
         },
         methods: {
             send: function() {
-                this.$store.state.connection.send(JSON.stringify({...this.pump, get: "pump"}));     
+                this.$store.state.connection.send(JSON.stringify({cmd: "pump", param: [this.state, this.dpms, this.dpdp, this.dir]}));     
             },
             on: function() {
                 this.pump.state = 1;
@@ -87,7 +148,7 @@
             }*/
         },
         beforeDestroy: function() {
-            this.$store.state.connection.send(JSON.stringify({get: "work", p: [0]}));                     
+            this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0}));                     
         },        
     }
 </script>

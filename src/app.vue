@@ -46,6 +46,7 @@
                             <!--<f7-link icon-size="32px" v-on:click="reconnect"></f7-link>--> <!--icon-cosmoiler-logo_pict_font2-->
                         </f7-nav-left>
                         <f7-nav-center sliding>Cosmoiler</f7-nav-center>
+                        <div :style="styleVer">{{ver}}</div>
                         <f7-nav-right v-if=this.$store.state.connect>
                             <f7-link icon="icon-bars" open-panel="right"></f7-link>
                         </f7-nav-right>
@@ -65,7 +66,7 @@
                         
 <!--<f7-button v-on:click="test">Test</f7-button>-->
                         
-                        <f7-block-title>Выберите режим работы </f7-block-title>
+                        <f7-block-title :style="{'font-weight': 600}">Выберите режим работы </f7-block-title>
                         <f7-list media-list>
                             <f7-list-item swipeout title="По пробегу..." media="<i class='icon icon-meter'></i>" link="#" :badge="badgeName1" badge-color="green" subtitle="Смазывать через заданное расстояние...">
                             <f7-swipeout-actions>
@@ -159,6 +160,8 @@
             return {
                 messonoff: ['','','',''],
 /*                asd: document.location.host*/
+                styleVer: 'font-size:12px; margin-top: 5px',
+                ver: "v2.1"
             }
         },
         computed: {

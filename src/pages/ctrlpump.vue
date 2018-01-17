@@ -6,7 +6,7 @@
                             <f7-card>
                     <f7-card-header>
                         <div class="item-media">
-                            <i class='icon icon-pump'></i>
+                            <i :style="{'font-size': sizeIconPump+'px'}" class='icon icon-pump'></i>
                             <p class="text-icon">Насос</p>
                         </div>
                     </f7-card-header>
@@ -119,6 +119,7 @@
                 },
                 dirname: direction,
                 stylediv: 'margin-top: 6px', 
+                sizeIconPump: 40,
             }
         },
         created: function() {
@@ -126,7 +127,7 @@
         },
         methods: {
             send: function() {
-                this.$store.state.connection.send(JSON.stringify({cmd: "pump", param: [this.state, this.dpms, this.dpdp, this.dir]}));     
+                this.$store.state.connection.send(JSON.stringify({cmd: "pump", param: [this.pump.state, this.pump.dpms, this.pump.dpdp, this.pump.dir]}));     
             },
             on: function() {
                 this.pump.state = 1;

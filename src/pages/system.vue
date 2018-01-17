@@ -45,7 +45,7 @@
         </f7-accordion-content>
     </f7-list-item>
 
-    <f7-list-item accordion-item title="Обновление ПО" class="settings" media="<i class='icon icon-wifi-logo'>">
+    <f7-list-item accordion-item title="Обновление ПО" class="settings" media="<i class='icon icon-arrows-cw'>">
         <f7-accordion-content>
             <f7-list media-list>
                 <f7-list-item>
@@ -59,8 +59,6 @@
                             <p>
                                 <f7-button big raised color='red' fill v-on:click="updateFW">Обновить ПО</f7-button>
                             </p>
-
-
                         </f7-card-content>
                     </f7-card>
                 </f7-list-item>
@@ -68,7 +66,7 @@
         </f7-accordion-content>
     </f7-list-item>
 
-    <f7-list-item accordion-item title="Светодиод" class="settings" media="<i class='icon icon-wifi-logo'>">
+    <f7-list-item accordion-item title="Светодиод" class="settings" media="<i class='icon icon-light-up'>">
         <f7-accordion-content>
             <f7-list media-list>
                 <f7-list-item>
@@ -76,8 +74,8 @@
                         <f7-card-content>
 
                             <div :style="styledivBright">
-                                <f7-label class="labelin">Яркость: {{param1}}%</f7-label>
-                                <f7-input type="range" min="10" max="255" step="1" v-model="param1">
+                                <f7-label class="labelin">Яркость: {{param2}}%</f7-label>
+                                <f7-input type="range" min="10" max="255" step="1" v-model="param1" >
                                 </f7-input>
                              </div>
 
@@ -90,12 +88,14 @@
 
 </f7-list>    
         
+<!--
    <f7-list media-list v-if="false">      
         
         <f7-list-item title="Подключение WiFi" after="<i class='icon icon-wifi-logo'>">
+-->
 
             <!--            <div slot="root" class='icon icon-meter'></div>-->
-            <div slot="inner">
+<!--            <div slot="inner">
                 <div :style="stylediv1">
                     <f7-label class="labelin">SSID</f7-label>
                     <f7-input type="text" v-model="ssid" placeholder="Введите имя точки доступа"></f7-input>
@@ -123,22 +123,17 @@
             <div slot="inner">
                 <p :style="cautionStyle">Внимание</p>
                 <p>Перед обновлением ПО обязательно необходимо ввести данные точки доступа, через которую имеется выход в интернет.</p>
-                <!--               <f7-block tablet-inset>-->
-                <!--                <f7-block inner>
-                    <p :style="cautionStyle">Внимание</p>
-                    <p>Перед обновлением ПО обязательно необходимо ввести данные точки доступа, через которую имеется выход в интернет.</p>
-                </f7-block>-->
                 <p>
                     <f7-button big raised color='red' fill v-on:click="updateFW">Обновить ПО</f7-button>
                 </p>
             </div>
-            <!--            </f7-block>             -->
-        </f7-list-item>
+
+        </f7-list-item>-->
 
         <!--            <f7-block-title :style="cautionStyle">Внимание!</f7-block-title>-->
 
 
-        <f7-list-item title="Светодиод">
+<!--        <f7-list-item title="Светодиод">
             <div slot="inner">
                 <div :style="styledivBright">
                     <f7-label class="labelin">Яркость: {{param1}}</f7-label>
@@ -147,7 +142,7 @@
                 </div>
             </div>
         </f7-list-item>
-    </f7-list>
+    </f7-list>-->
 
 </f7-page>
 </template>
@@ -204,14 +199,18 @@
                 }
             },
             param1: {
+                get() {},
+                set(value) {
+                    console.log(value);
+                    this.$store.commit('UPD_SYS_BRIGHT', value);
+                    this.$store.dispatch('Bright', value)
+                }
+            },
+            param2: {
                 get() {
                     let a = this.$store.state.system.bright * (100 / 255)
-                    return parseInt(a.toFixed(0),10)
+                    return a.toFixed(0)
                 },
-                set(value) {
-                    console.log(value)
-                    this.$store.commit('UPD_SYS_BRIGHT', value)
-                }
             }
         }
     }

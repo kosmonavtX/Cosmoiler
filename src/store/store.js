@@ -11,8 +11,8 @@ function uri() {
     if (document.location.host.indexOf('localhost') + 1)
     {
         /*store.state.connect = true;*/
-        //return '192.168.1.233'
-        return '192.168.1.224'  // sn = D7DDFB
+        return '192.168.1.233'
+        //return '192.168.1.224'  // sn = D7DDFB
     }
     else
         if (document.location.host === "")
@@ -33,7 +33,7 @@ let interval = setInterval(function () {
 
 const store = new Vuex.Store({
     state: {
-        modejson: {get: "mode", mode: 0, preset: 0},
+        modejson: {mode: 0, preset: 0},
         config: {
                 gnss: true,
                 pump: {dpms: null, dpdp: null},
@@ -56,9 +56,11 @@ const store = new Vuex.Store({
                         {dp_time: null, dp_num: null, trail: null},
                         {dp_time: null, dp_num: null, trail: null},
                     ],
+                },
+                manual: {
+                    pump: {dpms: null, dpdp: null}
                 }
         },
-        status: {wifi: {connect: false, ssid: null, psw: null}},
         system: {bright: 32, wifi: {connect: false, ssid: null, psw: null}},
         params: {
             preset: null,
@@ -71,6 +73,7 @@ const store = new Vuex.Store({
             avgspeed: 0,
             kvolt: 1,
             non: 0,
+            remains: 0,
         },
         debug: ["234", 4544],
         connection: ws,
@@ -79,26 +82,25 @@ const store = new Vuex.Store({
     mutations: {
         SET_CONFIG (state, payload) {
             state.config = payload;
-            console.log('GET_CONFIG');
+            //console.log('GET_CONFIG');
         },
         CHNG_CONFIG (state) {
-            state.config = { cmd: "post", param: ["/config.json", {...state.config}] };
-            console.log('CHNG_CONFIG');
+            //console.log('CHNG_CONFIG');
         },
         SET_MODE (state, payload) {
             state.modejson = payload;
-            console.log('SET_MODE');
+            //console.log('SET_MODE');
         },
         CHNG_MODE (state, data) {
             state.modejson.mode = data.mode;
-            state.modejson = { cmd:"post", param: ["/mode.json", {...state.modejson}] };            
+            //state.modejson = { cmd:"post", param: ["/mode.json", {...state.modejson}] };            
             console.log(data);
         },
         SET_VER (state, payload) {
             state.ver = payload
         },
-        SET_WIFI (state, payload) {
-            state.status = payload
+        SET_SYSTEM (state, payload) {
+            state.system = payload
         },
         SET_PARAMS (state, payload) {
             state.params = payload
@@ -116,7 +118,7 @@ const store = new Vuex.Store({
         },
     // Mode TRIP
         UPD_TRIP_TRIPM (state, payload) {
-            console.log('UPD_TRIP');
+            //console.log('UPD_TRIP');
             state.config.trip.presets[payload.preset].trip_m = payload.data * 1000;
         },
         UPD_TRIP_DPNUM (state, payload) {
@@ -202,19 +204,20 @@ const store = new Vuex.Store({
         // Сохранение файла config.json
         changeConfig ({commit}) {
             commit('CHNG_CONFIG');            
-            socket.send(store.state.connection, JSON.stringify(store.state.config));
+            socket.send(store.state.connection, JSON.stringify({ cmd: "post", param: ["/config.json", {...store.state.config}] }));
         },
         // 1. Команда на изменение режима
         // 2. Сохранение файла mode.json
         changeMode ({commit}, data) {
             commit('CHNG_MODE', data);            
-            socket.send(store.state.connection, JSON.stringify(store.state.modejson));
+            socket.send(store.state.connection, JSON.stringify({ cmd:"post", param: ["/mode.json", {...store.state.modejson}] }));
             socket.send(store.state.connection, JSON.stringify({cmd: "get", param: ["/mode.json"]}));
         },
         // Сохранение файла system.json
         changeSystem ({commit}) {
-            commit('CHNG_SYSTEM');
-            socket.send(store.state.connection, JSON.stringify(store.state.system))
+           // commit('CHNG_SYSTEM');
+            socket.send(store.state.connection, JSON.stringify({cmd: "post", param: ["/system.json",{...store.state.system}]}));
+            
         },
         // Команда на обновление ПО
         Update () { 
@@ -222,9 +225,9 @@ const store = new Vuex.Store({
             socket.send(store.state.connection, JSON.stringify({cmd: "update"}));
         },
         // Команда BRIGHT - яркость светодиода
-        Bright ({commit}, data) {
-            commit('UPD_SYS_BRIGHT', data);
-            socket.send(store.state.connection, JSON.stringify({cmd:"bright", param: data}));  
+        Bright (data) {
+            //commit('UPD_SYS_BRIGHT', data);
+            socket.send(store.state.connection, JSON.stringify({cmd:"bright", param: store.state.system.bright}));  
         },
         reconnect ({commit}) {
             console.log('reconnect')
@@ -259,9 +262,9 @@ store.state.connection.onmessage = function(message) {
             store.commit('SET_VER', incoming);
         }
         else if ("wifi" in incoming) {
-            store.commit('SET_WIFI', incoming)
+            store.commit('SET_SYSTEM', incoming)
         }
-        else if ("params" in incoming)
+        else if ("voltage" in incoming)
             store.commit('SET_PARAMS', incoming)
     }
     catch(e) {

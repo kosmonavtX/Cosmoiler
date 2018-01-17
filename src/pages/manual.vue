@@ -48,11 +48,11 @@
         },
         computed: {
             param1: {
-                get() {return this.$store.state.config.pump.dpms},
+                get() {return this.$store.state.config.manual.pump.dpms},
                 set(value) { this.$store.commit('UPD_MAN_DPMS', value) }
             },
             param2: {
-                get() { return this.$store.state.config.pump.dpdp },
+                get() { return this.$store.state.config.manual.pump.dpdp },
                 set(value) { this.$store.commit('UPD_MAN_DPDP', value) }
             }
         }

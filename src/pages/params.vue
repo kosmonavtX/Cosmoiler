@@ -217,7 +217,7 @@ export default {
         fetchParams: function () {
             this.interval = setInterval(() => {
                 this.$store.state.connection.send(JSON.stringify({cmd: "telemetry"}));    
-            }, 750);
+            }, 1000);
         },
     },    
     beforeDestroy: function () {

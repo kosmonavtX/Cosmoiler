@@ -71,9 +71,9 @@ const store = new Vuex.Store({
             speed: 0,
             maxspeed: 0,
             avgspeed: 0,
+            time: 0,
             kvolt: 1,
-            non: 0,
-            remains: 0,
+            non: 0
         },
         debug: ["234", 4544],
         connection: ws,

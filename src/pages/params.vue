@@ -202,7 +202,40 @@ export default {
                     
             }
             if (this.flagTime) {
-                    this.sensor_footer = this.$store.state.config.time.presets[0].dp_time + " сек";
+/*                    this.sensor_footer = this.$store.state.config.time.presets[0].dp_time + " сек";*/
+                
+                
+                function parseDate(input,flag)
+{ 
+    switch(flag){
+        case "P_DATE":
+            st = input.split(/(\d+)\-(\d+)\-(\d+)/);
+            output=st[3]+'.'+st[2]+'.'+st[1];
+            return output;
+        case "P_DATETIME":
+            st = input.split(/(\d+)\-(\d+)\-(\d+)\ (\d+)\:(\d+)\:(\d+)/);
+            output=st[3]+'.'+st[2]+'.'+st[1]+' '+st[4]+':'+st[5];
+            return output;
+        default: 
+            return "01.01.2000 00:00";
+    }
+}
+parseDate(2016-25-11 09:21:00, 'P_DATETIME'); // вернет 25.11.2016 09:21
+
+parseDate(2016-25-11, 'P_DATE'); // вернет 25.11.2016
+
+                
+                
+                
+                let s = this.$store.state.params.time/1000
+                let m = s/60;
+                var today = new Date;
+               // today.setSeconds(5, 345);
+                today.setMinutes(m, s)
+                var tt = today.format('mm:ss');
+                    let min = (this.$store.state.params.time/60/1000);
+                    this.sensor_footer = tt.getMinutes() + ":" + tt.getSeconds();
+/*                        min.toFixed(0,2) + ":" + (this.$store.state.params.time/1000).toFixed(0) + " сек";*/
                     return "Таймер" 
             }
             if (this.flagMan) {

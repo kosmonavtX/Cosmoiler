@@ -24,8 +24,7 @@
                     <f7-card title="Режим" :content="mode" :footer="NamePreset"></f7-card>
                 </f7-col>
                 <f7-col>
-                    <f7-card title="Датчик" :content="TypeSensor">
-                        <f7-card-footer>{{sensor_footer}}</f7-card-footer>
+                    <f7-card title="Датчик" :content="this.sensor_footer" :footer="TypeSensor">
                     </f7-card>
                 </f7-col>
             </f7-grid>
@@ -38,8 +37,8 @@
             </f7-grid>
             <f7-grid>
                 <f7-col>
-                    <f7-card title="Датчик" :content="TypeSensor">
-                        <f7-card-footer>{{sensor_footer}}</f7-card-footer>
+                    <f7-card title="Датчик" :content="this.sensor_footer" :footer="TypeSensor">
+                        <!--<f7-card-footer>{{sensor_footer}}</f7-card-footer>-->
                     </f7-card>
                 </f7-col>
             </f7-grid>
@@ -70,8 +69,8 @@
                 <f7-card title="Режим" :content="mode" :footer="NamePreset"></f7-card>
             </f7-col>
             <f7-col>
-                <f7-card title="Датчик" :content="TypeSensor">
-                    <f7-card-footer>{{sensor_footer}}</f7-card-footer>
+                <f7-card title="Датчик" :content="this.sensor_footer" :footer="TypeSensor">
+                    <!--<f7-card-footer></f7-card-footer>-->
                 </f7-card>
             </f7-col>
         </f7-grid>
@@ -150,7 +149,7 @@ export default {
             return this.$store.state.params.speed + " км/ч";
         },
         AvgSpeed: function () {
-            return this.$store.state.params.avgspeed + " км/ч (среднее)";
+            return this.$store.state.params.avgspeed + " км/ч (ср.)";
         },
         Odo: function () {
             return Number(this.$store.state.params.odo / 1000).toFixed(1) + " км";
@@ -205,36 +204,11 @@ export default {
 /*                    this.sensor_footer = this.$store.state.config.time.presets[0].dp_time + " сек";*/
                 
                 
-                function parseDate(input,flag)
-{ 
-    switch(flag){
-        case "P_DATE":
-            st = input.split(/(\d+)\-(\d+)\-(\d+)/);
-            output=st[3]+'.'+st[2]+'.'+st[1];
-            return output;
-        case "P_DATETIME":
-            st = input.split(/(\d+)\-(\d+)\-(\d+)\ (\d+)\:(\d+)\:(\d+)/);
-            output=st[3]+'.'+st[2]+'.'+st[1]+' '+st[4]+':'+st[5];
-            return output;
-        default: 
-            return "01.01.2000 00:00";
-    }
-}
-parseDate(2016-25-11 09:21:00, 'P_DATETIME'); // вернет 25.11.2016 09:21
+                var myDate = new Date(0, 0, 0);
+                myDate.setMilliseconds(this.$store.state.params.time);
+                myDate = myDate.toTimeString().replace(/.*(\d{2}:\d{2}).*/, "$1");
 
-parseDate(2016-25-11, 'P_DATE'); // вернет 25.11.2016
-
-                
-                
-                
-                let s = this.$store.state.params.time/1000
-                let m = s/60;
-                var today = new Date;
-               // today.setSeconds(5, 345);
-                today.setMinutes(m, s)
-                var tt = today.format('mm:ss');
-                    let min = (this.$store.state.params.time/60/1000);
-                    this.sensor_footer = tt.getMinutes() + ":" + tt.getSeconds();
+                    this.sensor_footer = myDate;
 /*                        min.toFixed(0,2) + ":" + (this.$store.state.params.time/1000).toFixed(0) + " сек";*/
                     return "Таймер" 
             }

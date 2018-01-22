@@ -193,7 +193,7 @@ const store = new Vuex.Store({
             state.system.wifi.psw = value
         },
         UPD_SYS_BRIGHT (state, value) {
-            state.system.bright = value
+            state.system.bright = (value * (255/100)).toFixed(0);
         },
         CHNG_SYSTEM (state) {
             state.system = { cmd: "post", param: ["/system.json", {...state.system}] }

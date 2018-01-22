@@ -159,7 +159,7 @@ export default {
             var tmp = (this.$store.state.params.voltage) / 1024;
             if (tmp < 0) tmp = 0;
             tmp = tmp / this.$store.state.params.kvolt;
-            return Number(tmp).toFixed(2) + " В";
+            return Number(tmp).toFixed(1) + " В";
         },
         Sp: function () {
             return this.$store.state.params.sp + '';

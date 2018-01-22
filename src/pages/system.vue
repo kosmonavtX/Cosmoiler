@@ -74,8 +74,8 @@
                         <f7-card-content>
 
                             <div :style="styledivBright">
-                                <f7-label class="labelin">Яркость: {{param2}}%</f7-label>
-                                <f7-input type="range" min="10" max="255" step="1" v-model="param1" >
+                                <f7-label class="labelin">Яркость: {{paramLED}}%</f7-label>
+                                <f7-input type="range" min="1" max="100" step="1" v-model.number="paramLED" >
                                 </f7-input>
                              </div>
 
@@ -198,18 +198,14 @@
                     this.$store.commit('UPD_UPDATE_PSW', value)
                 }
             },
-            param1: {
-                get() {},
+            paramLED: {
                 set(value) {
-                    console.log(value);
                     this.$store.commit('UPD_SYS_BRIGHT', value);
-                    this.$store.dispatch('Bright', value)
-                }
-            },
-            param2: {
+                    this.$store.dispatch('Bright')
+                },
                 get() {
-                    let a = this.$store.state.system.bright * (100 / 255)
-                    return a.toFixed(0)
+                    let a = (this.$store.state.system.bright * (100 / 255)).toFixed(0)
+                    return a
                 },
             }
         }

@@ -68,22 +68,23 @@
                         
                         <f7-block-title :style="{'font-weight': 600}">Выберите режим работы </f7-block-title>
                         <f7-list media-list>
-                            <f7-list-item swipeout title="По пробегу..." media="<i class='icon icon-meter'></i>" link="#" :badge="badgeName1" badge-color="green" subtitle="Смазывать через заданное расстояние...">
+                            <f7-list-item swipeout title="По пробегу..." media="<i class='icon icon-meter'></i>" link="#" :badge="badgeName1" badge-color="green" subtitle="Смазывать через заданное расстояние..." v-on:click="ctrlMode(1)">
                             <f7-swipeout-actions>
-                                <f7-swipeout-button close color="purple" id="trip" v-on:click="ctrlMode($event)">{{messonoff[0]}}</f7-swipeout-button>
-                                <f7-swipeout-button close href="/trip/" color="teal">Настройки</f7-swipeout-button>     
+
+                                <f7-swipeout-button close href="/trip/" color="purple">Настройки</f7-swipeout-button>   
+                            <!--    <f7-swipeout-button close color="orange" href="/params/">Телеметрия</f7-swipeout-button>-->
                             </f7-swipeout-actions>
                             </f7-list-item>
-                            <f7-list-item swipeout title="По времени..." media="<i class='icon icon-time'></i>" link="#" :badge="badgeName2" badge-color="green" subtitle="Смазывать через заданное время...">
-                            <f7-swipeout-actions>
-                                <f7-swipeout-button close color="purple" id="time" v-on:click="ctrlMode($event)">{{messonoff[1]}}</f7-swipeout-button>
-                                <f7-swipeout-button close href="/time/" color="teal">Настройки</f7-swipeout-button>
+                            <f7-list-item swipeout title="По времени..." media="<i class='icon icon-time'></i>" link="#" :badge="badgeName2" badge-color="green" subtitle="Смазывать через заданное время..." v-on:click="ctrlMode(2)">
+                            <f7-swipeout-actions >
+<!--                                <f7-swipeout-button close color="purple" id="time" v-on:click="ctrlMode($event)">{{messonoff[1]}}</f7-swipeout-button>-->
+                                <f7-swipeout-button close href="/time/" color="purple">Настройки</f7-swipeout-button>
                             </f7-swipeout-actions>
                             </f7-list-item>
-                            <f7-list-item swipeout title="Вручную..." media="<i class='icon icon-right-hand'></i>" link="#" :badge="badgeName3" badge-color="green" subtitle="Смазывать вручную...">
+                            <f7-list-item swipeout title="Вручную..." media="<i class='icon icon-right-hand'></i>" link="#" :badge="badgeName3" badge-color="green" subtitle="Смазывать вручную..." v-on:click="ctrlMode(3)">
                             <f7-swipeout-actions>
-                                <f7-swipeout-button close color="purple" id="manual" v-on:click="ctrlMode($event)">{{messonoff[2]}}</f7-swipeout-button>
-                                <f7-swipeout-button close href="/manual/" color="teal">Настройки</f7-swipeout-button>
+<!--                                <f7-swipeout-button close color="purple" id="manual" v-on:click="ctrlMode($event)">{{messonoff[2]}}</f7-swipeout-button>-->
+                                <f7-swipeout-button close href="/manual/" color="purple">Настройки</f7-swipeout-button>
                             </f7-swipeout-actions>                                 
                             </f7-list-item>                         
 <!--                            <f7-list-item v-if="false" swipeout title="Прокачка..." media="<i class='icon icon-repeat'></i>" link="#" :badge="badgeName4" badge-color="green" subtitle="Прокачать систему...">
@@ -161,7 +162,7 @@
                 messonoff: ['','','',''],
 /*                asd: document.location.host*/
                 styleVer: 'font-size:12px; margin-top: 5px',
-                ver: "v2.2"
+                ver: "v2.3"
             }
         },
         computed: {
@@ -210,22 +211,24 @@
         methods: {
 /*            Управление режимами*/
             ctrlMode: function(event) {
-                console.log(this.$store.state.modejson.mode);
+/*                console.log(this.$store.state.modejson.mode);
+                console.log(event);*/
                 if (this.$store.state.modejson.mode != null) {
-                        switch(event.currentTarget.id) {
-                                case 'trip': 
+                        //switch(event.currentTarget.id) 
+                        switch (event) {
+                                case 1: 
                                     if (this.$store.state.modejson.mode === 1)
                                         this.$store.dispatch('changeMode', {mode:0})
                                     else
                                         this.$store.dispatch('changeMode', {mode:1})
                                     break;
-                                case 'time': 
+                                case 2: 
                                     if (this.$store.state.modejson.mode === 2)
                                         this.$store.dispatch('changeMode', {mode:0})
                                     else
                                         this.$store.dispatch('changeMode', {mode:2})
                                     break;
-                                case 'manual':
+                                case 3:
                                     if (this.$store.state.modejson.mode === 3)
                                         this.$store.dispatch('changeMode', {mode:0})
                                     else

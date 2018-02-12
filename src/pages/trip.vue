@@ -60,7 +60,7 @@
                         <div slot="inner">
                             <div :style="stylediv1">
                                 <f7-label class="labelin">Время вкл: {{param5}} мсек</f7-label>
-                                <f7-input color="green" type="range" min="50" max="500" step="10" v-model="param5">
+                                <f7-input color="green" type="range" min="10" max="500" step="5" v-model="param5">
                                 </f7-input>
                                 <f7-label class="labelin">Время выкл: {{param6}} мсек</f7-label>
                                 <f7-input color="red" type="range" :min="param5 * 2" :max="param5 * 4" step="10" v-model="param6">

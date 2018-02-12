@@ -11,7 +11,7 @@
                         <div slot="inner">
                             <div style="margin-top: 6px">
                                 <f7-label class="labelin">Время вкл: {{param1}}</f7-label>
-                                <f7-input type="range" min="50" max="500" step="10" v-model="param1"></f7-input>
+                                <f7-input type="range" min="10" max="500" step="5" v-model="param1"></f7-input>
 
                                 <f7-label class="labelin">Время выкл: {{param2}}</f7-label>
                                 <f7-input type="range" :min="param1 * 2" :max="param1 * 4" step="10" v-model="param2"></f7-input>

@@ -144,7 +144,7 @@
                                 <f7-input type="number" v-model.number="config.time.pump.dpdp" placeholder="Время между импульсами (1/1000 сек)"></f7-input>-->
 
                                 <f7-label class="labelin">Время вкл: {{param5}} мсек </f7-label>
-                                <f7-input type="range" min="50" max="500" step="10" v-model="param5">
+                                <f7-input type="range" min="10" max="500" step="5" v-model="param5">
                                 </f7-input>
                                 <f7-label class="labelin">Время выкл: {{param6}} мсек</f7-label>
                                 <f7-input type="range" :min="param5 * 2" :max="param5 * 4" step="10" v-model="param6">

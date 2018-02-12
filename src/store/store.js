@@ -11,8 +11,8 @@ function uri() {
     if (document.location.host.indexOf('localhost') + 1)
     {
         /*store.state.connect = true;*/
-        return '192.168.1.233'
-        //return '192.168.1.224'  // sn = D7DDFB
+        //return '192.168.1.233'
+        return '192.168.1.224'  // sn = D7DDFB
     }
     else
         if (document.location.host === "")
@@ -23,11 +23,11 @@ function uri() {
 
 let ws = socket.connect('ws://'+uri()+'/ws')
 
-let interval = setInterval(function () {    
+let interval = setInterval(function () {
       if (store.state.connection.readyState !== 1) {
           if (uri() != '192.168.4.1')
               store.state.connect = true;
-        console.log('Unable to communicate with the WebSocket server.');  
+        console.log('Unable to communicate with the WebSocket server.');
       }
     }, 3000)
 
@@ -93,7 +93,7 @@ const store = new Vuex.Store({
         },
         CHNG_MODE (state, data) {
             state.modejson.mode = data.mode;
-            //state.modejson = { cmd:"post", param: ["/mode.json", {...state.modejson}] };            
+            //state.modejson = { cmd:"post", param: ["/mode.json", {...state.modejson}] };
             console.log(data);
         },
         SET_VER (state, payload) {
@@ -110,11 +110,11 @@ const store = new Vuex.Store({
         },
         RECONNECT (state, ws) {
             state.connection = ws
-            state.connection.onmessage = 
+            state.connection.onmessage =
             console.log(state.connection)
         },
         PUSH_DEBUG (state, payload) {
-            state.debug.push(payload)  
+            state.debug.push(payload)
         },
     // Mode TRIP
         UPD_TRIP_TRIPM (state, payload) {
@@ -122,7 +122,7 @@ const store = new Vuex.Store({
             state.config.trip.presets[payload.preset].trip_m = payload.data * 1000;
         },
         UPD_TRIP_DPNUM (state, payload) {
-            state.config.trip.presets[payload.preset].dp_num = payload.data;  
+            state.config.trip.presets[payload.preset].dp_num = payload.data;
         },
         UPD_TRIP_DPMS (state, value) {
             state.config.pump.dpms = value.data
@@ -131,19 +131,19 @@ const store = new Vuex.Store({
             state.config.pump.dpdp = value.data
         },
         UPD_TRIP_WHEEL_D (state, value) {
-            state.config.trip.wheel.dia = value.data  
+            state.config.trip.wheel.dia = value.data
         },
         UPD_TRIP_WHEEL_W (state, value) {
-            state.config.trip.wheel.width = value.data  
+            state.config.trip.wheel.width = value.data
         },
         UPD_TRIP_WHEEL_H (state, value) {
-            state.config.trip.wheel.height = value.data  
+            state.config.trip.wheel.height = value.data
         },
         UPD_TRIP_SENSOR_EXTSP (state, value) {
-            state.config.trip.sensor.extsp = value.data  
+            state.config.trip.sensor.extsp = value.data
         },
         UPD_TRIP_SENSOR_IMP (state, value) {
-            state.config.trip.sensor.imp = value.data  
+            state.config.trip.sensor.imp = value.data
         },
         CALC_IMPTRIPM (state) {
             console.log('CALC_IMPTRIPM')
@@ -159,7 +159,7 @@ const store = new Vuex.Store({
             }
         },
         SET_SENSOR_GNSS (state) {
-            state.config.trip.sensor.gnss = true;  
+            state.config.trip.sensor.gnss = true;
         },
         SET_SENSOR_IMP (state) {
             state.config.trip.sensor.gnss = false;
@@ -177,7 +177,7 @@ const store = new Vuex.Store({
         },
         UPD_TIME_DPDP (state, value) {
             state.config.pump.dpdp = value
-        },        
+        },
     // Mode MANUAL
         UPD_MAN_DPMS (state, value) {
             state.config.manual.pump.dpms = value
@@ -203,13 +203,13 @@ const store = new Vuex.Store({
     actions: {
         // Сохранение файла config.json
         changeConfig ({commit}) {
-            commit('CHNG_CONFIG');            
+            commit('CHNG_CONFIG');
             socket.send(store.state.connection, JSON.stringify({ cmd: "post", param: ["/config.json", {...store.state.config}] }));
         },
         // 1. Команда на изменение режима
         // 2. Сохранение файла mode.json
         changeMode ({commit}, data) {
-            commit('CHNG_MODE', data);            
+            commit('CHNG_MODE', data);
             socket.send(store.state.connection, JSON.stringify({ cmd:"post", param: ["/mode.json", {...store.state.modejson}] }));
             socket.send(store.state.connection, JSON.stringify({cmd: "get", param: ["/mode.json"]}));
         },
@@ -217,17 +217,17 @@ const store = new Vuex.Store({
         changeSystem ({commit}) {
            // commit('CHNG_SYSTEM');
             socket.send(store.state.connection, JSON.stringify({cmd: "post", param: ["/system.json",{...store.state.system}]}));
-            
+
         },
         // Команда на обновление ПО
-        Update () { 
+        Update () {
             console.log('UPDATE');
             socket.send(store.state.connection, JSON.stringify({cmd: "update"}));
         },
         // Команда BRIGHT - яркость светодиода
         Bright (data) {
             //commit('UPD_SYS_BRIGHT', data);
-            socket.send(store.state.connection, JSON.stringify({cmd:"bright", param: store.state.system.bright}));  
+            socket.send(store.state.connection, JSON.stringify({cmd:"bright", param: store.state.system.bright}));
         },
         reconnect ({commit}) {
             console.log('reconnect')
@@ -253,10 +253,10 @@ store.state.connection.onmessage = function(message) {
         let incoming = JSON.parse(message.data);
         console.log(incoming);
         if ("config" in incoming) {
-            store.commit('SET_CONFIG', incoming);        
-        } 
+            store.commit('SET_CONFIG', incoming);
+        }
         else if ("mode" in incoming) {
-            store.commit('SET_MODE', incoming);           
+            store.commit('SET_MODE', incoming);
         }
         else if ("sn" in incoming) {
             store.commit('SET_VER', incoming);

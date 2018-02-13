@@ -162,7 +162,7 @@
                 messonoff: ['','','',''],
 /*                asd: document.location.host*/
                 styleVer: 'font-size:12px; margin-top: 5px',
-                ver: "v2.3"
+                ver: "v2.4"
             }
         },
         computed: {

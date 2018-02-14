@@ -1,0 +1,9 @@
+CACHE MANIFEST
+# ver 2.4
+
+CACHE:
+app.js
+vendor.js
+manifest.js
+app.css
+

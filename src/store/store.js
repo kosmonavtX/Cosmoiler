@@ -99,6 +99,7 @@ const store = new Vuex.Store({
         SET_VER (state, payload, fw) {
             state.ver = payload;
             state.ver.fw = fw;
+            console.log(state.ver);
         },
         SET_SYSTEM (state, payload) {
             state.system = payload
@@ -259,8 +260,11 @@ store.state.connection.onmessage = function(message) {
         else if ("mode" in incoming) {
             store.commit('SET_MODE', incoming);
         }
-        else if ("sn" in incoming) {
-            store.commit('SET_VER', incoming);
+        else if ("ver" in incoming) {
+            store.commit('SET_VER', incoming, );
+        }
+        else if ("fw" in incoming) {
+            store.commit('SET_VER',store.state.ver, incoming);
         }
         else if ("wifi" in incoming) {
             store.commit('SET_SYSTEM', incoming)

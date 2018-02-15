@@ -35,3 +35,5 @@ git commit -m "%comment%" -a
 rem github
 git push origin master
 
+pause
+

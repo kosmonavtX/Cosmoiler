@@ -97,7 +97,7 @@ const store = new Vuex.Store({
             //state.modejson = { cmd:"post", param: ["/mode.json", {...state.modejson}] };
             console.log(data);
         },
-        SET_VER (state, payload, fw) {
+        SET_VER (state, payload) {
             state.ver = payload;
         },
         SET_SYSTEM (state, payload) {

@@ -26,7 +26,7 @@ copy .\dist\app.js.gz ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common
 copy .\dist\vendor.js ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common\vendor.js
 copy .\dist\manifest.js ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common\manifest.js
 
-cd ..\..\Phonegap\Cosmoiler\
+cd ..\Phonegap\Cosmoiler\
 
 git status
 pause

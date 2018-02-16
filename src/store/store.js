@@ -36,6 +36,7 @@ const store = new Vuex.Store({
     state: {
         modejson: {mode: 0, preset: 0},
         config: {
+                correctionADC: 0,
                 gnss: true,
                 pump: {dpms: null, dpdp: null},
                 pumping:{

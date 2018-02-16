@@ -156,7 +156,8 @@ export default {
         },
         Voltage: function () {
             console.info(this.$store.state.params.voltage)
-            var tmp = (this.$store.state.params.voltage) / 1024;
+            var volt = this.$store.state.params.voltage;// + this.$store.state.config.correctionADC;
+            var tmp = (volt) / 1024;
             if (tmp < 0) tmp = 0;
             tmp = tmp / this.$store.state.params.kvolt;
             return Number(tmp).toFixed(1) + " В";

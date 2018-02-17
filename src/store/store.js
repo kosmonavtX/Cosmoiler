@@ -84,19 +84,19 @@ const store = new Vuex.Store({
     mutations: {
         SET_CONFIG (state, payload) {
             state.config = payload;
-            //console.log('GET_CONFIG');
+            //debug.log('GET_CONFIG');
         },
         CHNG_CONFIG (state) {
-            //console.log('CHNG_CONFIG');
+            //debug.log('CHNG_CONFIG');
         },
         SET_MODE (state, payload) {
             state.modejson = payload;
-            //console.log('SET_MODE');
+            //debug.log('SET_MODE');
         },
         CHNG_MODE (state, data) {
             state.modejson.mode = data.mode;
             //state.modejson = { cmd:"post", param: ["/mode.json", {...state.modejson}] };
-            console.log(data);
+            debug.log(data);
         },
         SET_VER (state, payload) {
             state.ver = payload;
@@ -113,14 +113,14 @@ const store = new Vuex.Store({
         RECONNECT (state, ws) {
             state.connection = ws
             state.connection.onmessage =
-            console.log(state.connection)
+            debug.log(state.connection)
         },
         PUSH_DEBUG (state, payload) {
             state.debug.push(payload)
         },
     // Mode TRIP
         UPD_TRIP_TRIPM (state, payload) {
-            //console.log('UPD_TRIP');
+            //debug.log('UPD_TRIP');
             state.config.trip.presets[payload.preset].trip_m = payload.data * 1000;
         },
         UPD_TRIP_DPNUM (state, payload) {
@@ -148,7 +148,7 @@ const store = new Vuex.Store({
             state.config.trip.sensor.imp = value.data
         },
         CALC_IMPTRIPM (state) {
-            console.log('CALC_IMPTRIPM')
+            debug.log('CALC_IMPTRIPM')
             /* вычисление длины окружности колеса */
             let dm = state.config.trip.wheel.dia*25.4;
             let hm = state.config.trip.wheel.height * state.config.trip.wheel.width/100;
@@ -168,7 +168,7 @@ const store = new Vuex.Store({
         },
     // Mode TIME
         UPD_TIME_DPTIME (state, payload) {
-            console.log(payload);
+            debug.log(payload);
             state.config.time.presets[payload.preset].dp_time = payload.data
         },
         UPD_TIME_DPNUM (state, payload) {
@@ -223,7 +223,7 @@ const store = new Vuex.Store({
         },
         // Команда на обновление ПО
         Update () {
-            console.log('UPDATE');
+            debug.log('UPDATE');
             socket.send(store.state.connection, JSON.stringify({cmd: "update"}));
         },
         // Команда BRIGHT - яркость светодиода
@@ -232,9 +232,9 @@ const store = new Vuex.Store({
             socket.send(store.state.connection, JSON.stringify({cmd:"bright", param: store.state.system.bright}));
         },
         reconnect ({commit}) {
-            console.log('reconnect')
+            debug.log('reconnect')
 /*            socket.disconnect(store.state.connection)
-            console.log(store.state.connection)
+            debug.log(store.state.connection)
             commit('RECONNECT', socket.connect('ws://'+uri()+'/ws'))*/
             //store.state.connection = socket.connect('ws://'+uri()+'/ws')
         }
@@ -253,7 +253,7 @@ store.state.connection.onmessage = function(message) {
         store.commit('CONNECT', true);
        // store.commit('PUSH_DEBUG', message.data);
         let incoming = JSON.parse(message.data);
-        console.log(incoming);
+        debug.log(incoming);
         if ("config" in incoming) {
             store.commit('SET_CONFIG', incoming);
         }
@@ -270,22 +270,22 @@ store.state.connection.onmessage = function(message) {
             store.commit('SET_PARAMS', incoming)
     }
     catch(e) {
-        console.log('Error, either a bug or this isn\'t valid JSON: ', message.data)
+        debug.log('Error, either a bug or this isn\'t valid JSON: ', message.data)
     }
 }
 
 store.state.connection.onerror = function(error) {
-    console.log('Sorry, but there\'s a problem with your connection or the server is down.');
-    console.log(error);
+    debug.log('Sorry, but there\'s a problem with your connection or the server is down.');
+    debug.log(error);
     store.commit('CONNECT', false);
 }
 
 store.state.connection.onclose = function(event) {
     store.commit('CONNECT', false)
     if (event.wasClean)
-        console.log('OK close connection')
+        debug.log('OK close connection')
     else {
-        console.log('Error close connection!');
+        debug.log('Error close connection!');
         store.commit('CONNECT', false)
     setTimeout(function(){
         ws = socket.connect('ws://'+uri()+'/ws')
@@ -293,7 +293,7 @@ store.state.connection.onclose = function(event) {
     }
 }
 store.state.connection.onopen = function () {
-    console.log('Connection to socket server opened.')
+    debug.log('Connection to socket server opened.')
     store.commit('CONNECT', true)
       // Send user, and any notes held locally so the socket server can store to distribute to future new connections
 }

@@ -155,11 +155,12 @@ export default {
             return Number(this.$store.state.params.odo / 1000).toFixed(1) + " км";
         },
         Voltage: function () {
-            console.info(this.$store.state.params.voltage)
+            debug.info(this.$store.state.params.voltage)
             var volt = this.$store.state.params.voltage;// + this.$store.state.config.correctionADC;
             var tmp = (volt) / 1024;
             if (tmp < 0) tmp = 0;
             tmp = tmp / this.$store.state.params.kvolt;
+            tmp = 0.838*tmp + 0.354;
             return Number(tmp).toFixed(1) + " В";
         },
         Sp: function () {

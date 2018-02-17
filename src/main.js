@@ -30,7 +30,9 @@ import Routes from './routes.js'
 import App from './app'
 
 import store from './store/store.js'
+import './ba-debug.min.js'
 
+debug.setLevel(0);
 
 /*Vue.use(VueAxios, axios);*/
 

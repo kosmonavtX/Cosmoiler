@@ -274,7 +274,7 @@
                 }, 300);
             },
             AccordClose: function () {
-                console.log('Accordion close\n', this.interval);
+                debug.log('Accordion close\n', this.interval);
                 clearInterval(this.interval);
                 this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0}));    
             },
@@ -291,7 +291,7 @@
             }
         },
         beforeDestroy: function() {
-            console.log('BACK')
+            debug.log('BACK')
             clearInterval(this.interval);
             this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0})); 
             this.$store.commit('CALC_IMPTRIPM');

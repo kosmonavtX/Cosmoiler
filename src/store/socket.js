@@ -41,7 +41,7 @@ function waitForSocketConnection(socket, callback){
     setTimeout(
         function () {
             if (socket.readyState === 1) {
-                console.log("Connection is made")
+                debug.log("Connection is made")
                 if(callback != null){
                     callback();
                 }

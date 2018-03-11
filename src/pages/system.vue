@@ -1,11 +1,11 @@
 <template>
 <f7-page>
-    <f7-navbar title="Системные настройки" back-link="Back" sliding></f7-navbar>
+    <f7-navbar :title="this.$t('system.title')" back-link="Back" sliding></f7-navbar>
 
 
     
 <f7-list accordion>
-    <f7-list-item accordion-item title="Подключение" class="system" media="<i class='icon icon-wifi-logo'>">
+    <f7-list-item accordion-item :title="this.$t('system.wifi.title')" class="system" media="<i class='icon icon-wifi-logo'>">
         <f7-accordion-content>
             <f7-list media-list>
                 <f7-list-item>
@@ -22,18 +22,18 @@
                             <div :style="stylediv1">
                             <f7-label class="labelin">SSID</f7-label>
                             <f7-input type="text" v-model="ssid" placeholder="Введите имя точки доступа"></f7-input>
-                            <f7-label class="labelin">Пароль</f7-label>
+                            <f7-label class="labelin">{{ $t('system.psw') }}</f7-label>
                             <f7-input type="password" v-model="psw" placeholder="Пароль"></f7-input>
                              </div>
                             <f7-grid>
                                 <f7-col width="50">
                                     <p>
-                                        <f7-button big raised fill v-on:click="saveSSID">Сохранить</f7-button>
+                                        <f7-button big raised fill v-on:click="saveSSID">{{ $t('button.save') }}</f7-button>
                                     </p>
                                 </f7-col>
                                 <f7-col width="50">
                                     <p>
-                                        <f7-button big raised fill v-on:click="clearSSID">Сброс SSID</f7-button>
+                                        <f7-button big raised fill v-on:click="clearSSID">{{ $t('button.clear') }}</f7-button>
                                     </p>
                                 </f7-col>
 
@@ -45,7 +45,7 @@
         </f7-accordion-content>
     </f7-list-item>
 
-    <f7-list-item accordion-item title="Обновление ПО" class="settings" media="<i class='icon icon-arrows-cw'>">
+    <f7-list-item accordion-item :title="this.$t('system.update.title')" class="settings" media="<i class='icon icon-arrows-cw'>">
         <f7-accordion-content>
             <f7-list media-list>
                 <f7-list-item>
@@ -53,11 +53,11 @@
 
                         <f7-card-content class="caution">
 
-                            <p :style="cautionStyle">Внимание!</p>
-                            <p>Перед обновлением ПО обязательно необходимо ввести данные точки доступа, через которую имеется выход в интернет.</p>
+                            <p :style="cautionStyle">{{ $t('system.attention.title') }}</p>
+                            <p>{{ $t('system.attention.content') }}</p>
 
                             <p>
-                                <f7-button big raised color='red' fill v-on:click="updateFW">Обновить ПО</f7-button>
+                                <f7-button big raised color='red' fill v-on:click="updateFW">{{ $t('button.update') }}</f7-button>
                             </p>
                         </f7-card-content>
                     </f7-card>
@@ -66,7 +66,7 @@
         </f7-accordion-content>
     </f7-list-item>
 
-    <f7-list-item accordion-item title="Светодиод" class="settings" media="<i class='icon icon-light-up'>">
+    <f7-list-item accordion-item :title="this.$t('system.led.title')" class="settings" media="<i class='icon icon-light-up'>">
         <f7-accordion-content>
             <f7-list media-list>
                 <f7-list-item>
@@ -74,7 +74,7 @@
                         <f7-card-content>
 
                             <div :style="styledivBright">
-                                <f7-label class="labelin">Яркость: {{paramLED}}%</f7-label>
+                                <f7-label class="labelin">{{ $t('system.led.bright', {p: paramLED}) }}</f7-label>
                                 <f7-input type="range" min="1" max="100" step="1" v-model.number="paramLED" >
                                 </f7-input>
                              </div>

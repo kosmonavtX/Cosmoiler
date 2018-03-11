@@ -1,19 +1,17 @@
 <template>
 <f7-page>
-    <f7-navbar title="Настройки" back-link="Back" sliding v-on:back-click="back"></f7-navbar>
+    <f7-navbar :title="this.$t('settings')" back-link="Back" sliding v-on:back-click="back"></f7-navbar>
     <f7-list accordion>
-        <f7-list-item accordion-item title="Настройки насоса" class="settings" media="<i class='icon icon-pump'>">
+        <f7-list-item opened accordion-item :title="this.$t('settings.pump.title')" class="settings" media="<i class='icon icon-pump'>">
             <f7-accordion-content>
                 <f7-list media-list>
                     <f7-list-item>
-
-                        <!--            <div slot="root" class='icon icon-meter'></div>-->
                         <div slot="inner">
                             <div style="margin-top: 6px">
-                                <f7-label class="labelin">Время вкл: {{param1}}</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.pump.on', {p: param1}) }}</f7-label>
                                 <f7-input type="range" min="10" max="500" step="5" v-model="param1"></f7-input>
 
-                                <f7-label class="labelin">Время выкл: {{param2}}</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.pump.off', {p: param2}) }}</f7-label>
                                 <f7-input type="range" :min="param1 * 2" :max="2000" step="10" v-model="param2"></f7-input>
                             </div>
                         </div>
@@ -22,13 +20,12 @@
                 </f7-list>
             </f7-accordion-content>
         </f7-list-item>
+            
     </f7-list>
 </f7-page>    
 </template>
 
 <script>
-    
-   // import store from '../store/store'
     
     export default {
         data () {
@@ -40,9 +37,6 @@
                 //this.$store.dispatch('changeConfig');// ??
             },
         },  
-/*        created: function() {
-            this.$f7.accordionOpen('<li class="settings accordion-item">')
-        },*/
         beforeDestroy: function() {
             this.$store.dispatch('changeConfig');// ??
         },

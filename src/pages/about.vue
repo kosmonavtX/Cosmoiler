@@ -1,6 +1,6 @@
 <template>
   <f7-page>
-    <f7-navbar title="О системе" back-link="Back" sliding></f7-navbar>
+    <f7-navbar :title="this.$t('menu.about')" back-link="Back" sliding></f7-navbar>
     <f7-block inner>
         <p>S/N: {{obj.sn}}</p>
         <!--<p>Firmware version: {{obj.fw.major}}.{{obj.fw.minor}}.{{obj.fw.build}}</p>-->

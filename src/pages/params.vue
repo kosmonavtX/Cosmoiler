@@ -1,17 +1,17 @@
 <template>
 <f7-page>
-    <f7-navbar title="Телеметрия" back-link="Back" sliding></f7-navbar>
+    <f7-navbar :title="this.$t('menu.telemetry')" back-link="Back" sliding></f7-navbar>
 
     <div v-if="flag1">
-        <f7-card title="Датчик" content="ГНСС">
+        <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.$t('telemetry.sensor.content')">
             <f7-card-footer>{{sensor_footer}}</f7-card-footer>
         </f7-card>
         <f7-grid no-gutter>
             <f7-col>
-                <f7-card title="Скорость" :content="Speed"></f7-card>
+                <f7-card :title="this.$t('telemetry.speed.title')" :content="Speed"></f7-card>
             </f7-col>
             <f7-col>
-                <f7-card title="напряжение" :content="Voltage"></f7-card>
+                <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
             </f7-col>
 
         </f7-grid>
@@ -21,10 +21,10 @@
         <div v-if="!this.$store.state.config.trip.sensor.gnss">
             <f7-grid no-gutter>
                 <f7-col>
-                    <f7-card title="Режим" :content="mode" :footer="NamePreset"></f7-card>
+                    <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
                 </f7-col>
                 <f7-col>
-                    <f7-card title="Датчик" :content="this.sensor_footer" :footer="TypeSensor">
+                    <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.sensor_footer" :footer="TypeSensor">
                     </f7-card>
                 </f7-col>
             </f7-grid>
@@ -32,12 +32,12 @@
         <div v-if="this.$store.state.config.trip.sensor.gnss">
             <f7-grid no-gutter>
                 <f7-col>
-                    <f7-card title="Режим" :content="mode" :footer="NamePreset"></f7-card>
+                    <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
                 </f7-col>
             </f7-grid>
             <f7-grid>
                 <f7-col>
-                    <f7-card title="Датчик" :content="this.sensor_footer" :footer="TypeSensor">
+                    <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.sensor_footer" :footer="TypeSensor">
                         <!--<f7-card-footer>{{sensor_footer}}</f7-card-footer>-->
                     </f7-card>
                 </f7-col>
@@ -45,18 +45,18 @@
         </div>
         <f7-grid no-gutter>
             <f7-col>
-                <f7-card title="Скорость" :content="Speed" :footer="AvgSpeed"></f7-card>
+                <f7-card :title="this.$t('telemetry.speed.title')" :content="Speed" :footer="AvgSpeed"></f7-card>
             </f7-col>
             <f7-col>
-                <f7-card title="Одометр" :content="Odo" :footer="Remains"></f7-card>
+                <f7-card :title="this.$t('telemetry.odo.title')" :content="Odo" :footer="Remains"></f7-card>
             </f7-col>
         </f7-grid>
         <f7-grid no-gutter>
             <f7-col>
-                <f7-card title="Насос" :content="Non"></f7-card>
+                <f7-card :title="this.$t('telemetry.pump.title')" :content="Non"></f7-card>
             </f7-col>
             <f7-col>
-                <f7-card title="напряжение" :content="Voltage"></f7-card>
+                <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
             </f7-col>
         </f7-grid>
 
@@ -66,20 +66,20 @@
     <div v-if="flagTime">
         <f7-grid no-gutter>
             <f7-col>
-                <f7-card title="Режим" :content="mode" :footer="NamePreset"></f7-card>
+                <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
             </f7-col>
             <f7-col>
-                <f7-card title="Датчик" :content="this.sensor_footer" :footer="TypeSensor">
+                <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.sensor_footer" :footer="TypeSensor">
                     <!--<f7-card-footer></f7-card-footer>-->
                 </f7-card>
             </f7-col>
         </f7-grid>
         <f7-grid no-gutter>
             <f7-col>
-                <f7-card title="Насос" :content="Non"></f7-card>
+                <f7-card :title="this.$t('telemetry.pump.title')" :content="Non"></f7-card>
             </f7-col>
             <f7-col>
-                <f7-card title="напряжение" :content="Voltage"></f7-card>
+                <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
             </f7-col>
         </f7-grid>
     </div>
@@ -87,20 +87,20 @@
     <div v-if="flagMan">
         <f7-grid no-gutter>
             <f7-col>
-                <f7-card title="Режим" :content="mode" :footer="NamePreset"></f7-card>
+                <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
             </f7-col>
             <f7-col>
-                <f7-card title="Датчик" :content="TypeSensor">
+                <f7-card :title="this.$t('telemetry.sensor.title')" :content="TypeSensor">
                     <!--<f7-card-footer>{{sensor_footer}}</f7-card-footer>-->
                 </f7-card>
             </f7-col>
         </f7-grid>
         <f7-grid no-gutter>
             <f7-col>
-                <f7-card title="Насос" :content="Non"></f7-card>
+                <f7-card :title="this.$t('telemetry.pump.title')" :content="Non"></f7-card>
             </f7-col>
             <f7-col>
-                <f7-card title="напряжение" :content="Voltage"></f7-card>
+                <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
             </f7-col>
         </f7-grid>
     </div>
@@ -127,32 +127,32 @@ export default {
             let nm = null;
             switch (this.$store.state.modejson.mode) {
                 case 1:
-                    this.mode = 'ПО ПРОБЕГУ';
+                    this.mode = this.$i18n.translate('mode.trip.title').toUpperCase();
                     break;
                 case 2:
-                    this.mode = 'ПО ВРЕМЕНИ';
+                    this.mode = this.$i18n.translate('mode.time.title').toUpperCase();;
                     break;
                 case 3:
-                    this.mode = 'РУЧНОЕ';
+                    this.mode = this.$i18n.translate('mode.manual.title').toUpperCase();;
                     break;                    
             }  
             switch (this.$store.state.params.preset) {
                 case 0: 
-                    return 'Город';
+                    return this.$i18n.translate('settings.presets.city');
                     break;
                 case 1:
-                    return 'Трасса';
+                    return this.$i18n.translate('settings.presets.way');
                     break;
             }
         },
         Speed: function () {
-            return this.$store.state.params.speed + " км/ч";
+            return this.$store.state.params.speed + this.$i18n.translate('telemetry.speed.unit');
         },
         AvgSpeed: function () {
-            return this.$store.state.params.avgspeed + " км/ч (ср.)";
+            return this.$store.state.params.avgspeed + this.$i18n.translate('telemetry.speed.unitavg');
         },
         Odo: function () {
-            return Number(this.$store.state.params.odo / 1000).toFixed(1) + " км";
+            return Number(this.$store.state.params.odo / 1000).toFixed(1) + this.$i18n.translate('telemetry.odo.unit1');
         },
         Voltage: function () {
             debug.info(this.$store.state.params.voltage)
@@ -161,7 +161,7 @@ export default {
             if (tmp < 0) tmp = 0;
             tmp = tmp / this.$store.state.params.kvolt;
             tmp = 0.838*tmp + 0.354;
-            return Number(tmp).toFixed(1) + " В";
+            return Number(tmp).toFixed(1) + this.$i18n.translate('telemetry.volt.unit');
         },
         Sp: function () {
             return this.$store.state.params.sp + '';
@@ -176,7 +176,7 @@ export default {
             let imp = this.$store.state.params.imp;
             let sensor = this.$store.state.config.trip.sensor.imp;
             let lwhl = this.$store.state.config.trip.wheel.lenght;
-            return Number(((imp*lwhl)/sensor)/1000).toFixed(0) + ' м'  
+            return Number(((imp*lwhl)/sensor)/1000).toFixed(0) + this.$i18n.translate('telemetry.odo.unit2');  
         },
         flag1: function() {
             return (this.$store.state.modejson.mode === 0) && (this.$store.state.config.gnss)
@@ -194,11 +194,11 @@ export default {
             if (this.flagTrip) {
                 if (this.$store.state.config.trip.sensor.gnss) {
                     this.sensor_footer = this.$store.state.params.lat + "d " +                         this.$store.state.params.lon;
-                     return "ГНСС";
+                     return this.$i18n.translate('settings.sensor.gnss');
                 }
                 else {
                     this.sensor_footer = this.$store.state.params.imp;
-                    return "Импульсный"
+                    return this.$i18n.translate('settings.sensor.impulse');
                 }
                     
             }
@@ -212,10 +212,10 @@ export default {
 
                     this.sensor_footer = myDate;
 /*                        min.toFixed(0,2) + ":" + (this.$store.state.params.time/1000).toFixed(0) + " сек";*/
-                    return "Таймер" 
+                    return this.$i18n.translate('mode.time.title'); 
             }
             if (this.flagMan) {
-                 return "Кнопка"   
+                 return this.$i18n.translate('telemetry.manual.button');    
             }
                     
     },

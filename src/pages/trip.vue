@@ -1,10 +1,10 @@
 <template>
 <f7-page>
-    <f7-navbar title="Настройки" back-link="Back" sliding></f7-navbar>
+    <f7-navbar :title="this.$t('settings')" back-link="Back" sliding></f7-navbar>
 
     <f7-list accordion>
 <!----------ПРЕДУСТАНОВКИ------------>        
-        <f7-list-item accordion-item title="Предустановки" class="settings" media="<i class='icon icon-presets' >">
+        <f7-list-item accordion-item :title="this.$t('settings.presets.title')" class="settings" media="<i class='icon icon-presets' >">
             <f7-accordion-content>
                 <f7-list media-list>
                     <f7-list-item>
@@ -14,15 +14,15 @@
                             <f7-card-header>
                                 <div class="item-media">
                                     <i class='icon icon-building'></i>
-                                    <p class="text-icon">Город</p>
+                                    <p class="text-icon">{{ $t('settings.presets.city') }}</p>
                                 </div>
                             </f7-card-header>
                             <f7-card-content>
                                 <div :style="stylediv1">
-                                    <f7-label class="labelin">Расстояние: {{param1}} км</f7-label>
+                                    <f7-label class="labelin">{{ $t('settings.presets.distance', {p: param1}) }}</f7-label>
                                     <f7-input type="range" id="0" v-model.number="param1" min="1" max="10" step="1" placeholder="Введите расстояние между включением">
                                     </f7-input>
-                                    <f7-label class="labelin">Капли: {{param2}}</f7-label>
+                                    <f7-label class="labelin">{{ $t('settings.presets.drop', {p: param2}) }}</f7-label>
                                     <f7-input color="brown" type="range" id="1" v-model.number="param2" min="1" max="10" step="1" placeholder="Количество капель за цикл">
                                     </f7-input>
                                 </div>
@@ -33,15 +33,15 @@
                             <f7-card-header>
                                 <div class="item-media">
                                     <i class='icon icon-highway'></i>
-                                    <p class="text-icon">Трасса</p>
+                                    <p class="text-icon">{{ $t('settings.presets.way') }}</p>
                                 </div>
                             </f7-card-header>
                             <f7-card-content>
                                 <div :style="stylediv1">
-                                    <f7-label class="labelin">Расстояние: {{param3}} км</f7-label>
+                                    <f7-label class="labelin">{{ $t('settings.presets.distance', {p: param3}) }}</f7-label>
                                     <f7-input type="range" id="2" v-model.number="param3" min="1" max="20" step="1" placeholder="Введите расстояние между включением">
                                     </f7-input>
-                                    <f7-label class="labelin">Капли: {{param4}} </f7-label>
+                                    <f7-label class="labelin">{{ $t('settings.presets.drop', {p: param4}) }} </f7-label>
                                     <f7-input color="brown" type="range" id="3" v-model.number="param4" min="1" max="10" step="1" placeholder="Количество капель за цикл">
                                     </f7-input>
                                 </div>
@@ -53,16 +53,16 @@
         </f7-list-item>
         
 <!----------НАСТРОЙКИ НАСОСА------------>   
-        <f7-list-item accordion-item title="Настройки насоса" class="settings" media="<i class='icon icon-pump' >">
+        <f7-list-item accordion-item :title="this.$t('settings.pump.title')" class="settings" media="<i class='icon icon-pump' >">
             <f7-accordion-content>
                 <f7-list media-list>
                     <f7-list-item>
                         <div slot="inner">
                             <div :style="stylediv1">
-                                <f7-label class="labelin">Время вкл: {{param5}} мсек</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.pump.on', {p: param5}) }}</f7-label>
                                 <f7-input color="green" type="range" min="10" max="500" step="5" v-model="param5">
                                 </f7-input>
-                                <f7-label class="labelin">Время выкл: {{param6}} мсек</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.pump.off', {p: param6}) }}</f7-label>
                                 <f7-input color="red" type="range" :min="param5 * 2" :max="2000" step="10" v-model="param6">
                                 </f7-input>
                             </div>
@@ -74,7 +74,7 @@
         </f7-list-item>
 
 <!----------ДАТЧИК------------>   
-        <f7-list-item accordion-item title="Датчик" @accordion:close="AccordClose" class="settings" media="<i class='icon icon-gauge'>">
+        <f7-list-item accordion-item :title="this.$t('settings.sensor.title')" @accordion:close="AccordClose" class="settings" media="<i class='icon icon-gauge'>">
             <f7-accordion-content>
                 <f7-list media-list>
                     <f7-list-item >
@@ -82,9 +82,9 @@
                            <f7-list >
 
    
-                                <f7-list-item v-if="param13" media="<i class='icon icon-gps'>"  radio name="my-radio" v-bind:value="1" :checked="param12" @click="onSetTypeSensor(1)">ГНСС</f7-list-item>
+                                <f7-list-item v-if="param13" media="<i class='icon icon-gps'>"  radio name="my-radio" v-bind:value="1" :checked="param12" @click="onSetTypeSensor(1)">{{ $t('settings.sensor.gnss') }}</f7-list-item>
 
-                                <f7-list-item media="<i class='icon icon-gauge2'>" radio name="my-radio" v-bind:value="2" :checked="!param12" @click="onSetTypeSensor(2)">Импульсный</f7-list-item>
+                                <f7-list-item media="<i class='icon icon-gauge2'>" radio name="my-radio" v-bind:value="2" :checked="!param12" @click="onSetTypeSensor(2)">{{ $t('settings.sensor.impulse') }}</f7-list-item>
 
 
                             </f7-list>
@@ -92,18 +92,18 @@
                         <div v-if="!param12">
                         <f7-card>
                             <f7-card-content>
-                                <f7-label class="labelin">Внешний датчик</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.sensor.ext') }}</f7-label>
                                 <f7-input type="switch" @change="onChangePwr" v-model="param10"></f7-input>
 
                                 <f7-grid>
                                     <f7-col width="50">
                                 <div :style="stylediv1">
-                                    <f7-label class="labelin">Имп. на оборот:</f7-label>
+                                    <f7-label class="labelin">{{ $t('settings.sensor.imprev') }}</f7-label>
                                     <f7-input type="number" v-model.number="param11" placeholder="Введите число импульсов на оборот"></f7-input>
                                 </div>
     </f7-col>
                                     <f7-col width="50">
-                                <f7-button v-bind:style="{'margin-top': 30 +'px'}"  fill v-on:click="AccordOpen">Сброс</f7-button>
+                                <f7-button v-bind:style="{'margin-top': 30 +'px'}"  fill v-on:click="AccordOpen">{{ $t('button.reset') }}</f7-button>
                                         </f7-col>
                                     </f7-grid>
                             </f7-card-content>
@@ -111,14 +111,14 @@
                             
                             <f7-card>
                                     <f7-card-header>                                        
-                                        <span :style="stylefooter_p">Параметры колеса</span> 
+                                        <span :style="stylefooter_p">{{ $t('settings.sensor.wheel.title') }}</span> 
                                         
                             </f7-card-header>   
                             <f7-card-content>
                             <div :style="stylediv1">
                                 <f7-grid>
                                     <f7-col>
-                                <f7-label class="labelin">Диаметр:</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.sensor.wheel.rimdia') }}</f7-label>
                                 <f7-input type="select" v-model="param7">
                                     <option v-bind:value="16">16"</option>
                                     <option v-bind:value="17">17"</option>
@@ -128,11 +128,11 @@
                                 </f7-input>
                                         </f7-col>
                                     <f7-col>
-                                <f7-label class="labelin">Ширина:</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.sensor.wheel.width') }}</f7-label>
                                 <f7-input type="number" v-model.number="param8" placeholder="Ширина шины"></f7-input>
                                         </f7-col>
                                     </f7-grid>
-                                <f7-label class="labelin">Профиль:</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.sensor.wheel.height') }}</f7-label>
                                 <f7-input type="number" v-model.number="param9" placeholder="Высота шины в %"></f7-input>
                                     
                             </div>

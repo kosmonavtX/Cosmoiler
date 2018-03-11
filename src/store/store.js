@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import socket from './socket.js'
+import vuexI18n from 'vuex-i18n';
 
 Vue.use(Vuex);
 
@@ -31,6 +32,7 @@ let interval = setInterval(function () {
         console.log('Unable to communicate with the WebSocket server.');
       }
     }, 3000)
+
 
 const store = new Vuex.Store({
     state: {
@@ -80,6 +82,7 @@ const store = new Vuex.Store({
         debug: ["234", 4544],
         connection: ws,
         connect: false,
+        locale: window.navigator.userLanguage || window.navigator.language,
     },
     mutations: {
         SET_CONFIG (state, payload) {
@@ -240,6 +243,8 @@ const store = new Vuex.Store({
         }
     }
 })
+
+Vue.use(vuexI18n.plugin, store);
 
 export default store
 

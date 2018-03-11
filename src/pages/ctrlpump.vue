@@ -1,27 +1,27 @@
 <template>
 <f7-page>
-    <f7-navbar title="Управление насосом" back-link="Back" sliding ></f7-navbar>
+    <f7-navbar :title="this.$t('ctrlpump.title')" back-link="Back" sliding ></f7-navbar>
     <f7-list media-list>
         
                             <f7-card>
                     <f7-card-header>
                         <div class="item-media">
                             <i :style="{'font-size': sizeIconPump+'px'}" class='icon icon-pump'></i>
-                            <p class="text-icon">Насос</p>
+                            <p class="text-icon">{{ $t('settings.pump.title') }}</p>
                         </div>
                     </f7-card-header>
                     <f7-card-content>
 
                    <div :style="stylediv">
 
-                    <f7-label class="labelin">Время вкл: {{pump.dpms}} мсек</f7-label>
+                    <f7-label class="labelin">{{ $t('settings.pump.on', {p: pump.dpms}) }}</f7-label>
                     <f7-input 
                               color="green"
                                           type="range" 
                                           min="100" max="1000" step="10" 
                                           v-model="pump.dpms">
                     </f7-input>
-                    <f7-label class="labelin">Время выкл: {{pump.dpdp}} мсек</f7-label>
+                    <f7-label class="labelin">{{ $t('settings.pump.off', {p: pump.dpdp}) }}</f7-label>
                     <f7-input 
                               color="red"
                                           type="range" 
@@ -36,17 +36,17 @@
                      <f7-grid>
                 <f7-col width="50">
                     <p>
-                        <f7-button big raised color="green" fill v-on:click="on">Старт</f7-button>
+                        <f7-button big raised color="green" fill v-on:click="on">{{ $t('button.start') }}</f7-button>
                     </p>
                 </f7-col>
                 <f7-col width="50">
                     <p>
-                        <f7-button big raised color="red" fill v-on:click="off">Стоп</f7-button>
+                        <f7-button big raised color="red" fill v-on:click="off">{{ $t('button.stop') }}</f7-button>
                     </p>
                 </f7-col>
                 <f7-col width="100">
                     <p>
-                        <f7-button raised fill color="gray" v-on:click="reverse">Реверс ({{dirname.properites[pump.dir].name}})</f7-button>
+                        <f7-button raised fill color="gray" v-on:click="reverse">{{ $t('button.reverse', {p: dirname.properites[pump.dir].name}) }}</f7-button>
                     </p>
                 </f7-col>
             </f7-grid>               
@@ -104,8 +104,8 @@
                     OUT: 0,
                     IN: 1,
                     properites: {
-                        0: {name: 'OUT'},
-                        1: {name: 'IN'}
+                        0: {name: '(OUT)'},
+                        1: {name: '(IN) '}
                     }
                 };
     

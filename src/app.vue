@@ -13,11 +13,11 @@
                 <f7-page>
                     <f7-navbar v-if="$theme.material" sliding></f7-navbar>
                     <f7-list>
-                        <f7-list-item link="/params/" link-view="#main-view"  title="Телеметрия" link-close-panel></f7-list-item>
-                        <f7-list-item link="/ctrlpump/" link-view="#main-view" link-close-panel title="Управление"></f7-list-item>
-                        <f7-list-item link="/system/" link-view="#main-view"  title="Система" link-close-panel></f7-list-item>
+                        <f7-list-item link="/params/" link-view="#main-view"  :title="$t('menu.telemetry')" link-close-panel></f7-list-item>
+                        <f7-list-item link="/ctrlpump/" link-view="#main-view" link-close-panel :title="$t('menu.ctrl')"></f7-list-item>
+                        <f7-list-item link="/system/" link-view="#main-view"  :title="$t('menu.system')" link-close-panel></f7-list-item>
   
-                        <f7-list-item link="/about/" title="О Cosmoiler"></f7-list-item>
+                        <f7-list-item link="/about/" :title="$t('menu.about')"></f7-list-item>
                     </f7-list>
                 </f7-page>
             </f7-pages>
@@ -66,25 +66,25 @@
                         
 <!--<f7-button v-on:click="test">Test</f7-button>-->
                         
-                        <f7-block-title :style="{'font-weight': 600}">Выберите режим работы </f7-block-title>
+                        <f7-block-title :style="{'font-weight': 600}">{{ $t('selectmode') }} </f7-block-title>
                         <f7-list media-list>
-                            <f7-list-item swipeout title="По пробегу..." media="<i class='icon icon-meter'></i>" link="#" :badge="badgeName1" badge-color="green" subtitle="Смазывать через заданное расстояние..." v-on:click="ctrlMode(1)">
+                            <f7-list-item swipeout :title="$t('mode.trip.title')" media="<i class='icon icon-meter'></i>" link="#" :badge="badgeName1" badge-color="green" :subtitle="$t('mode.trip.subtitle')" v-on:click="ctrlMode(1)">
                             <f7-swipeout-actions>
 
-                                <f7-swipeout-button close href="/trip/" color="purple">Настройки</f7-swipeout-button>   
+                                <f7-swipeout-button close href="/trip/" color="purple">{{ $t('settings') }}</f7-swipeout-button>   
                             <!--    <f7-swipeout-button close color="orange" href="/params/">Телеметрия</f7-swipeout-button>-->
                             </f7-swipeout-actions>
                             </f7-list-item>
-                            <f7-list-item swipeout title="По времени..." media="<i class='icon icon-time'></i>" link="#" :badge="badgeName2" badge-color="green" subtitle="Смазывать через заданное время..." v-on:click="ctrlMode(2)">
+                            <f7-list-item swipeout :title="$t('mode.time.title')" media="<i class='icon icon-time'></i>" link="#" :badge="badgeName2" badge-color="green" :subtitle="$t('mode.time.subtitle')" v-on:click="ctrlMode(2)">
                             <f7-swipeout-actions >
 <!--                                <f7-swipeout-button close color="purple" id="time" v-on:click="ctrlMode($event)">{{messonoff[1]}}</f7-swipeout-button>-->
-                                <f7-swipeout-button close href="/time/" color="purple">Настройки</f7-swipeout-button>
+                                <f7-swipeout-button close href="/time/" color="purple">{{ $t('settings') }}</f7-swipeout-button>
                             </f7-swipeout-actions>
                             </f7-list-item>
-                            <f7-list-item swipeout title="Вручную..." media="<i class='icon icon-right-hand'></i>" link="#" :badge="badgeName3" badge-color="green" subtitle="Смазывать вручную..." v-on:click="ctrlMode(3)">
+                            <f7-list-item swipeout :title="$t('mode.manual.title')" media="<i class='icon icon-right-hand'></i>" link="#" :badge="badgeName3" badge-color="green" :subtitle="$t('mode.manual.subtitle')" v-on:click="ctrlMode(3)">
                             <f7-swipeout-actions>
 <!--                                <f7-swipeout-button close color="purple" id="manual" v-on:click="ctrlMode($event)">{{messonoff[2]}}</f7-swipeout-button>-->
-                                <f7-swipeout-button close href="/manual/" color="purple">Настройки</f7-swipeout-button>
+                                <f7-swipeout-button close href="/manual/" color="purple">{{ $t('settings') }}</f7-swipeout-button>
                             </f7-swipeout-actions>                                 
                             </f7-list-item>                         
 <!--                            <f7-list-item v-if="false" swipeout title="Прокачка..." media="<i class='icon icon-repeat'></i>" link="#" :badge="badgeName4" badge-color="green" subtitle="Прокачать систему...">
@@ -97,7 +97,7 @@
                     <div class="preload" v-else=this.$store.state.connect>
                         <f7-grid>
                             <f7-col width="100">
-                                <p>Подключение... </p>
+                                <p>{{ $t('connect') }}</p>
                             </f7-col>
                             <f7-col width="100">
                                 <f7-preloader color="blue" size="40px"></f7-preloader>
@@ -170,7 +170,7 @@
             badgeName1: function() { // trip
                 if (this.$store.state.modejson.mode == 1) {
                     this.messonoff[0] = 'ВЫКЛ';
-                    return "ВКЛЮЧЕНО";
+                    return this.$i18n.translate('mode.on')
                 }
                 else {
                     this.messonoff[0] = 'ВКЛ';
@@ -180,7 +180,7 @@
             badgeName2: function() { // time
                 if (this.$store.state.modejson.mode == 2) {
                     this.messonoff[1] = 'ВЫКЛ';
-                    return "ВКЛЮЧЕНО";
+                    return this.$i18n.translate('mode.on');
                 }
                 else {
                     this.messonoff[1] = 'ВКЛ';
@@ -190,7 +190,7 @@
             badgeName3: function() { // manual
                 if (this.$store.state.modejson.mode == 3) {
                     this.messonoff[2] = 'ВЫКЛ';
-                    return "ВКЛЮЧЕНО";
+                    return this.$i18n.translate('mode.on');
                 }
                 else {
                     this.messonoff[2] = 'ВКЛ';
@@ -200,7 +200,7 @@
             badgeName4: function() { // pumping
                 if (this.$store.state.modejson.mode == 4) {
                     this.messonoff[3] = 'ВЫКЛ';
-                    return "ВКЛЮЧЕНО";
+                    return this.$i18n.translate('mode.on');
                 }
                 else {
                     this.messonoff[3] = 'ВКЛ';

@@ -1,5 +1,5 @@
 {
-    "selectmode": "Select mode",
+    "selectmode": "Choose operation mode",
     "settings": "Settings",
     "connect": "Connecting...",
     
@@ -12,9 +12,9 @@
     "mode.off": "OFF",
     
     "mode.trip.title": "Trip",
-    "mode.trip.subtitle": "Lubricate after a specified distance",
+    "mode.trip.subtitle": "Lubricate after specified distance",
     "mode.time.title": "Timer",
-    "mode.time.subtitle": "Lubricate after a specified time",
+    "mode.time.subtitle": "Lubricate after specified time intervals",
     "mode.manual.title": "Manual",
     "mode.manual.subtitle": "Lubricate manually",
 
@@ -31,8 +31,8 @@
     "settings.pump.off": "Time off: {p} ms",
     "settings.sensor.gnss": "GNSS",
     "settings.sensor.impulse": "Impulse",
-    "settings.sensor.ext": "Ext sensor",
-    "settings.sensor.imprev": "Impulses per revolution:",
+    "settings.sensor.ext": "Ext. sensor",
+    "settings.sensor.imprev": "Imp. per rev.:",
     "settings.sensor.wheel.title": "Tire parameters",
     "settings.sensor.wheel.rimdia": "Rim diameter",
     "settings.sensor.wheel.width": "Tire width (mm)",
@@ -65,11 +65,11 @@
     "system.psw": "Password",
     "system.title": "System settings",
     "system.wifi.title": "Connecting WiFi",
-    "system.update.title": "Update firmware",
+    "system.update.title": "Firmware update",
     "system.led.title": "Led",
     "system.led.bright": "Bright: {p}%",
     "system.attention.title": "Attention!",
-    "system.attention.content": "Before updating the firmware it is necessary to enter the data of the access point through which there is an access to the Internet.",
-    "system.alert": "Enter the access point name and password!"
+    "system.attention.content": "It is necessary to enter data of the access point, which has access to the Internet, before firmware updating",
+    "system.alert": "Enter name and password of access point!"
     
 }

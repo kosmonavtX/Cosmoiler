@@ -1,7 +1,7 @@
 {
-  "name": "framework7-vue-webpack-template",
-  "version": "1.0.1",
-  "description": "Framework7 Vue + Webpack starter app template",
+  "name": "Cosmoiler",
+  "version": "2.4.0",
+  "description": "Cosmoiler - automatic oiler of motorcycle chain",
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js"

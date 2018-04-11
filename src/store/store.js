@@ -83,6 +83,7 @@ const store = new Vuex.Store({
         connection: ws,
         connect: false,
         locale: window.navigator.userLanguage || window.navigator.language,
+        ver: "v2.5"
     },
     mutations: {
         SET_CONFIG (state, payload) {

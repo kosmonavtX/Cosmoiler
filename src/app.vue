@@ -46,7 +46,7 @@
                             <!--<f7-link icon-size="32px" v-on:click="reconnect"></f7-link>--> <!--icon-cosmoiler-logo_pict_font2-->
                         </f7-nav-left>
                         <f7-nav-center sliding>Cosmoiler</f7-nav-center>
-                        <div :style="styleVer">{{ver}}</div>
+                        <div :style="styleVer">{{this.$store.state.ver}}</div>
                         <f7-nav-right v-if=this.$store.state.connect>
                             <f7-link icon="icon-bars" open-panel="right"></f7-link>
                         </f7-nav-right>
@@ -162,7 +162,6 @@
                 messonoff: ['','','',''],
 /*                asd: document.location.host*/
                 styleVer: 'font-size:12px; margin-top: 5px',
-                ver: "v2.4"
             }
         },
         computed: {

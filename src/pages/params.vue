@@ -128,7 +128,7 @@ export default {
     computed: {
         NamePreset: function () {
             let nm = null;
-            switch (this.$store.state.modejson.mode) {
+            switch (this.$store.state.params.mode) {
                 case 1:
                     this.mode = this.$i18n.translate('mode.trip.title').toUpperCase();
                     break;
@@ -196,10 +196,14 @@ export default {
         TypeSensor: function () {
             if (this.flagTrip) {
                 if (this.$store.state.config.trip.sensor.gnss) {
-                    let lat = this.$store.state.params.lat;
-                    let lon = this.$store.state.params.lon;
+                    let lat = parseFloat(this.$store.state.params.lat).toFixed(6);
+                    let lon = parseFloat(this.$store.state.params.lon).toFixed(6);
                     if (lat < 0) lat = "S" + lat;
+                    else
+                        lat = "N" + lat;
                     if (lon < 0) lon = "W" + lon;
+                    else
+                        lon = "E" + lon;
                     this.sensor_footer = lat + ", " + lon;
                      return this.$i18n.translate('settings.sensor.gnss');
                 }

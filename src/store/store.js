@@ -99,6 +99,7 @@ const store = new Vuex.Store({
         },
         SET_MODE (state, payload) {
             state.modejson = payload;
+            state.params.mode = state.modejson.mode;
             //debug.log('SET_MODE');
         },
         CHNG_MODE (state, data) {

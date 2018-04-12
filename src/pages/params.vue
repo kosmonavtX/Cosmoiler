@@ -2,6 +2,7 @@
 <f7-page>
     <f7-navbar :title="this.$t('menu.telemetry')" back-link="Back" sliding></f7-navbar>
 
+<!--Mode = 0 and GNSS = true-->
     <div v-if="flag1">
         <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.$t('telemetry.sensor.content')">
             <f7-card-footer>{{sensor_footer}}</f7-card-footer>
@@ -16,8 +17,10 @@
 
         </f7-grid>
     </div>
-    
+
+<!--Mode = 1-->
     <div v-if="flagTrip">
+        <!--Импульсный-->
         <div v-if="!this.$store.state.config.trip.sensor.gnss">
             <f7-grid no-gutter>
                 <f7-col>
@@ -29,6 +32,7 @@
                 </f7-col>
             </f7-grid>
         </div>
+        <!-- GNSS -->
         <div v-if="this.$store.state.config.trip.sensor.gnss">
             <f7-grid no-gutter>
                 <f7-col>
@@ -37,9 +41,7 @@
             </f7-grid>
             <f7-grid>
                 <f7-col>
-                    <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.sensor_footer" :footer="TypeSensor">
-                        <!--<f7-card-footer>{{sensor_footer}}</f7-card-footer>-->
-                    </f7-card>
+                    <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.sensor_footer" :footer="TypeSensor"></f7-card>
                 </f7-col>
             </f7-grid>
         </div>
@@ -62,7 +64,7 @@
 
     </div>
 
-
+<!--Mode = 2-->
     <div v-if="flagTime">
         <f7-grid no-gutter>
             <f7-col>
@@ -84,6 +86,7 @@
         </f7-grid>
     </div>
 
+<!--Mode = 3-->
     <div v-if="flagMan">
         <f7-grid no-gutter>
             <f7-col>
@@ -179,21 +182,25 @@ export default {
             return Number(((imp*lwhl)/sensor)/1000).toFixed(0) + this.$i18n.translate('telemetry.odo.unit2');  
         },
         flag1: function() {
-            return (this.$store.state.modejson.mode === 0) && (this.$store.state.config.gnss)
+            return (this.$store.state.params.mode === 0) && (this.$store.state.config.gnss)
         },
         flagTrip: function() {
-            return this.$store.state.modejson.mode === 1
+            return (this.$store.state.params.mode === 1)
         },
         flagTime: function() {
-            return this.$store.state.modejson.mode === 2
+            return this.$store.state.params.mode === 2
         },    
         flagMan: function() {
-            return this.$store.state.modejson.mode === 3
+            return this.$store.state.params.mode === 3
         },         
         TypeSensor: function () {
             if (this.flagTrip) {
                 if (this.$store.state.config.trip.sensor.gnss) {
-                    this.sensor_footer = this.$store.state.params.lat + "d " +                         this.$store.state.params.lon;
+                    let lat = this.$store.state.params.lat;
+                    let lon = this.$store.state.params.lon;
+                    if (lat < 0) lat = "S" + lat;
+                    if (lon < 0) lon = "W" + lon;
+                    this.sensor_footer = lat + ", " + lon;
                      return this.$i18n.translate('settings.sensor.gnss');
                 }
                 else {

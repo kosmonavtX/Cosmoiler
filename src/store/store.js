@@ -77,13 +77,17 @@ const store = new Vuex.Store({
             avgspeed: 0,
             time: 0,
             kvolt: 1,
-            non: 0
+            non: 0,
+            fix: false,
+            lat: 0.000000,
+            lon: 0.000000,
+            mode: 0,
         },
         debug: ["234", 4544],
         connection: ws,
         connect: false,
         locale: window.navigator.userLanguage || window.navigator.language,
-        ver: "v2.5"
+        ver: "v2.6"
     },
     mutations: {
         SET_CONFIG (state, payload) {

@@ -65,7 +65,7 @@
     </div>
 
 <!--Mode = 2-->
-    <div v-if="flagTime">
+    <div v-show="flagTime">
         <f7-grid no-gutter>
             <f7-col>
                 <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
@@ -87,13 +87,14 @@
     </div>
 
 <!--Mode = 3-->
-    <div v-if="flagMan">
+    <div v-show="flagMan">
         <f7-grid no-gutter>
             <f7-col>
-                <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
+                <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" ></f7-card>
             </f7-col>
             <f7-col>
                 <f7-card :title="this.$t('telemetry.sensor.title')" :content="TypeSensor">
+                    <!--<f7-card-footer><f7-badge color="green">ВКЛ</f7-badge></f7-card-footer>-->
                     <!--<f7-card-footer>{{sensor_footer}}</f7-card-footer>-->
                 </f7-card>
             </f7-col>
@@ -124,30 +125,10 @@ export default {
     
     created: function () {
         this.fetchParams();
+        this.namePreset();
     },
     computed: {
-        NamePreset: function () {
-            let nm = null;
-            switch (this.$store.state.params.mode) {
-                case 1:
-                    this.mode = this.$i18n.translate('mode.trip.title').toUpperCase();
-                    break;
-                case 2:
-                    this.mode = this.$i18n.translate('mode.time.title').toUpperCase();;
-                    break;
-                case 3:
-                    this.mode = this.$i18n.translate('mode.manual.title').toUpperCase();;
-                    break;                    
-            }  
-            switch (this.$store.state.params.preset) {
-                case 0: 
-                    return this.$i18n.translate('settings.presets.city');
-                    break;
-                case 1:
-                    return this.$i18n.translate('settings.presets.way');
-                    break;
-            }
-        },
+        NamePreset: function () { return this.namePreset() },
         Speed: function () {
             return this.$store.state.params.speed + this.$i18n.translate('telemetry.speed.unit');
         },
@@ -182,16 +163,16 @@ export default {
             return Number(((imp*lwhl)/sensor)/1000).toFixed(0) + this.$i18n.translate('telemetry.odo.unit2');  
         },
         flag1: function() {
-            return (this.$store.state.params.mode === 0) && (this.$store.state.config.gnss)
+            return (this.$store.state.params.mod === 0) && (this.$store.state.config.gnss)
         },
         flagTrip: function() {
-            return (this.$store.state.params.mode === 1)
+            return (this.$store.state.params.mod === 1)
         },
         flagTime: function() {
-            return this.$store.state.params.mode === 2
+            return this.$store.state.params.mod === 2
         },    
         flagMan: function() {
-            return this.$store.state.params.mode === 3
+            return this.$store.state.params.mod === 3
         },         
         TypeSensor: function () {
             if (this.flagTrip) {
@@ -238,6 +219,28 @@ export default {
             this.interval = setInterval(() => {
                 this.$store.state.connection.send(JSON.stringify({cmd: "telemetry"}));    
             }, 1000);
+        },
+        namePreset: function() {
+                        let nm = null;
+            switch (this.$store.state.params.mod) {
+                case 1:
+                    this.mode = this.$i18n.translate('mode.trip.title').toUpperCase();
+                    break;
+                case 2:
+                    this.mode = this.$i18n.translate('mode.time.title').toUpperCase();;
+                    break;
+                case 3:
+                    this.mode = this.$i18n.translate('mode.manual.title').toUpperCase();;
+                    break;                    
+            }  
+            switch (this.$store.state.params.preset) {
+                case 0: 
+                    return this.$i18n.translate('settings.presets.city');
+                    break;
+                case 1:
+                    return this.$i18n.translate('settings.presets.way');
+                    break;
+            }
         },
     },    
     beforeDestroy: function () {

@@ -44,7 +44,7 @@
     "button.stop": "Стоп",
     "button.reverse": "Реверс {p}",
     "button.save": "Сохранить",
-    "button.clear": "Очистить SSID",
+    "button.clear": "Очистить",
     "button.update": "Обновить",
     
     "telemetry.sensor.title": "Датчик",

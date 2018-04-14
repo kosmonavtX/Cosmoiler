@@ -12,9 +12,9 @@ function uri() {
     if (document.location.host.indexOf('localhost') + 1)
     {
         /*store.state.connect = true;*/
-        //return '192.168.1.233'
+        return '192.168.1.235'
         //return '192.168.1.224'  // sn = D7DDFB
-        return '192.168.1.89' // sn = 6904496
+        //return '192.168.1.89' // sn = 6904496
     }
     else
         if (document.location.host === "")
@@ -71,23 +71,23 @@ const store = new Vuex.Store({
             voltage: 0,
             sp: 0,
             imp: 0,
-            odo: 0,
+/*            odo: 0,
             speed: 0,
             maxspeed: 0,
             avgspeed: 0,
-            time: 0,
+            time: 0,*/
             kvolt: 1,
             non: 0,
-            fix: false,
+/*            fix: false,
             lat: 0.000000,
-            lon: 0.000000,
-            mode: 0,
+            lon: 0.000000,*/
+            mod: 0,
         },
         debug: ["234", 4544],
         connection: ws,
         connect: false,
         locale: window.navigator.userLanguage || window.navigator.language,
-        ver: "v2.6"
+        versw: "v2.6"
     },
     mutations: {
         SET_CONFIG (state, payload) {
@@ -99,14 +99,14 @@ const store = new Vuex.Store({
         },
         SET_MODE (state, payload) {
             state.modejson = payload;
-            state.params.mode = state.modejson.mode;
-            //debug.log('SET_MODE');
+            state.params.mod = state.modejson.mode;
+            debug.log('SET_MODE', payload);
         },
         CHNG_MODE (state, data) {
             state.modejson.mode = data.mode;
-            state.params.mode = data.mode;
+            state.params.mod = data.mode;
             //state.modejson = { cmd:"post", param: ["/mode.json", {...state.modejson}] };
-            debug.log(data);
+            debug.log("Chng Mode", data);
         },
         SET_VER (state, payload) {
             state.ver = payload;
@@ -265,7 +265,7 @@ store.state.connection.onmessage = function(message) {
         store.commit('CONNECT', true);
        // store.commit('PUSH_DEBUG', message.data);
         let incoming = JSON.parse(message.data);
-        debug.log(incoming);
+        debug.log("Incoming", incoming);
         if ("config" in incoming) {
             store.commit('SET_CONFIG', incoming);
         }

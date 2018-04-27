@@ -37,3 +37,12 @@ git push origin master
 
 pause
 
+cd ..\..\ver3\
+
+pgb unlock 269212
+pgb clone 2742181
+pgb download 2742181 Android
+
+curl --upload-file cosmoiler-release.apk ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/android/
+pause
+

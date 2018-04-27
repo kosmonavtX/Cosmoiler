@@ -158,7 +158,7 @@ export default {
         },
         Remains: function() {
             if (this.$store.state.config.trip.sensor.gnss)
-                return this.$state.params.trip;
+                return this.$store.state.params.trip;
             else {
                 let imp = this.$store.state.params.imp;
                 let sensor = this.$store.state.config.trip.sensor.imp;

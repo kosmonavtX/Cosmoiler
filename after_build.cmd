@@ -1,5 +1,9 @@
 @echo off
 
+call npm run build
+
+pause
+
 copy .\dist\app.css ..\Phonegap\Cosmoiler\www\app.css
 copy .\dist\app.js ..\Phonegap\Cosmoiler\www\app.js
 copy .\dist\vendor.js ..\Phonegap\Cosmoiler\www\vendor.js
@@ -39,9 +43,9 @@ pause
 
 cd ..\..\ver3\
 
-pgb unlock 269212
-pgb clone 2742181
-pgb download 2742181 Android
+call pgb unlock Android 269212
+call pgb clone 2742181
+call pgb download 2742181 Android
 
 curl --upload-file cosmoiler-release.apk ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/android/
 pause

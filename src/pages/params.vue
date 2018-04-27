@@ -157,10 +157,14 @@ export default {
             return this.$store.state.params.non + '';
         },
         Remains: function() {
-            let imp = this.$store.state.params.imp;
-            let sensor = this.$store.state.config.trip.sensor.imp;
-            let lwhl = this.$store.state.config.trip.wheel.lenght;
-            return Number(((imp*lwhl)/sensor)/1000).toFixed(0) + this.$i18n.translate('telemetry.odo.unit2');  
+            if (this.$store.state.config.trip.sensor.gnss)
+                return this.$state.params.trip;
+            else {
+                let imp = this.$store.state.params.imp;
+                let sensor = this.$store.state.config.trip.sensor.imp;
+                let lwhl = this.$store.state.config.trip.wheel.lenght;
+                return Number(((imp*lwhl)/sensor)/1000).toFixed(0) + this.$i18n.translate('telemetry.odo.unit2');  
+            }
         },
         flag1: function() {
             return (this.$store.state.params.mod === 0) && (this.$store.state.config.gnss)

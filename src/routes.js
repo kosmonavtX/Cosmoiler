@@ -29,6 +29,6 @@ export default [
     },
     {
         path: '/debug/',
-        component: requre('./pages/debug.vue')
+        component: require('./pages/debug.vue')
     }
 ]

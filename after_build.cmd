@@ -1,8 +1,15 @@
 @echo off
 
+echo --------------------------------------
+echo Run Build
+echo --------------------------------------
 call npm run build
 
 pause
+
+echo --------------------------------------
+echo Upload files
+echo --------------------------------------
 
 copy .\dist\app.css ..\Phonegap\Cosmoiler\www\app.css
 copy .\dist\app.js ..\Phonegap\Cosmoiler\www\app.js
@@ -17,6 +24,10 @@ curl --upload-file .\dist\manifest.js ftp://cosmoile:tdm900A2006@ftp.cosmoiler.r
 curl --upload-file .\dist\manifest.cache ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/spiffs/
 
 pause 
+
+echo --------------------------------------
+echo Send to GIT
+echo --------------------------------------
 
 git status
 set /p comment="Comment: "
@@ -40,6 +51,10 @@ rem github
 git push origin master
 
 pause
+
+echo --------------------------------------
+echo Compile for Android
+echo --------------------------------------
 
 cd ..\..\ver3\
 

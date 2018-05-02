@@ -83,7 +83,7 @@ const store = new Vuex.Store({
             lon: 0.000000,
             mod: 0,
         },
-        debug: ["234", 4544],
+        debug: {speed: 255},
         connection: ws,
         connect: false,
         locale: window.navigator.userLanguage || window.navigator.language,
@@ -209,8 +209,11 @@ const store = new Vuex.Store({
         },
         CHNG_SYSTEM (state) {
             state.system = { cmd: "post", param: ["/system.json", {...state.system}] }
-        }
-
+        },
+    // DEBUG
+        UPD_DBG_SPEED (state, value) {
+            state.debug.speed = value;  
+        },
     },
     actions: {
         // Сохранение файла config.json
@@ -240,6 +243,9 @@ const store = new Vuex.Store({
         Bright (data) {
             //commit('UPD_SYS_BRIGHT', data);
             socket.send(store.state.connection, JSON.stringify({cmd:"bright", param: store.state.system.bright}));
+        },
+        Speed (data) {
+            socket.send(store.state.connection, JSON.stringify({cmd:"debug", param: store.state.debug.speed}));  
         },
         reconnect ({commit}) {
             debug.log('reconnect')

@@ -27,4 +27,8 @@ export default [
         path: '/system/',
         component: require('./pages/system.vue')
     },
+    {
+        path: '/debug/',
+        component: requre('./pages/debug.vue')
+    }
 ]

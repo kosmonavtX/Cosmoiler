@@ -2,111 +2,113 @@
 <f7-page>
     <f7-navbar :title="this.$t('menu.telemetry')" back-link="Back" sliding></f7-navbar>
 
-<!--Mode = 0 and GNSS = true-->
-    <div v-if="flag1">
-        <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.$t('telemetry.sensor.content')">
-            <f7-card-footer>{{sensor_footer}}</f7-card-footer>
-        </f7-card>
-        <f7-grid no-gutter>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.speed.title')" :content="Speed"></f7-card>
-            </f7-col>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
-            </f7-col>
+    <div v-if=this.$store.state.connect>
+        <!--Mode = 0 and GNSS = true-->
+        <div v-if="flag1">
+            <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.$t('telemetry.sensor.content')">
+                <f7-card-footer>{{sensor_footer}}</f7-card-footer>
+            </f7-card>
+            <f7-grid no-gutter>
+                <f7-col>
+                    <f7-card :title="this.$t('telemetry.speed.title')" :content="Speed"></f7-card>
+                </f7-col>
+                <f7-col>
+                    <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
+                </f7-col>
 
-        </f7-grid>
-    </div>
+            </f7-grid>
+        </div>
 
-<!--Mode = 1-->
-    <div v-if="flagTrip">
-        <!--Импульсный-->
-        <div v-if="!this.$store.state.config.trip.sensor.gnss">
+        <!--Mode = 1-->
+        <div v-if="flagTrip">
+            <!--Импульсный-->
+            <div v-if="!this.$store.state.config.trip.sensor.gnss">
+                <f7-grid no-gutter>
+                    <f7-col>
+                        <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
+                    </f7-col>
+                    <f7-col>
+                        <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.sensor_footer" :footer="TypeSensor">
+                        </f7-card>
+                    </f7-col>
+                </f7-grid>
+            </div>
+            <!-- GNSS -->
+            <div v-if="this.$store.state.config.trip.sensor.gnss">
+                <f7-grid no-gutter>
+                    <f7-col>
+                        <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
+                    </f7-col>
+                </f7-grid>
+                <f7-grid>
+                    <f7-col>
+                        <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.sensor_footer" :footer="TypeSensor"></f7-card>
+                    </f7-col>
+                </f7-grid>
+            </div>
+            <f7-grid no-gutter>
+                <f7-col>
+                    <f7-card :title="this.$t('telemetry.speed.title')" :content="Speed" :footer="AvgSpeed"></f7-card>
+                </f7-col>
+                <f7-col>
+                    <f7-card :title="this.$t('telemetry.odo.title')" :content="Odo" :footer="Remains"></f7-card>
+                </f7-col>
+            </f7-grid>
+            <f7-grid no-gutter>
+                <f7-col>
+                    <f7-card :title="this.$t('telemetry.pump.title')" :content="Non"></f7-card>
+                </f7-col>
+                <f7-col>
+                    <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
+                </f7-col>
+            </f7-grid>
+
+        </div>
+
+        <!--Mode = 2-->
+        <div v-show="flagTime">
             <f7-grid no-gutter>
                 <f7-col>
                     <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
                 </f7-col>
                 <f7-col>
                     <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.sensor_footer" :footer="TypeSensor">
+                        <!--<f7-card-footer></f7-card-footer>-->
                     </f7-card>
                 </f7-col>
             </f7-grid>
-        </div>
-        <!-- GNSS -->
-        <div v-if="this.$store.state.config.trip.sensor.gnss">
             <f7-grid no-gutter>
                 <f7-col>
-                    <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
+                    <f7-card :title="this.$t('telemetry.pump.title')" :content="Non"></f7-card>
                 </f7-col>
-            </f7-grid>
-            <f7-grid>
                 <f7-col>
-                    <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.sensor_footer" :footer="TypeSensor"></f7-card>
+                    <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
                 </f7-col>
             </f7-grid>
         </div>
-        <f7-grid no-gutter>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.speed.title')" :content="Speed" :footer="AvgSpeed"></f7-card>
-            </f7-col>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.odo.title')" :content="Odo" :footer="Remains"></f7-card>
-            </f7-col>
-        </f7-grid>
-        <f7-grid no-gutter>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.pump.title')" :content="Non"></f7-card>
-            </f7-col>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
-            </f7-col>
-        </f7-grid>
 
-    </div>
-
-<!--Mode = 2-->
-    <div v-show="flagTime">
-        <f7-grid no-gutter>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" :footer="NamePreset"></f7-card>
-            </f7-col>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.sensor_footer" :footer="TypeSensor">
-                    <!--<f7-card-footer></f7-card-footer>-->
-                </f7-card>
-            </f7-col>
-        </f7-grid>
-        <f7-grid no-gutter>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.pump.title')" :content="Non"></f7-card>
-            </f7-col>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
-            </f7-col>
-        </f7-grid>
-    </div>
-
-<!--Mode = 3-->
-    <div v-show="flagMan">
-        <f7-grid no-gutter>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.mode.title')" :content="mode" ></f7-card>
-            </f7-col>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.sensor.title')" :content="TypeSensor">
-                    <!--<f7-card-footer><f7-badge color="green">ВКЛ</f7-badge></f7-card-footer>-->
-                    <!--<f7-card-footer>{{sensor_footer}}</f7-card-footer>-->
-                </f7-card>
-            </f7-col>
-        </f7-grid>
-        <f7-grid no-gutter>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.pump.title')" :content="Non"></f7-card>
-            </f7-col>
-            <f7-col>
-                <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
-            </f7-col>
-        </f7-grid>
+        <!--Mode = 3-->
+        <div v-show="flagMan">
+            <f7-grid no-gutter>
+                <f7-col>
+                    <f7-card :title="this.$t('telemetry.mode.title')" :content="mode"></f7-card>
+                </f7-col>
+                <f7-col>
+                    <f7-card :title="this.$t('telemetry.sensor.title')" :content="TypeSensor">
+                        <!--<f7-card-footer><f7-badge color="green">ВКЛ</f7-badge></f7-card-footer>-->
+                        <!--<f7-card-footer>{{sensor_footer}}</f7-card-footer>-->
+                    </f7-card>
+                </f7-col>
+            </f7-grid>
+            <f7-grid no-gutter>
+                <f7-col>
+                    <f7-card :title="this.$t('telemetry.pump.title')" :content="Non"></f7-card>
+                </f7-col>
+                <f7-col>
+                    <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
+                </f7-col>
+            </f7-grid>
+        </div>
     </div>
 </f7-page>
 </template>

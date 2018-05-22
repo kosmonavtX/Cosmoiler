@@ -2,6 +2,7 @@
 <f7-page>
     <f7-navbar :title="this.$t('settings')" back-link="Back" sliding></f7-navbar>
 
+    <div v-if=this.$store.state.connect>
     <f7-list accordion>
 <!----------ПРЕДУСТАНОВКИ------------>        
         <f7-list-item accordion-item :title="this.$t('settings.presets.title')" class="settings" media="<i class='icon icon-presets' >">
@@ -82,7 +83,7 @@
                            <f7-list >
 
    
-                                <f7-list-item v-if="param13" media="<i class='icon icon-gps'>"  radio name="my-radio" v-bind:value="1" :checked="param12" @click="onSetTypeSensor(1)">{{ $t('settings.sensor.gnss') }}</f7-list-item>
+                                <f7-list-item media="<i class='icon icon-gps'>"  radio name="my-radio" v-bind:value="1" :checked="param12" @click="onSetTypeSensor(1)">{{ $t('settings.sensor.gnss') }}</f7-list-item>
 
                                 <f7-list-item media="<i class='icon icon-gauge2'>" radio name="my-radio" v-bind:value="2" :checked="!param12" @click="onSetTypeSensor(2)">{{ $t('settings.sensor.impulse') }}</f7-list-item>
 
@@ -170,6 +171,7 @@
             </f7-accordion-content>
         </f7-list-item>-->
     </f7-list>
+    </div>
 </f7-page>
 </template>
 

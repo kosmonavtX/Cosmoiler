@@ -9,7 +9,7 @@
                             </f7-swipeout-actions>
                             </f7-list-item>
     </f7-list>-->
-
+    <div v-if=this.$store.state.connect>
     <f7-list accordion>
         <f7-list-item accordion-item :title="this.$t('settings.presets.title')" class="settings" media="<i class='icon icon-presets'>">
             <f7-accordion-content>
@@ -87,6 +87,7 @@
             </f7-accordion-content>
         </f7-list-item>
     </f7-list>
+    </div>
 
 
     <f7-list accordion v-if="false">

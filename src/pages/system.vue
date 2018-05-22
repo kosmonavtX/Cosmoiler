@@ -3,7 +3,7 @@
     <f7-navbar :title="this.$t('system.title')" back-link="Back" sliding></f7-navbar>
 
 
-    
+<div v-if=this.$store.state.connect>    
 <f7-list accordion>
     <f7-list-item accordion-item :title="this.$t('system.wifi.title')" class="system" media="<i class='icon icon-wifi-logo'>">
         <f7-accordion-content>
@@ -87,7 +87,7 @@
     </f7-list-item>
 
 </f7-list>    
-        
+</div>        
 <!--
    <f7-list media-list v-if="false">      
         

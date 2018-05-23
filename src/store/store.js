@@ -172,6 +172,7 @@ const store = new Vuex.Store({
         },
         SET_SENSOR_GNSS (state) {
             state.config.trip.sensor.gnss = true;
+            state.config.gnss = true;
         },
         SET_SENSOR_IMP (state) {
             state.config.trip.sensor.gnss = false;

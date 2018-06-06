@@ -37,7 +37,7 @@
     "settings.sensor.wheel.width": "Ширина (мм)",
     "settings.sensor.wheel.height": "Профиль (%)",
     
-    "ctrlpump.title": "Управление насосом",
+    "ctrlpump.title": "Заполнение системы",
     
     "button.reset": "Сброс",
     "button.start": "Старт",
@@ -49,6 +49,7 @@
     
     "telemetry.sensor.title": "Датчик",
     "telemetry.sensor.content": "ГНСС",
+    "telemetry.sensor.time.footer": "Таймер",
     "telemetry.mode.title": "Режим",
     "telemetry.speed.title": "Скорость",
     "telemetry.speed.unit": " км/ч",

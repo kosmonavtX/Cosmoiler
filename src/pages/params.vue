@@ -210,7 +210,7 @@ export default {
 
                     this.sensor_footer = myDate;
 /*                        min.toFixed(0,2) + ":" + (this.$store.state.params.time/1000).toFixed(0) + " сек";*/
-                    return this.$i18n.translate('mode.time.title'); 
+                    return this.$i18n.translate('telemetry.sensor.time.footer'); 
             }
             if (this.flagMan) {
                  return this.$i18n.translate('telemetry.manual.button');    

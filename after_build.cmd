@@ -23,6 +23,16 @@ curl --upload-file .\dist\vendor.js ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/
 curl --upload-file .\dist\manifest.js ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/spiffs/
 curl --upload-file .\dist\manifest.cache ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/spiffs/
 
+bin2c -d _appcssgz.h -o _appcssgz.c -n _appcssgz .\dist\app.css.gz
+bin2c -d _appjsgz.h -o _appjsgz.c -n _appjsgz .\dist\app.js.gz
+bin2c -d _indexhtm.h -o _indexhtm.c -n _indexhtm .\dist\index.htm
+bin2c -d _manifestcache.h -o _manifestcache.c -n _manifestcache .\dist\manifest.cache
+bin2c -d _manifestjs.h -o _manifestjs.c -n _manifestjs .\dist\manifest.js
+bin2c -d _vendorjs.h -o _vendorjs.c -n _vendorjs .\dist\vendor.js.gz
+
+move *.h ..\..\Firmware\cosmoiler-workspace\cosmoiler\Trubleshooting
+move *.c ..\..\Firmware\cosmoiler-workspace\cosmoiler\Trubleshooting
+
 pause 
 
 echo --------------------------------------

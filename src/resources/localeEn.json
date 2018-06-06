@@ -50,6 +50,7 @@
     
     "telemetry.sensor.title": "Sensor",
     "telemetry.sensor.content": "GNSS",
+    "telemetry.sensor.time.footer": "Timer",
     "telemetry.mode.title": "Mode",
     "telemetry.speed.title": "Speed",
     "telemetry.speed.unit": " km/h",

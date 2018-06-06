@@ -3,9 +3,8 @@
     <f7-navbar :title="this.$t('menu.about')" back-link="Back" sliding></f7-navbar>
     <f7-block inner>
         <p>S/N: {{obj.sn}}</p>
-        <!--<p>Firmware version: {{obj.fw.major}}.{{obj.fw.minor}}.{{obj.fw.build}}</p>-->
-        <p>Firmware version: {{obj.fw}}</p>
-        <p>HW version: rev.{{obj.hw}}</p>
+        <p>FW: {{obj.fw}}</p>
+        <p>HW: rev.{{obj.hw}}</p>
     </f7-block>
   </f7-page>
 </template>

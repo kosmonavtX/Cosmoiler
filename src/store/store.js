@@ -12,7 +12,7 @@ function uri() {
     if (document.location.host.indexOf('localhost') + 1)
     {
         /*store.state.connect = true;*/
-        return '192.168.1.116'
+        return '192.168.1.116' // sn = 971186
         //return '192.168.1.224'  // sn = D7DDFB
         //return '192.168.1.89' // sn = 6904496
     }
@@ -39,14 +39,14 @@ const store = new Vuex.Store({
         modejson: {mode: 0, preset: 0},
         config: {
                 correctionADC: 0,
-                gnss: true,
+                gnss: false,
                 pump: {dpms: null, dpdp: null},
                 pumping:{
                     time: null,
                     pump: {dpms: null, dpdp: null}
                 },
                 trip:{
-                    smart: {adxl: false, prediction: null},
+                    smart: {adxl: false, prediction: null, maxsp: 150},
                     sensor: {gnss: false, extsp: false, imp: 16},
                     presets: [
                         {trip_m: 2000, dp_num: 5, imptripm: 0},
@@ -87,7 +87,7 @@ const store = new Vuex.Store({
         connection: ws,
         connect: false,
         locale: window.navigator.userLanguage || window.navigator.language,
-        versw: "v2.6"
+        versw: "v2.7"
     },
     mutations: {
         SET_CONFIG (state, payload) {
@@ -157,6 +157,9 @@ const store = new Vuex.Store({
         UPD_TRIP_SENSOR_IMP (state, value) {
             state.config.trip.sensor.imp = value.data
         },
+        UPD_TRIP_MAXSP (state, value) {
+            state.config.trip.smart.maxsp = value.data 
+        },
         CALC_IMPTRIPM (state) {
             debug.log('CALC_IMPTRIPM')
             /* вычисление длины окружности колеса */
@@ -172,7 +175,10 @@ const store = new Vuex.Store({
         },
         SET_SENSOR_GNSS (state) {
             state.config.trip.sensor.gnss = true;
-            state.config.gnss = true;
+            //state.config.gnss = true;
+        },
+        SET_GNSS (state, payload) {
+            state.config.gnss = payload.main_gnss;
         },
         SET_SENSOR_IMP (state) {
             state.config.trip.sensor.gnss = false;
@@ -285,8 +291,13 @@ store.state.connection.onmessage = function(message) {
         else if ("wifi" in incoming) {
             store.commit('SET_SYSTEM', incoming)
         }
-        else if ("voltage" in incoming)
+        else if ("voltage" in incoming) {
             store.commit('SET_PARAMS', incoming)
+        }
+        else if ("main_gnss" in incoming) {
+            store.commit("SET_GNSS", incoming);
+            debug.log("GNSS: ", incoming.main_gnss)
+        }
     }
     catch(e) {
         debug.log('Error, either a bug or this isn\'t valid JSON: ', message.data)

@@ -45,6 +45,9 @@
                                     <f7-label class="labelin">{{ $t('settings.presets.drop', {p: param4}) }} </f7-label>
                                     <f7-input color="brown" type="range" id="3" v-model.number="param4" min="1" max="10" step="1" placeholder="Количество капель за цикл">
                                     </f7-input>
+                                    <f7-label class="labelin">{{ $t('settings.presets.maxspeed', {p: param_MAXSPEED}) }} </f7-label>
+                                    <f7-input color="green" type="range" id="4" v-model.number="param_MAXSPEED" min="100" max="200" step="10" placeholder="Максимальная скорость">
+                                    </f7-input>
                                 </div>
                             </f7-card-content>
                         </f7-card>
@@ -82,9 +85,8 @@
                         <div slot="inner" >
                            <f7-list >
 
-   
-                                <f7-list-item media="<i class='icon icon-gps'>"  radio name="my-radio" v-bind:value="1" :checked="param12" @click="onSetTypeSensor(1)">{{ $t('settings.sensor.gnss') }}</f7-list-item>
-
+                                <f7-list-item v-if="this.$store.state.config.gnss" media="<i class='icon icon-gps'>"  radio name="my-radio" v-bind:value="1" :checked="param12" @click="onSetTypeSensor(1)">{{ $t('settings.sensor.gnss') }}</f7-list-item>
+                               
                                 <f7-list-item media="<i class='icon icon-gauge2'>" radio name="my-radio" v-bind:value="2" :checked="!param12" @click="onSetTypeSensor(2)">{{ $t('settings.sensor.impulse') }}</f7-list-item>
 
 
@@ -210,7 +212,13 @@
                 set(value) {
                     this.$store.commit({type:'UPD_TRIP_DPNUM', preset: 1, data: value})
                 }
-            },             
+            },  
+            param_MAXSPEED: {
+                get () {return this.$store.state.config.trip.smart.maxsp},
+                set (value) {
+                    this.$store.commit({type:'UPD_TRIP_MAXSP', data: value})
+                }
+            },
             param5: {
                 get () { return this.$store.state.config.pump.dpms },
                 set(value) {
@@ -291,6 +299,9 @@
                         break;
                 }
             }
+        },
+        beforeCreate: function() {
+            this.$store.state.connection.send(JSON.stringify({cmd:"get", param: ["gnss"]})); 
         },
         beforeDestroy: function() {
             debug.log('BACK')

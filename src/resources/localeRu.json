@@ -26,6 +26,7 @@
     "settings.presets.distance": "Расстояние: {p} км",
     "settings.presets.time": "Таймер: {p} сек",
     "settings.presets.drop": "Капли: {p}",
+    "settings.presets.maxspeed": "Mакс. скорость: {p} км/ч",
     "settings.pump.on": "Время вкл: {p} мсек",
     "settings.pump.off": "Время выкл: {p} мсек",
     "settings.sensor.gnss": "ГНСС",

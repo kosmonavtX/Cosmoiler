@@ -183,8 +183,8 @@ export default {
         TypeSensor: function () {
             if (this.flagTrip) {
                 if (this.$store.state.config.trip.sensor.gnss) {
-                    let lat = parseFloat(this.$store.state.params.lat).toFixed(6);
-                    let lon = parseFloat(this.$store.state.params.lon).toFixed(6);
+                    let lat = parseFloat(this.$store.state.params.lat).toFixed(5);
+                    let lon = parseFloat(this.$store.state.params.lon).toFixed(5);
                     if (lat < 0) lat = "S" + lat;
                     else
                         lat = "N" + lat;

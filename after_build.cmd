@@ -36,7 +36,7 @@ move *.c ..\..\Firmware\cosmoiler-workspace\cosmoiler\Trubleshooting
 pause 
 
 echo --------------------------------------
-echo Send to GIT
+echo Send to BITBUCKET
 echo --------------------------------------
 
 git status
@@ -48,7 +48,7 @@ git push origin2 master
 
 copy .\dist\app.css.gz ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common\app.css.gz
 copy .\dist\app.js.gz ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common\app.js.gz
-copy .\dist\vendor.js ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common\vendor.js
+copy .\dist\vendor.js.gz ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common\vendor.js.gz
 copy .\dist\manifest.js ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common\manifest.js
 
 cd ..\Phonegap\Cosmoiler\
@@ -57,8 +57,8 @@ git status
 pause
 git commit -m "%comment%" -a
 
-rem github
 git push origin master
+git push github master
 
 pause
 

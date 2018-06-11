@@ -4,7 +4,7 @@
     "connect": "Connecting...",
     
     "menu.telemetry": "Telemetry",
-    "menu.ctrl": "Pumping",
+    "menu.ctrl": "Priming",
     "menu.system": "System",
     "menu.about": "About Cosmoiler",
  
@@ -27,6 +27,7 @@
     "settings.presets.distance": "Distance: {p} km",
     "settings.presets.time": "Timer: {p} s",
     "settings.presets.drop": "Drop of oil: {p}",
+    "settings.presets.maxspeed": "Max. speed: {p} km/h",
     "settings.pump.on": "Time on: {p} ms",
     "settings.pump.off": "Time off: {p} ms",
     "settings.sensor.gnss": "GNSS",
@@ -38,7 +39,7 @@
     "settings.sensor.wheel.width": "Tire width (mm)",
     "settings.sensor.wheel.height": "Tire height (%)",
     
-    "ctrlpump.title": "Control pump",
+    "ctrlpump.title": "Priming",
     
     "button.reset": "Reset",
     "button.start": "Start",

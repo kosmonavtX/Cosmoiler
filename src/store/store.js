@@ -12,7 +12,7 @@ function uri() {
     if (document.location.host.indexOf('localhost') + 1)
     {
         /*store.state.connect = true;*/
-        return '192.168.1.116' // sn = 971186
+        return '192.168.1.150' // sn = 971186
         //return '192.168.1.224'  // sn = D7DDFB
         //return '192.168.1.89' // sn = 6904496
     }

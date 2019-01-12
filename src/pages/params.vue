@@ -175,7 +175,7 @@ export default {
             return (this.$store.state.params.mod === 1)
         },
         flagTime: function() {
-            return this.$store.state.params.mod === 2
+            return ((this.$store.state.params.mod === 2) || (this.$store.state.params.mod === 5))
         },    
         flagMan: function() {
             return this.$store.state.params.mod === 3
@@ -233,11 +233,14 @@ export default {
                     this.mode = this.$i18n.translate('mode.trip.title').toUpperCase();
                     break;
                 case 2:
-                    this.mode = this.$i18n.translate('mode.time.title').toUpperCase();;
+                    this.mode = this.$i18n.translate('mode.time.title').toUpperCase();
                     break;
                 case 3:
-                    this.mode = this.$i18n.translate('mode.manual.title').toUpperCase();;
-                    break;                    
+                    this.mode = this.$i18n.translate('mode.manual.title').toUpperCase();
+                    break;
+                case 5:
+                    this.mode = this.$i18n.translate('mode.time.title').toUpperCase();
+                    break;
             }  
             switch (this.$store.state.params.preset) {
                 case 0: 

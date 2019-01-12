@@ -66,6 +66,8 @@ const store = new Vuex.Store({
                 }
         },
         system: {bright: 32, wifi: {connect: false, ssid: null, psw: null}},
+        pn: {pn: null, ssid: "Cosmoiler_", psw: null},
+        ver: {fw: null, hw: null},
         params: {
             preset: null,
             voltage: 0,
@@ -87,7 +89,7 @@ const store = new Vuex.Store({
         connection: ws,
         connect: false,
         locale: window.navigator.userLanguage || window.navigator.language,
-        versw: "v2.7"
+        versw: "v2.8"
     },
     mutations: {
         SET_CONFIG (state, payload) {
@@ -113,6 +115,9 @@ const store = new Vuex.Store({
         },
         SET_SYSTEM (state, payload) {
             state.system = payload
+        },
+        SET_PN (state, payload) {
+            state.pn = payload  
         },
         SET_PARAMS (state, payload) {
             state.params = payload
@@ -217,6 +222,13 @@ const store = new Vuex.Store({
         CHNG_SYSTEM (state) {
             state.system = { cmd: "post", param: ["/system.json", {...state.system}] }
         },
+    // PN
+        UPD_PN_SSID (state, value) {
+            state.pn.ssid = value  
+        },
+        UPD_PN_PSW (state, value) {
+            state.pn.psw = value
+        },
     // DEBUG
         UPD_DBG_SPEED (state, value) {
             state.debug.speed = value;  
@@ -240,6 +252,9 @@ const store = new Vuex.Store({
            // commit('CHNG_SYSTEM');
             socket.send(store.state.connection, JSON.stringify({cmd: "post", param: ["/system.json",{...store.state.system}]}));
 
+        },
+        changePn () {
+            socket.send(store.state.connection, JSON.stringify({cmd: "post", param: ["/pn.json", {...store.state.pn}]}));
         },
         // Команда на обновление ПО
         Update () {
@@ -297,6 +312,9 @@ store.state.connection.onmessage = function(message) {
         else if ("main_gnss" in incoming) {
             store.commit("SET_GNSS", incoming);
             debug.log("GNSS: ", incoming.main_gnss)
+        }
+        else if ("pn" in incoming) {
+            store.commit("SET_PN", incoming);
         }
     }
     catch(e) {

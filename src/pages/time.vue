@@ -99,10 +99,10 @@
                         <!--            <div slot="root" class='icon icon-meter'></div>-->
                         <div slot="inner">
                             <div :style="stylediv1">
-                                <f7-label class="labelin">Вемя: {{param1}} сек</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.presets.time', {p: param1}) }}</f7-label>
                                 <f7-input type="range" min="10" max="600" step="10" v-model.number="param1" placeholder="Введите время между включениями">
                                 </f7-input>
-                                <f7-label class="labelin">Капли: {{param2}} </f7-label>
+                                <f7-label class="labelin">{{ $t('settings.presets.drop', {p: param2}) }} </f7-label>
                                 <f7-input type="range" min="1" max="10" step="1" v-model.number="param2" placeholder="Количество капель за цикл">
                                 </f7-input>
                             </div>
@@ -112,10 +112,10 @@
                     <f7-list-item title="ТРАССА" after="<i class='icon icon-highway'>" class="presets-icon">
                         <div slot="inner">
                             <div :style="stylediv1">
-                                <f7-label class="labelin">Время: {{param3}} сек</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.presets.time', {p: param3}) }}</f7-label>
                                 <f7-input type="range" min="10" max="600" step="10" v-model.number="param3" placeholder="Введите время между включениями">
                                 </f7-input>
-                                <f7-label class="labelin">Капли: {{param4}} </f7-label>
+                                <f7-label class="labelin">{{ $t('settings.presets.drop', {p: param4}) }} </f7-label>
                                 <f7-input type="range" min="1" max="10" step="1" v-model.number="param4" placeholder="Количество капель за цикл">
                                 </f7-input>
                             </div>
@@ -144,10 +144,10 @@
                                 <f7-label class="labelin">Время выкл:</f7-label>
                                 <f7-input type="number" v-model.number="config.time.pump.dpdp" placeholder="Время между импульсами (1/1000 сек)"></f7-input>-->
 
-                                <f7-label class="labelin">Время вкл: {{param5}} мсек </f7-label>
+                                <f7-label class="labelin">{{ $t('settings.pump.on', {p: param5}) }}</f7-label>
                                 <f7-input type="range" min="10" max="500" step="5" v-model="param5">
                                 </f7-input>
-                                <f7-label class="labelin">Время выкл: {{param6}} мсек</f7-label>
+                                <f7-label class="labelin">{{ $t('settings.pump.off', {p: param6}) }}</f7-label>
                                 <f7-input type="range" :min="param5 * 2" :max="2000" step="10" v-model="param6">
                                 </f7-input>
                             </div>

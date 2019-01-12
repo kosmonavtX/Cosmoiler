@@ -65,11 +65,13 @@
     
     "system.psw": "Пароль",
     "system.title": "Системные настройки",
-    "system.wifi.title": "Подключение WiFi",
+    "system.wifi.title": "WiFi",
     "system.update.title": "Обновление ПО",
     "system.led.title": "Светодиод",
     "system.led.bright": "Яркость: {p}%",    
     "system.attention.title": "Внимание!",
     "system.attention.content": "Перед обновлением ПО необходимо ввести данные точки доступа, через которую имеется выход в интернет.",
-    "system.alert": "Введите название точки доступа и пароль!"
+    "system.alert": "Введите название точки доступа и пароль!",
+    "system.wifi.ssid.placeholder": "Введите имя WiFi смазчика",
+    "system.wifi.psw.placeholder": "Введите пароль WiFi смазчика"
 }

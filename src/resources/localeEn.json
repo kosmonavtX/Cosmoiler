@@ -66,12 +66,13 @@
     
     "system.psw": "Password",
     "system.title": "System settings",
-    "system.wifi.title": "Connecting WiFi",
+    "system.wifi.title": "WiFi",
     "system.update.title": "Firmware update",
     "system.led.title": "Led",
     "system.led.bright": "Bright: {p}%",
     "system.attention.title": "Attention!",
     "system.attention.content": "It is necessary to enter data of the access point, which has access to the Internet, before firmware updating",
-    "system.alert": "Enter name and password of access point!"
-    
+    "system.alert": "Enter name and password of access point!",
+    "system.wifi.ssid.placeholder": "Enter the name of the WiFi oiler",
+    "system.wifi.psw.placeholder": "Enter the password of the WiFi oiler"
 }

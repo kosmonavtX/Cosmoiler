@@ -17,6 +17,44 @@
                         </div>
                     </f7-card-header>-->
                         <f7-card-content>
+                            <div :style="stylediv1">
+                                <f7-label class="labelin">SSID</f7-label>
+                                <f7-input type="text" v-model="pnssid" :placeholder="this.$t('system.wifi.ssid.placeholder')"></f7-input>
+                                <f7-label class="labelin">{{ $t('system.psw') }}</f7-label>
+                                <f7-input type="password" v-model="pnpsw" :placeholder="$t('system.wifi.psw.placeholder')"></f7-input>
+                             </div>
+                            <f7-grid>
+                                <f7-col width="50">
+                                    <p>
+                                        <f7-button big raised fill v-on:click="savePNSSID">{{ $t('button.save') }}</f7-button>
+                                    </p>
+                                </f7-col>
+<!--                                <f7-col width="50">
+                                    <p>
+                                        <f7-button big raised fill v-on:click="clearPNSSID">{{ $t('button.clear') }}</f7-button>
+                                    </p>
+                                </f7-col>-->
+
+                            </f7-grid>
+                        </f7-card-content>
+                    </f7-card>
+                </f7-list-item>
+            </f7-list>
+        </f7-accordion-content>
+    </f7-list-item>
+
+    <f7-list-item accordion-item :title="this.$t('system.update.title')" class="settings" media="<i class='icon icon-arrows-cw'>">
+        <f7-accordion-content>
+            <f7-list media-list>
+                <f7-list-item>
+                    <f7-card>
+                        <!--                    <f7-card-header>
+                        <div class="item-media">
+                            <i class='icon icon-wifi-logo'></i>
+                            <p class="text-icon">Подключение WiFi</p>
+                        </div>
+                    </f7-card-header>-->
+                        <f7-card-content>
 
 
                             <div :style="stylediv1">
@@ -40,15 +78,6 @@
                             </f7-grid>
                         </f7-card-content>
                     </f7-card>
-                </f7-list-item>
-            </f7-list>
-        </f7-accordion-content>
-    </f7-list-item>
-
-    <f7-list-item accordion-item :title="this.$t('system.update.title')" class="settings" media="<i class='icon icon-arrows-cw'>">
-        <f7-accordion-content>
-            <f7-list media-list>
-                <f7-list-item>
                     <f7-card>
 
                         <f7-card-content class="caution">
@@ -177,6 +206,13 @@
                 //this.op = true
 
             },
+            savePNSSID: function() {
+                this.$store.dispatch('changePn');
+            },
+/*            clearPNSSID: function() {
+                
+            }*/
+            
         },
         beforeDestroy: function() {
             this.$store.dispatch('changeSystem');            
@@ -207,6 +243,22 @@
                     let a = (this.$store.state.system.bright * (100 / 255)).toFixed(0)
                     return a
                 },
+            },
+            pnssid: {
+                set(value) {
+                    this.$store.commit('UPD_PN_SSID', value)
+                },
+                get() {
+                    return this.$store.state.pn.ssid
+                }
+            },
+            pnpsw: {
+                set(value) {
+                    this.$store.commit('UPD_PN_PSW', value)
+                },
+                get() {
+                    return this.$store.state.pn.psw
+                }                
             }
         }
     }

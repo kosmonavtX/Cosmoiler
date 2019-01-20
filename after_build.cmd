@@ -72,8 +72,10 @@ call pgb unlock Android 269212
 call pgb clone 2742181
 call pgb download 2742181 Android
 
+
+ren *.apk cosmoiler-release.apk
 curl --upload-file cosmoiler-release.apk ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/android/
-erase /P cosmoiler-release.apk
+erase /P *.apk
 
 pause
 

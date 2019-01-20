@@ -11,11 +11,11 @@ echo --------------------------------------
 echo Upload files
 echo --------------------------------------
 
-copy .\dist\app.css ..\Phonegap\Cosmoiler\www\app.css
-copy .\dist\app.js ..\Phonegap\Cosmoiler\www\app.js
-copy .\dist\vendor.js ..\Phonegap\Cosmoiler\www\vendor.js
-copy .\dist\manifest.js ..\Phonegap\Cosmoiler\www\manifest.js
-copy .\src\css\fontello-embedded.css ..\Phonegap\Cosmoiler\www\fontello-embedded.css
+copy .\dist\app.css ..\Phonegap\Cosmoiler-Phonegap\www\app.css
+copy .\dist\app.js ..\Phonegap\Cosmoiler-Phonegap\www\app.js
+copy .\dist\vendor.js ..\Phonegap\Cosmoiler-Phonegap\www\vendor.js
+copy .\dist\manifest.js ..\Phonegap\Cosmoiler-Phonegap\www\manifest.js
+copy .\src\css\fontello-embedded.css ..\Phonegap\Cosmoiler-Phonegap\www\fontello-embedded.css
 
 curl --upload-file .\dist\app.css.gz ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/spiffs/
 curl --upload-file .\dist\app.js.gz ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/spiffs/
@@ -51,7 +51,7 @@ copy .\dist\app.js.gz ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common
 copy .\dist\vendor.js.gz ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common\vendor.js.gz
 copy .\dist\manifest.js ..\..\Firmware\cosmoiler-workspace\Cosmoiler\SPIFFS\Common\manifest.js
 
-cd ..\Phonegap\Cosmoiler\
+cd ..\Phonegap\Cosmoiler-Phonegap\
 
 git status
 pause
@@ -73,5 +73,7 @@ call pgb clone 2742181
 call pgb download 2742181 Android
 
 curl --upload-file cosmoiler-release.apk ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/android/
+erase /P cosmoiler-release.apk
+
 pause
 

@@ -68,20 +68,20 @@
                             <f7-list-item swipeout :title="$t('mode.trip.title')" media="<i class='icon icon-meter'></i>" link="#" :badge="badgeName1" badge-color="green" :subtitle="$t('mode.trip.subtitle')" v-on:click="ctrlMode(1)">
                             <f7-swipeout-actions>
 
-                                <f7-swipeout-button close href="/trip/" color="purple">{{ $t('settings') }}</f7-swipeout-button>   
+                                <f7-swipeout-button close href="/trip/" color="brown">{{ $t('settings') }}</f7-swipeout-button>   
                             <!--    <f7-swipeout-button close color="orange" href="/params/">Телеметрия</f7-swipeout-button>-->
                             </f7-swipeout-actions>
                             </f7-list-item>
                             <f7-list-item swipeout :title="$t('mode.time.title')" media="<i class='icon icon-time'></i>" link="#" :badge="badgeName2" badge-color="green" :subtitle="$t('mode.time.subtitle')" v-on:click="ctrlMode(2)">
                             <f7-swipeout-actions >
 <!--                                <f7-swipeout-button close color="purple" id="time" v-on:click="ctrlMode($event)">{{messonoff[1]}}</f7-swipeout-button>-->
-                                <f7-swipeout-button close href="/time/" color="purple">{{ $t('settings') }}</f7-swipeout-button>
+                                <f7-swipeout-button close href="/time/" color="brown">{{ $t('settings') }}</f7-swipeout-button>
                             </f7-swipeout-actions>
                             </f7-list-item>
                             <f7-list-item swipeout :title="$t('mode.manual.title')" media="<i class='icon icon-right-hand'></i>" link="#" :badge="badgeName3" badge-color="green" :subtitle="$t('mode.manual.subtitle')" v-on:click="ctrlMode(3)">
                             <f7-swipeout-actions>
 <!--                                <f7-swipeout-button close color="purple" id="manual" v-on:click="ctrlMode($event)">{{messonoff[2]}}</f7-swipeout-button>-->
-                                <f7-swipeout-button close href="/manual/" color="purple">{{ $t('settings') }}</f7-swipeout-button>
+                                <f7-swipeout-button close href="/manual/" color="brown">{{ $t('settings') }}</f7-swipeout-button>
                             </f7-swipeout-actions>                                 
                             </f7-list-item>                         
 <!--                            <f7-list-item v-if="false" swipeout title="Прокачка..." media="<i class='icon icon-repeat'></i>" link="#" :badge="badgeName4" badge-color="green" subtitle="Прокачать систему...">

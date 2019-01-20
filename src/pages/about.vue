@@ -2,9 +2,9 @@
   <f7-page>
     <f7-navbar :title="this.$t('menu.about')" back-link="Back" sliding></f7-navbar>
     <f7-block inner>
-        <p>S/N: {{pn.pn}}</p>
-        <p>FW: {{obj.fw}}</p>
-        <p>HW: rev.{{obj.hw}}</p>
+        <p class="about">S/N: {{pn.pn}}</p>
+        <p class="about">FW: {{obj.fw}}</p>
+        <p class="about">HW: rev.{{obj.hw}}</p>
     </f7-block>
   </f7-page>
 </template>

@@ -16,7 +16,7 @@
                         <f7-list-item link="/params/" link-view="#main-view"  :title="$t('menu.telemetry')" link-close-panel></f7-list-item>
                         <f7-list-item link="/ctrlpump/" link-view="#main-view" link-close-panel :title="$t('menu.ctrl')"></f7-list-item>
                         <f7-list-item link="/system/" link-view="#main-view"  :title="$t('menu.system')" link-close-panel></f7-list-item>
-  
+
                         <f7-list-item link="/about/" :title="$t('menu.about')"></f7-list-item>
                     </f7-list>
                 </f7-page>
@@ -53,22 +53,22 @@
                         </f7-nav-right>
                     </f7-navbar>
 
-                    
-                    <div v-if=this.$store.state.connect>
+
+                    <div v-if=true>
                         <!--                     <f7-grid>
                             <f7-col width="100">
                                 <f7-chip text="ПОДКЛЮЧЕНО!" bg="green" color="white"></f7-chip>
                             </f7-col>
                         </f7-grid> -->
-                        
+
 <!--<f7-button v-on:click="test">Test</f7-button>-->
-                        
+
                         <f7-block-title :style="{'font-weight': 600}">{{ $t('selectmode') }} </f7-block-title>
                         <f7-list media-list>
                             <f7-list-item swipeout :title="$t('mode.trip.title')" media="<i class='icon icon-meter'></i>" link="#" :badge="badgeName1" badge-color="green" :subtitle="$t('mode.trip.subtitle')" v-on:click="ctrlMode(1)">
                             <f7-swipeout-actions>
 
-                                <f7-swipeout-button close href="/trip/" color="brown">{{ $t('settings') }}</f7-swipeout-button>   
+                                <f7-swipeout-button close href="/trip/" color="brown">{{ $t('settings') }}</f7-swipeout-button>
                             <!--    <f7-swipeout-button close color="orange" href="/params/">Телеметрия</f7-swipeout-button>-->
                             </f7-swipeout-actions>
                             </f7-list-item>
@@ -82,8 +82,8 @@
                             <f7-swipeout-actions>
 <!--                                <f7-swipeout-button close color="purple" id="manual" v-on:click="ctrlMode($event)">{{messonoff[2]}}</f7-swipeout-button>-->
                                 <f7-swipeout-button close href="/manual/" color="brown">{{ $t('settings') }}</f7-swipeout-button>
-                            </f7-swipeout-actions>                                 
-                            </f7-list-item>                         
+                            </f7-swipeout-actions>
+                            </f7-list-item>
 <!--                            <f7-list-item v-if="false" swipeout title="Прокачка..." media="<i class='icon icon-repeat'></i>" link="#" :badge="badgeName4" badge-color="green" subtitle="Прокачать систему...">
                                 <f7-swipeout-actions>
                                     <f7-swipeout-button close color="purple" id="pumping" v-on:click="ctrlMode($event)">{{messonoff[3]}}</f7-swipeout-button>
@@ -159,7 +159,7 @@
                 messonoff: ['','','',''],
 /*                asd: document.location.host*/
                 styleVer: 'font-size:12px; margin-top: 5px',
-                
+
             }
         },
         computed: {
@@ -211,15 +211,15 @@
 /*                console.log(this.$store.state.modejson.mode);
                 console.log(event);*/
                 if (this.$store.state.modejson.mode != null) {
-                        //switch(event.currentTarget.id) 
+                        //switch(event.currentTarget.id)
                         switch (event) {
-                                case 1: 
+                                case 1:
                                     if (this.$store.state.modejson.mode === 1)
                                         this.$store.dispatch('changeMode', {mode:0})
                                     else
                                         this.$store.dispatch('changeMode', {mode:1})
                                     break;
-                                case 2: 
+                                case 2:
                                     if (this.$store.state.modejson.mode === 2)
                                         this.$store.dispatch('changeMode', {mode:0})
                                     else
@@ -229,7 +229,7 @@
                                     if (this.$store.state.modejson.mode === 3)
                                         this.$store.dispatch('changeMode', {mode:0})
                                     else
-                                        this.$store.dispatch('changeMode', {mode:3})                       
+                                        this.$store.dispatch('changeMode', {mode:3})
                                     break;
                                 case 'pumping':
                                     if (this.$store.state.modejson.mode === 4)

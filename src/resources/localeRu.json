@@ -1,8 +1,8 @@
 {
-    "selectmode": "Выберите режим работы",
+    "selectmode": "Cosmoiler - автоматический смазчик цепи мотоцикла",
     "settings": "Настройки",
-    "connect": "Соединение...",   
-    
+    "connect": "Соединение...",
+
     "menu.telemetry": "Телеметрия",
     "menu.ctrl": "Прокачка",
     "menu.system": "Система",
@@ -10,7 +10,7 @@
 
     "mode.on": "Включено",
     "mode.off": "Выключено",
-    
+
     "mode.trip.title": "По пробегу",
     "mode.trip.subtitle": "Смазывать через заданное расстояние",
     "mode.time.title": "По времени",
@@ -37,9 +37,9 @@
     "settings.sensor.wheel.rimdia": "Диаметр",
     "settings.sensor.wheel.width": "Ширина (мм)",
     "settings.sensor.wheel.height": "Профиль (%)",
-    
+
     "ctrlpump.title": "Заполнение системы",
-    
+
     "button.reset": "Сброс",
     "button.start": "Старт",
     "button.stop": "Стоп",
@@ -47,7 +47,7 @@
     "button.save": "Сохранить",
     "button.clear": "Очистить",
     "button.update": "Обновить",
-    
+
     "telemetry.sensor.title": "Датчик",
     "telemetry.sensor.content": "ГНСС",
     "telemetry.sensor.time.footer": "Таймер",
@@ -62,13 +62,13 @@
     "telemetry.odo.unit2": " м",
     "telemetry.pump.title": "Насос",
     "telemetry.manual.button": "Кнопка",
-    
+
     "system.psw": "Пароль",
     "system.title": "Системные настройки",
     "system.wifi.title": "WiFi",
     "system.update.title": "Обновление ПО",
     "system.led.title": "Светодиод",
-    "system.led.bright": "Яркость: {p}%",    
+    "system.led.bright": "Яркость: {p}%",
     "system.attention.title": "Внимание!",
     "system.attention.content": "Перед обновлением ПО необходимо ввести данные точки доступа, через которую имеется выход в интернет.",
     "system.alert": "Введите название точки доступа и пароль!",

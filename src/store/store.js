@@ -40,7 +40,7 @@ const store = new Vuex.Store({
         config: {
                 correctionADC: 0,
                 gnss: false,
-                pump: {dpms: null, dpdp: null},
+                pump: {dpms: 300, dpdp: 800},
                 pumping:{
                     time: null,
                     pump: {dpms: null, dpdp: null}
@@ -57,20 +57,20 @@ const store = new Vuex.Store({
                 time:{
                     smart: {adxl: false, trail: true, prediction: null},
                     presets: [
-                        {dp_time: null, dp_num: null, trail: null},
+                        {dp_time: 120, dp_num: 2, trail: null},
                         {dp_time: null, dp_num: null, trail: null},
                     ],
                 },
                 manual: {
-                    pump: {dpms: null, dpdp: null}
+                    pump: {dpms: 300, dpdp: 800}
                 }
         },
         system: {bright: 32, wifi: {connect: false, ssid: null, psw: null}},
         pn: {pn: null, ssid: "Cosmoiler_", psw: null},
         ver: {fw: null, hw: null},
         params: {
-            preset: null,
-            voltage: 0,
+            preset: 0,
+            voltage: 12,
             sp: 0,
             imp: 0,
             odo: 0,
@@ -117,7 +117,7 @@ const store = new Vuex.Store({
             state.system = payload
         },
         SET_PN (state, payload) {
-            state.pn = payload  
+            state.pn = payload
         },
         SET_PARAMS (state, payload) {
             state.params = payload
@@ -163,7 +163,7 @@ const store = new Vuex.Store({
             state.config.trip.sensor.imp = value.data
         },
         UPD_TRIP_MAXSP (state, value) {
-            state.config.trip.smart.maxsp = value.data 
+            state.config.trip.smart.maxsp = value.data
         },
         CALC_IMPTRIPM (state) {
             debug.log('CALC_IMPTRIPM')
@@ -224,14 +224,14 @@ const store = new Vuex.Store({
         },
     // PN
         UPD_PN_SSID (state, value) {
-            state.pn.ssid = value  
+            state.pn.ssid = value
         },
         UPD_PN_PSW (state, value) {
             state.pn.psw = value
         },
     // DEBUG
         UPD_DBG_SPEED (state, value) {
-            state.debug.speed = value;  
+            state.debug.speed = value;
         },
     },
     actions: {
@@ -267,7 +267,7 @@ const store = new Vuex.Store({
             socket.send(store.state.connection, JSON.stringify({cmd:"bright", param: store.state.system.bright}));
         },
         Speed (data) {
-            socket.send(store.state.connection, JSON.stringify({cmd:"debug", param: store.state.debug.speed}));  
+            socket.send(store.state.connection, JSON.stringify({cmd:"debug", param: store.state.debug.speed}));
         },
         reconnect ({commit}) {
             debug.log('reconnect')

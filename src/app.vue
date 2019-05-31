@@ -6,6 +6,7 @@
     <!--<f7-statusbar>sdfsdfs</f7-statusbar>-->
 
     <!-- Right Panel -->
+    <!-- Меню -->
     <f7-panel right cover layout="dark">
         <f7-view id="right-panel-view" navbar-through :dynamic-navbar="true">
             <f7-navbar v-if="$theme.ios" sliding></f7-navbar>
@@ -32,7 +33,7 @@
                 <f7-nav-left>
                     <f7-link icon="icon-bars" open-panel="left"></f7-link>
                 </f7-nav-left>
-                <f7-nav-center sliding>Cosmoiler</f7-nav-center>
+                <f7-nav-center sliding>Cosmoiler - автоматический смазчик цепи мотоцикла</f7-nav-center>
                 <div :style="styleVer">{{this.$store.state.versw}}</div>
                 <f7-nav-right v-if=this.$store.state.connect>
                     <f7-link icon="icon-bars" open-panel="right"></f7-link>
@@ -46,8 +47,8 @@
                         <f7-nav-left>
                             <!--<f7-link icon-size="32px" v-on:click="reconnect"></f7-link>--> <!--icon-cosmoiler-logo_pict_font2-->
                         </f7-nav-left>
-                        <f7-nav-center sliding>Cosmoiler</f7-nav-center>
-                        <div :style="styleVer">{{this.$store.state.versw}}</div>
+                        <f7-nav-center sliding>Cosmoiler - автоматический смазчик цепи мотоцикла</f7-nav-center>
+
                         <f7-nav-right v-if=this.$store.state.connect>
                             <f7-link icon="icon-bars" open-panel="right"></f7-link>
                         </f7-nav-right>
@@ -63,34 +64,59 @@
 
 <!--<f7-button v-on:click="test">Test</f7-button>-->
 
-                        <f7-block-title :style="{'font-weight': 600}">{{ $t('selectmode') }} </f7-block-title>
-                        <f7-list media-list>
-                            <f7-list-item swipeout :title="$t('mode.trip.title')" media="<i class='icon icon-meter'></i>" link="#" :badge="badgeName1" badge-color="green" :subtitle="$t('mode.trip.subtitle')" v-on:click="ctrlMode(1)">
-                            <f7-swipeout-actions>
+                        <!-- <f7-block-title :style="{'font-weight': 600}">{{ $t('selectmode') }} </f7-block-title> -->
+                              <f7-block>
+        <p> Автосмазчик <b>Cosmoiler</b> предназначен для автоматической смазки мотоциклетной цепи. </p>
+        <p><b>Cosmoiler</b> представляет собой моноблок со встроенным насосом и схемой управления. Размеры блока 75 х 35 х 40 мм.
+            Доработанная двойная форсунка (смазка цепи с обеих сторон относительно звезды) + алгоритм управления решают проблему с вытеканием масла из форсунки на стоянке. При этом низкая стоимость форсунки (относительно аналогов) достигается за счет практически нулевой трудоемкости ее изготовления (3D печать).</p>
+      </f7-block>
+        <f7-block-title>Режимы работы</f7-block-title>
 
-                                <f7-swipeout-button close href="/trip/" color="brown">{{ $t('settings') }}</f7-swipeout-button>
-                            <!--    <f7-swipeout-button close color="orange" href="/params/">Телеметрия</f7-swipeout-button>-->
-                            </f7-swipeout-actions>
+
+                        <f7-list media-list>
+                            <f7-list-item
+                                :title="$t('mode.trip.title')"
+                                media="<i class='icon icon-meter'></i>"
+                                link="/trip/"
+                                badge-color="green"
+                                :subtitle="$t('mode.trip.subtitle')"
+                                text="Правильный режим работы любого автосмазчика.
+                                В данном режиме цепь смазывается через заданный мотоциклистом пробег (как того и требует инструкция по обслуживанию практически на любой мотоцикл).">
+
                             </f7-list-item>
-                            <f7-list-item swipeout :title="$t('mode.time.title')" media="<i class='icon icon-time'></i>" link="#" :badge="badgeName2" badge-color="green" :subtitle="$t('mode.time.subtitle')" v-on:click="ctrlMode(2)">
-                            <f7-swipeout-actions >
-<!--                                <f7-swipeout-button close color="purple" id="time" v-on:click="ctrlMode($event)">{{messonoff[1]}}</f7-swipeout-button>-->
-                                <f7-swipeout-button close href="/time/" color="brown">{{ $t('settings') }}</f7-swipeout-button>
-                            </f7-swipeout-actions>
+                            <f7-list-item
+                                :title="$t('mode.time.title')"
+                                media="<i class='icon icon-time'></i>"
+                                link="/time/"
+                                badge-color="green"
+                                :subtitle="$t('mode.time.subtitle')"
+                                text=" Режим используемый для мотоциклов, в которых отсутствует датчик скорости (как правило карбюраторные модели мотоциклов, а также некоторые инжекторные со считыванием скорости от датчиков АБС) или по разным причинам нет возможности установить дополнительный датчик. ">
                             </f7-list-item>
-                            <f7-list-item swipeout :title="$t('mode.manual.title')" media="<i class='icon icon-right-hand'></i>" link="#" :badge="badgeName3" badge-color="green" :subtitle="$t('mode.manual.subtitle')" v-on:click="ctrlMode(3)">
-                            <f7-swipeout-actions>
-<!--                                <f7-swipeout-button close color="purple" id="manual" v-on:click="ctrlMode($event)">{{messonoff[2]}}</f7-swipeout-button>-->
-                                <f7-swipeout-button close href="/manual/" color="brown">{{ $t('settings') }}</f7-swipeout-button>
-                            </f7-swipeout-actions>
+                            <f7-list-item
+                                :title="$t('mode.manual.title')"
+                                media="<i class='icon icon-right-hand'></i>"
+                                link="/manual/"
+                                badge-color="green"
+                                :subtitle="$t('mode.manual.subtitle')"
+                                text=" Дополнительный режим работы автосмазчика. Позволяет включать насос вручную с помощью любого подключенного к блоку управления нормально разомкнутого выключателя.">
+
                             </f7-list-item>
-<!--                            <f7-list-item v-if="false" swipeout title="Прокачка..." media="<i class='icon icon-repeat'></i>" link="#" :badge="badgeName4" badge-color="green" subtitle="Прокачать систему...">
-                                <f7-swipeout-actions>
-                                    <f7-swipeout-button close color="purple" id="pumping" v-on:click="ctrlMode($event)">{{messonoff[3]}}</f7-swipeout-button>
-                                </f7-swipeout-actions>
-                            </f7-list-item>-->
+                            <f7-list-item divider></f7-list-item>
+                            <f7-list-item
+                                title="Купить"
+                                media="<i class='icon icon-right-hand'></i>"
+                                link="https://www.vk.com/cosmoiler" external force
+                                text="Здесь Вы можете приобрести автоматический смазчик Cosmoiler"
+                                v-on:click="open_url">
+  <f7-block >
+       <img src="https://1.bp.blogspot.com/-ztt5ZFZshdc/XEcNQ3FWVDI/AAAAAAAAB24/sdOo6aauxHAPPNC74Rit44chwkxTA7DOwCLcBGAs/s1600/c3BgqR4QJ3s.jpg" width="40%"/>
+
+  </f7-block>
+                            </f7-list-item>
                         </f7-list>
+
                     </div>
+
                     <div class="preload" v-else=this.$store.state.connect>
                         <f7-grid>
                             <f7-col width="100">
@@ -239,6 +265,9 @@
                                     break;
                         };
                 }
+            },
+            open_url: function() {
+                window.open("http://vk.com/cosmoiler", "_self");
             },
             reconnect: function() {
                 this.$store.dispatch('reconnect')

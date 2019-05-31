@@ -24,11 +24,11 @@
 
         </f7-list>
     </div>
-</f7-page>   
+</f7-page>
 </template>
 
 <script>
-    
+
     export default {
         data () {
             return {
@@ -38,7 +38,7 @@
             back: function() {
                 //this.$store.dispatch('changeConfig');// ??
             },
-        },  
+        },
         beforeDestroy: function() {
             this.$store.dispatch('changeConfig');// ??
         },
@@ -56,5 +56,5 @@
 </script>
 
 <style>
-    
+
 </style>

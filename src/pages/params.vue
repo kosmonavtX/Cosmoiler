@@ -2,9 +2,9 @@
 <f7-page>
     <f7-navbar :title="this.$t('menu.telemetry')" back-link="Back" sliding></f7-navbar>
 
-    <div v-if=this.$store.state.connect>
+    <div v-if=true>
         <!--Mode = 0 and GNSS = true-->
-        <div v-if="flag1">
+        <div v-if=true>
             <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.$t('telemetry.sensor.content')">
                 <f7-card-footer>{{sensor_footer}}</f7-card-footer>
             </f7-card>
@@ -114,8 +114,8 @@
 </template>
 
 <script>
-    
-    
+
+
 export default {
     data () {
         return {
@@ -124,7 +124,7 @@ export default {
             mode: null,
         }
     },
-    
+
     created: function () {
         this.fetchParams();
         this.namePreset();
@@ -147,6 +147,7 @@ export default {
             if (tmp < 0) tmp = 0;
             tmp = tmp / this.$store.state.params.kvolt;
             tmp = 0.838*tmp + 0.354;
+            tmp = 13.9;
             return Number(tmp).toFixed(1) + this.$i18n.translate('telemetry.volt.unit');
         },
         Sp: function () {
@@ -165,7 +166,7 @@ export default {
                 let imp = this.$store.state.params.imp;
                 let sensor = this.$store.state.config.trip.sensor.imp;
                 let lwhl = this.$store.state.config.trip.wheel.lenght;
-                return Number(((imp*lwhl)/sensor)/1000).toFixed(0) + this.$i18n.translate('telemetry.odo.unit2');  
+                return Number(((imp*lwhl)/sensor)/1000).toFixed(0) + this.$i18n.translate('telemetry.odo.unit2');
             }
         },
         flag1: function() {
@@ -176,10 +177,10 @@ export default {
         },
         flagTime: function() {
             return ((this.$store.state.params.mod === 2) || (this.$store.state.params.mod === 5))
-        },    
+        },
         flagMan: function() {
             return this.$store.state.params.mod === 3
-        },         
+        },
         TypeSensor: function () {
             if (this.flagTrip) {
                 if (this.$store.state.config.trip.sensor.gnss) {
@@ -198,32 +199,32 @@ export default {
                     this.sensor_footer = this.$store.state.params.imp;
                     return this.$i18n.translate('settings.sensor.impulse');
                 }
-                    
+
             }
             if (this.flagTime) {
 /*                    this.sensor_footer = this.$store.state.config.time.presets[0].dp_time + " сек";*/
-                
-                
+
+
                 var myDate = new Date(0, 0, 0);
                 myDate.setMilliseconds(this.$store.state.params.time);
                 myDate = myDate.toTimeString().replace(/.*(\d{2}:\d{2}).*/, "$1");
 
                     this.sensor_footer = myDate;
 /*                        min.toFixed(0,2) + ":" + (this.$store.state.params.time/1000).toFixed(0) + " сек";*/
-                    return this.$i18n.translate('telemetry.sensor.time.footer'); 
+                    return this.$i18n.translate('telemetry.sensor.time.footer');
             }
             if (this.flagMan) {
-                 return this.$i18n.translate('telemetry.manual.button');    
+                 return this.$i18n.translate('telemetry.manual.button');
             }
-                    
+
     },
 
     },
-    
+
     methods: {
         fetchParams: function () {
             this.interval = setInterval(() => {
-                this.$store.state.connection.send(JSON.stringify({cmd: "telemetry"}));    
+                this.$store.state.connection.send(JSON.stringify({cmd: "telemetry"}));
             }, 1000);
         },
         namePreset: function() {
@@ -241,9 +242,9 @@ export default {
                 case 5:
                     this.mode = this.$i18n.translate('mode.time.title').toUpperCase();
                     break;
-            }  
+            }
             switch (this.$store.state.params.preset) {
-                case 0: 
+                case 0:
                     return this.$i18n.translate('settings.presets.city');
                     break;
                 case 1:
@@ -251,7 +252,7 @@ export default {
                     break;
             }
         },
-    },    
+    },
     beforeDestroy: function () {
         clearInterval(this.interval);
     }

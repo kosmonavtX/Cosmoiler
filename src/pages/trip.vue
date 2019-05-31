@@ -2,23 +2,28 @@
 <f7-page>
     <f7-navbar :title="this.$t('settings')" back-link="Back" sliding></f7-navbar>
 
-    <div v-if=this.$store.state.connect>
+    <div v-if=true>
     <f7-list accordion>
-<!----------ПРЕДУСТАНОВКИ------------>        
+<!----------ПРЕДУСТАНОВКИ------------>
         <f7-list-item accordion-item :title="this.$t('settings.presets.title')" class="settings" media="<i class='icon icon-presets' >">
             <f7-accordion-content>
                 <f7-list media-list>
-                    <f7-list-item>
-                        
+                    <f7-list-item text="">
+<f7-block>
+        <p style="font-size: 16px; text-transform: none" > Предустановки определяют режимы смазывания цепи для города и трассы. Как правило для трассы необходимо меньшее количество масла.</p>
+
+      </f7-block>
 <!----------ГОРОД------------>
                         <f7-card>
                             <f7-card-header>
                                 <div class="item-media">
                                     <i class='icon icon-building'></i>
                                     <p class="text-icon">{{ $t('settings.presets.city') }}</p>
+
                                 </div>
                             </f7-card-header>
                             <f7-card-content>
+
                                 <div :style="stylediv1">
                                     <f7-label class="labelin">{{ $t('settings.presets.distance', {p: param1}) }}</f7-label>
                                     <f7-input type="range" id="0" v-model.number="param1" min="1" max="10" step="1" placeholder="Введите расстояние между включением">
@@ -55,8 +60,8 @@
                 </f7-list>
             </f7-accordion-content>
         </f7-list-item>
-        
-<!----------НАСТРОЙКИ НАСОСА------------>   
+
+<!----------НАСТРОЙКИ НАСОСА------------>
         <f7-list-item accordion-item :title="this.$t('settings.pump.title')" class="settings" media="<i class='icon icon-pump' >">
             <f7-accordion-content>
                 <f7-list media-list>
@@ -77,7 +82,7 @@
             </f7-accordion-content>
         </f7-list-item>
 
-<!----------ДАТЧИК------------>   
+<!----------ДАТЧИК------------>
         <f7-list-item accordion-item :title="this.$t('settings.sensor.title')" @accordion:close="AccordClose" class="settings" media="<i class='icon icon-gauge'>">
             <f7-accordion-content>
                 <f7-list media-list>
@@ -85,8 +90,8 @@
                         <div slot="inner" >
                            <f7-list >
 
-                                <f7-list-item v-if="this.$store.state.config.gnss" media="<i class='icon icon-gps'>"  radio name="my-radio" v-bind:value="1" :checked="param12" @click="onSetTypeSensor(1)">{{ $t('settings.sensor.gnss') }}</f7-list-item>
-                               
+                                <f7-list-item media="<i class='icon icon-gps'>"  radio name="my-radio" v-bind:value="1" :checked="param12" @click="onSetTypeSensor(1)">{{ $t('settings.sensor.gnss') }}</f7-list-item>
+
                                 <f7-list-item media="<i class='icon icon-gauge2'>" radio name="my-radio" v-bind:value="2" :checked="!param12" @click="onSetTypeSensor(2)">{{ $t('settings.sensor.impulse') }}</f7-list-item>
 
 
@@ -111,12 +116,12 @@
                                     </f7-grid>
                             </f7-card-content>
                         </f7-card>
-                            
+
                             <f7-card>
-                                    <f7-card-header>                                        
-                                        <span :style="stylefooter_p">{{ $t('settings.sensor.wheel.title') }}</span> 
-                                        
-                            </f7-card-header>   
+                                    <f7-card-header>
+                                        <span :style="stylefooter_p">{{ $t('settings.sensor.wheel.title') }}</span>
+
+                            </f7-card-header>
                             <f7-card-content>
                             <div :style="stylediv1">
                                 <f7-grid>
@@ -137,7 +142,7 @@
                                     </f7-grid>
                                 <f7-label class="labelin">{{ $t('settings.sensor.wheel.height') }}</f7-label>
                                 <f7-input type="number" v-model.number="param9" placeholder="Высота шины в %"></f7-input>
-                                    
+
                             </div>
                             </f7-card-content>
                         </f7-card>
@@ -178,7 +183,7 @@
 </template>
 
 <script>
-    
+
     export default {
         data () {
             return {
@@ -212,7 +217,7 @@
                 set(value) {
                     this.$store.commit({type:'UPD_TRIP_DPNUM', preset: 1, data: value})
                 }
-            },  
+            },
             param_MAXSPEED: {
                 get () {return this.$store.state.config.trip.smart.maxsp},
                 set (value) {
@@ -224,7 +229,7 @@
                 set(value) {
                     this.$store.commit({type:'UPD_TRIP_DPMS', data: value})
                 }
-            },             
+            },
             param6: {
                 get () { return this.$store.state.config.pump.dpdp },
                 set(value) {
@@ -236,7 +241,7 @@
                 set(value) {
                     this.$store.commit({type:'UPD_TRIP_WHEEL_D', data: parseInt(value)})
                 }
-            },                         
+            },
             param8: {
                 get () { return this.$store.state.config.trip.wheel.width },
                 set(value) {
@@ -254,10 +259,10 @@
                 set(value) {
                     this.$store.commit({type:'UPD_TRIP_SENSOR_EXTSP', data: value})
                 }
-            },  
+            },
             param11: {
-                get () { 
-                    return this.$store.state.config.trip.sensor.imp 
+                get () {
+                    return this.$store.state.config.trip.sensor.imp
                 },
                 set(value) {
                     this.$store.commit({type:'UPD_TRIP_SENSOR_IMP', data: value})
@@ -277,7 +282,7 @@
             },
         methods: {
             AccordOpen: function () {
-                this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 1}));    
+                this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 1}));
                 this.interval = setInterval(() => {
                     this.$store.state.connection.send(JSON.stringify({cmd: "telemetry"}));
                     this.$store.commit({type:'UPD_TRIP_SENSOR_IMP', data: this.$store.state.params.sp})
@@ -286,12 +291,12 @@
             AccordClose: function () {
                 debug.log('Accordion close\n', this.interval);
                 clearInterval(this.interval);
-                this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0}));    
+                this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0}));
             },
             onChangePwr: function(event) {
                 //this.config.trip.sensor.extsp = event.srcElement.checked;
             },
-            onSetTypeSensor: function (value) {                
+            onSetTypeSensor: function (value) {
                 switch (value) {
                     case 1: this.$store.commit('SET_SENSOR_GNSS');
                         break;
@@ -301,14 +306,14 @@
             }
         },
         beforeCreate: function() {
-            this.$store.state.connection.send(JSON.stringify({cmd:"get", param: ["gnss"]})); 
+            this.$store.state.connection.send(JSON.stringify({cmd:"get", param: ["gnss"]}));
         },
         beforeDestroy: function() {
             debug.log('BACK')
             clearInterval(this.interval);
-            this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0})); 
+            this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0}));
             this.$store.commit('CALC_IMPTRIPM');
-            this.$store.dispatch('changeConfig');            
+            this.$store.dispatch('changeConfig');
         },
         components: {
         }
@@ -316,5 +321,5 @@
 </script>
 
 <style>
-    
+
 </style>

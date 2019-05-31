@@ -16,7 +16,7 @@
                     <div :style="stylediv">
 
                         <f7-label class="labelin">{{ $t('settings.pump.on', {p: pump.dpms}) }}</f7-label>
-                        <f7-input color="green" type="range" min="100" max="1000" step="10" v-model="pump.dpms">
+                        <f7-input color="green" type="range" min="5" max="1000" step="5" v-model="pump.dpms">
                         </f7-input>
                         <f7-label class="labelin">{{ $t('settings.pump.off', {p: pump.dpdp}) }}</f7-label>
                         <f7-input color="red" type="range" :min="50" :max="2000" step="10" :value="pump.dpdp" v-model="pump.dpdp">
@@ -51,7 +51,7 @@
 </template>
 
 <script>
- 
+
     var direction = {
                     OUT: 0,
                     IN: 1,
@@ -60,26 +60,26 @@
                         1: {name: '(IN) '}
                     }
                 };
-    
+
     export default {
         data () {
             return {
                 pump: {
-                    dpms: 500, dpdp: 500,
+                    dpms: 200, dpdp: 500,
                     state: 0,
                     dir: direction.OUT
                 },
                 dirname: direction,
-                stylediv: 'margin-top: 6px', 
+                stylediv: 'margin-top: 6px',
                 sizeIconPump: 40,
             }
         },
         created: function() {
-                this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 2}))   
+                this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 2}))
         },
         methods: {
             send: function() {
-                this.$store.state.connection.send(JSON.stringify({cmd: "pump", param: [this.pump.state, this.pump.dpms, this.pump.dpdp, this.pump.dir]}));     
+                this.$store.state.connection.send(JSON.stringify({cmd: "pump", param: [this.pump.state, this.pump.dpms, this.pump.dpdp, this.pump.dir]}));
             },
             on: function() {
                 this.pump.state = 1;
@@ -98,11 +98,11 @@
             },
         },
         beforeDestroy: function() {
-            this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0}));                     
-        },        
+            this.$store.state.connection.send(JSON.stringify({cmd: "work", param: 0}));
+        },
     }
 </script>
 
 <style>
-    
+
 </style>

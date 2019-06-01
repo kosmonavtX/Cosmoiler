@@ -7,7 +7,7 @@ set retryNumber=0
 set maxRetries=3
 
 :RETRY
-cmd /c "pgb unlock Android 269212"
+cmd /c "pgb unlock android 269212"
 cmd /c "pgb clone 2742181 > pgb.log 2>&1"
 for /f %%a in ('type pgb.log ^| find /c /i "ECONNREFUSED"') do set err=%%a
 
@@ -22,7 +22,7 @@ echo --------------------------------------
 EXIT /B 1
 
 :YAY
-call pgb download 2742181 Android
+call pgb download 2742181 android
 
 curl --upload-file cosmoiler-release.apk ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/android/
 

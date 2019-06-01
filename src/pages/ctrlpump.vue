@@ -16,10 +16,10 @@
                     <div :style="stylediv">
 
                         <f7-label class="labelin">{{ $t('settings.pump.on', {p: pump.dpms}) }}</f7-label>
-                        <f7-input color="green" type="range" min="5" max="1000" step="5" v-model="pump.dpms">
+                        <f7-input color="green" type="range" min="5" max="500" step="5" v-model="pump.dpms">
                         </f7-input>
                         <f7-label class="labelin">{{ $t('settings.pump.off', {p: pump.dpdp}) }}</f7-label>
-                        <f7-input color="red" type="range" :min="50" :max="2000" step="10" :value="pump.dpdp" v-model="pump.dpdp">
+                        <f7-input color="red" type="range" :min="10" :max="2000" step="10" :value="pump.dpdp" v-model="pump.dpdp">
                         </f7-input>
 
                     </div>

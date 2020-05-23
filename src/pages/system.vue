@@ -3,7 +3,7 @@
     <f7-navbar :title="this.$t('system.title')" back-link="Back" sliding></f7-navbar>
 
 
-<div v-if=this.$store.state.connect>    
+<div v-if=this.$store.state.connect>
 <f7-list accordion>
     <f7-list-item accordion-item :title="this.$t('system.wifi.title')" class="system" media="<i class='icon icon-wifi-logo'>">
         <f7-accordion-content>
@@ -115,11 +115,31 @@
         </f7-accordion-content>
     </f7-list-item>
 
-</f7-list>    
-</div>        
+    <f7-list-item accordion-item :title="this.$t('system.reset.title')" class="settings" media="<i class='icon icon-reset'>">
+        <f7-accordion-content>
+            <f7-list media-list>
+                <f7-list-item>
+                    <f7-card>
+
+                        <f7-card-content class="caution">
+
+                            <p :style="cautionStyle">{{ $t('system.attention.title') }}</p>
+                            <p>{{ $t('system.attention.reset.content') }}</p>
+
+                            <p>
+                                <f7-button big raised color='red' fill v-on:click="resetConf">{{ $t('button.reset') }}</f7-button>
+                            </p>
+                        </f7-card-content>
+                    </f7-card>
+                </f7-list-item>
+            </f7-list>
+        </f7-accordion-content>
+    </f7-list-item>
+</f7-list>
+</div>
 <!--
-   <f7-list media-list v-if="false">      
-        
+   <f7-list media-list v-if="false">
+
         <f7-list-item title="Подключение WiFi" after="<i class='icon icon-wifi-logo'>">
 -->
 
@@ -191,7 +211,7 @@
             },
             updateFW: function() {
                 if (this.$store.state.system.wifi.ssid === '')
-                    this.$f7.alert('Введите название точки доступа и пароль!', 'Cosmoiler')
+                    this.$f7.alert('$t(system.alert)', 'Cosmoiler')
                 else {
                     //                    this.saveSSID();
                     this.$store.dispatch('Update');
@@ -209,14 +229,19 @@
             savePNSSID: function() {
                 this.$store.dispatch('changePn');
             },
+            resetConf: function() {
+                // TODO: отправить команду recover_ALL
+                this.$store.dispatch('Reset');
+                console.log('reset')
+            }
 /*            clearPNSSID: function() {
-                
+
             }*/
-            
+
         },
         beforeDestroy: function() {
-            this.$store.dispatch('changeSystem');            
-        }, 
+            this.$store.dispatch('changeSystem');
+        },
         computed: {
             ssid: {
                 get() {
@@ -258,7 +283,7 @@
                 },
                 get() {
                     return this.$store.state.pn.psw
-                }                
+                }
             }
         }
     }

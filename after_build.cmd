@@ -68,9 +68,9 @@ echo --------------------------------------
 
 cd ..\..\ver3\
 
-call pgb unlock Android 269212
+call pgb unlock android 269212
 call pgb clone 2742181
-call pgb download 2742181 Android
+call pgb download 2742181 android
 
 
 ren *.apk cosmoiler-release.apk

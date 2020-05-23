@@ -2,15 +2,15 @@
     "selectmode": "Choose operation mode",
     "settings": "Settings",
     "connect": "Connecting...",
-    
+
     "menu.telemetry": "Telemetry",
     "menu.ctrl": "Priming",
     "menu.system": "System",
     "menu.about": "About Cosmoiler",
- 
+
     "mode.on": "ON",
     "mode.off": "OFF",
-    
+
     "mode.trip.title": "Trip",
     "mode.trip.subtitle": "Lubricate after specified distance",
     "mode.time.title": "Timer",
@@ -21,13 +21,19 @@
     "settings.pump.title": "Pump",
     "settings.presets.title": "Presets",
     "settings.sensor.title": "Sensor",
-    
+
     "settings.presets.city": "City",
     "settings.presets.way": "Highway",
+    "settings.presets.city_way": "City, Highway",
+    "settings.presets.user": "Rain, Sand",
     "settings.presets.distance": "Distance: {p} km",
     "settings.presets.time": "Timer: {p} s",
     "settings.presets.drop": "Drop of oil: {p}",
+    "settings.presets.num": "Number of cycles:",
     "settings.presets.maxspeed": "Max. speed: {p} km/h",
+    "settings.presets.placeholder_Distance": "Enter the distance between switching on",
+    "settings.presets.placeholder_Drop": "Number of drops per cycle",
+    "settings.presets.placeholder_Speed": "Maximum speed",
     "settings.pump.on": "Time on: {p} ms",
     "settings.pump.off": "Time off: {p} ms",
     "settings.sensor.gnss": "GNSS",
@@ -38,9 +44,9 @@
     "settings.sensor.wheel.rimdia": "Rim diameter",
     "settings.sensor.wheel.width": "Tire width (mm)",
     "settings.sensor.wheel.height": "Tire height (%)",
-    
+
     "ctrlpump.title": "Priming",
-    
+
     "button.reset": "Reset",
     "button.start": "Start",
     "button.stop": "Stop",
@@ -48,7 +54,7 @@
     "button.save": "Save",
     "button.clear": "Clear SSID",
     "button.update": "Update",
-    
+
     "telemetry.sensor.title": "Sensor",
     "telemetry.sensor.content": "GNSS",
     "telemetry.sensor.time.footer": "Timer",
@@ -63,7 +69,7 @@
     "telemetry.odo.unit2": " m",
     "telemetry.pump.title": "Pump",
     "telemetry.manual.button": "Button",
-    
+
     "system.psw": "Password",
     "system.title": "System settings",
     "system.wifi.title": "WiFi",
@@ -74,5 +80,13 @@
     "system.attention.content": "It is necessary to enter data of the access point, which has access to the Internet, before firmware updating",
     "system.alert": "Enter name and password of access point!",
     "system.wifi.ssid.placeholder": "Enter the name of the WiFi oiler",
-    "system.wifi.psw.placeholder": "Enter the password of the WiFi oiler"
+    "system.wifi.psw.placeholder": "Enter the password of the WiFi oiler",
+
+    "pumping.attention.content": "Перед пополнением запаса масла в автоматическом режиме необходимо:",
+    "pumping.attention.content1": "1. Пережать шланг от форусунки до штуцера для предотвращения вытекания масла из системы.",
+    "pumping.attention.content2": "2. Разъеденить шланг форсунки.",
+    "pumping.attention.content3": "3. Конец шланга, идущий к бачку, поместить в емкость с маслом.",
+    "pumping.attention.content4": "4. Включить пополнение.",
+
+    "attention.title": "Attention!"
 }

@@ -1,8 +1,8 @@
 {
     "selectmode": "Выберите режим работы",
     "settings": "Настройки",
-    "connect": "Соединение...",   
-    
+    "connect": "Соединение...",
+
     "menu.telemetry": "Телеметрия",
     "menu.ctrl": "Прокачка",
     "menu.system": "Система",
@@ -10,7 +10,7 @@
 
     "mode.on": "Включено",
     "mode.off": "Выключено",
-    
+
     "mode.trip.title": "По пробегу",
     "mode.trip.subtitle": "Смазывать через заданное расстояние",
     "mode.time.title": "По времени",
@@ -23,12 +23,18 @@
     "settings.sensor.title": "Датчик",
     "settings.presets.city": "Город",
     "settings.presets.way": "Трасса",
+    "settings.presets.city_way": "Город/трасса",
+    "settings.presets.user": "Дождь, песок",
     "settings.presets.distance": "Расстояние: {p} км",
     "settings.presets.time": "Таймер: {p} сек",
     "settings.presets.drop": "Капли: {p}",
+    "settings.presets.num": "Количество циклов:",
     "settings.presets.maxspeed": "Mакс. скорость: {p} км/ч",
-    "settings.pump.on": "Время вкл: {p} мсек",
-    "settings.pump.off": "Время выкл: {p} мсек",
+    "settings.presets.placeholder_Distance": "Введите расстояние между включением",
+    "settings.presets.placeholder_Drop": "Количество капель за цикл",
+    "settings.presets.placeholder_Speed": "Максимальная скорость",
+    "settings.pump.on": "Вкл: {p}",
+    "settings.pump.off": "Пауза: {p}",
     "settings.sensor.gnss": "ГНСС",
     "settings.sensor.impulse": "Импульсный",
     "settings.sensor.ext": "Внешний датчик",
@@ -37,9 +43,9 @@
     "settings.sensor.wheel.rimdia": "Диаметр",
     "settings.sensor.wheel.width": "Ширина (мм)",
     "settings.sensor.wheel.height": "Профиль (%)",
-    
+
     "ctrlpump.title": "Заполнение системы",
-    
+
     "button.reset": "Сброс",
     "button.start": "Старт",
     "button.stop": "Стоп",
@@ -47,7 +53,7 @@
     "button.save": "Сохранить",
     "button.clear": "Очистить",
     "button.update": "Обновить",
-    
+
     "telemetry.sensor.title": "Датчик",
     "telemetry.sensor.content": "ГНСС",
     "telemetry.sensor.time.footer": "Таймер",
@@ -62,16 +68,26 @@
     "telemetry.odo.unit2": " м",
     "telemetry.pump.title": "Насос",
     "telemetry.manual.button": "Кнопка",
-    
+
     "system.psw": "Пароль",
     "system.title": "Системные настройки",
     "system.wifi.title": "WiFi",
     "system.update.title": "Обновление ПО",
+    "system.reset.title": "Сброс",
     "system.led.title": "Светодиод",
-    "system.led.bright": "Яркость: {p}%",    
+    "system.led.bright": "Яркость: {p}%",
     "system.attention.title": "Внимание!",
     "system.attention.content": "Перед обновлением ПО необходимо ввести данные точки доступа, через которую имеется выход в интернет.",
+    "system.attention.reset.content": "Нажатие кнопки \"Сброс\" приведет к установке заводских настроек.",
     "system.alert": "Введите название точки доступа и пароль!",
     "system.wifi.ssid.placeholder": "Введите имя WiFi смазчика",
-    "system.wifi.psw.placeholder": "Введите пароль WiFi смазчика"
+    "system.wifi.psw.placeholder": "Введите пароль WiFi смазчика",
+
+    "pumping.attention.content": "Перед пополнением запаса масла в автоматическом режиме необходимо:",
+    "pumping.attention.content1": "1. Пережать шланг от форусунки до штуцера для предотвращения вытекания масла из системы.",
+    "pumping.attention.content2": "2. Разъеденить шланг форсунки.",
+    "pumping.attention.content3": "3. Конец шланга, идущий к бачку, поместить в емкость с маслом.",
+    "pumping.attention.content4": "4. Включить пополнение.",
+
+    "attention.title": "Внимание!"
 }

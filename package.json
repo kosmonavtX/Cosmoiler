@@ -1,6 +1,6 @@
 {
   "name": "Cosmoiler",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "description": "Cosmoiler - automatic oiler of motorcycle chain",
   "scripts": {
     "dev": "node build/dev-server.js",

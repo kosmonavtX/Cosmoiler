@@ -33,7 +33,7 @@ bin2c -d _vendorjs.h -o _vendorjs.c -n _vendorjs .\dist\vendor.js.gz
 move *.h ..\..\Firmware\cosmoiler-workspace\cosmoiler\Trubleshooting
 move *.c ..\..\Firmware\cosmoiler-workspace\cosmoiler\Trubleshooting
 
-pause 
+pause
 
 echo --------------------------------------
 echo Send to BITBUCKET
@@ -75,7 +75,6 @@ call pgb download 2742181 android
 
 ren *.apk cosmoiler-release.apk
 curl --upload-file cosmoiler-release.apk ftp://cosmoile:tdm900A2006@ftp.cosmoiler.ru/www/fw/android/
-erase /P *.apk
+rem erase /P *.apk
 
 pause
-

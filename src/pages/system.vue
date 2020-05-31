@@ -230,7 +230,6 @@
                 this.$store.dispatch('changePn');
             },
             resetConf: function() {
-                // TODO: отправить команду recover_ALL
                 this.$store.dispatch('Reset');
                 debug.log('reset')
             }

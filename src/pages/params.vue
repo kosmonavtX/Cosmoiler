@@ -3,22 +3,6 @@
         <f7-navbar :title="this.$t('menu.telemetry')" back-link="Back" sliding></f7-navbar>
 
         <div v-if=this.$store.state.connect>
-            <!--Mode = 0 and GNSS = true-->
-  <!--           <div v-if="flag1">
-                <f7-card :title="this.$t('telemetry.sensor.title')" :content="this.$t('telemetry.sensor.content')">
-                    <f7-card-footer>{{sensor_footer}}</f7-card-footer>
-                </f7-card>
-                <f7-grid no-gutter>
-                    <f7-col>
-                        <f7-card :title="this.$t('telemetry.speed.title')" :content="Speed"></f7-card>
-                    </f7-col>
-                    <f7-col>
-                        <f7-card :title="this.$t('telemetry.volt.title')" :content="Voltage"></f7-card>
-                    </f7-col>
-
-                </f7-grid>
-            </div> -->
-
             <!--Mode = 1-->
             <div v-if="TRIP_MODE">
                 <!--Импульсный-->
@@ -226,14 +210,6 @@
                 else
                     return this.$store.state.params.trip + this.$i18n.translate('telemetry.odo.unit2');
             },
-            RemainsIMP: function () {
-                /*   if (this.$store.state.trip.trip.sensor.gnss)
-                      return this.$store.state.params.trip + this.$i18n.translate('telemetry.odo.unit2');
-                  else */
-                {
-
-                }
-            },
             TRIP_MODE: function () {
                 return (this.$store.state.params.mod === 1)
             },
@@ -264,8 +240,6 @@
                 if (lon < 0) lon = "W" + lon;
                 else
                     lon = "E" + lon;
-                // let txt = "Error";
-                // if ((lat != 0) && (lon != 0))
                 let txt = lat + ", " + lon;
                 return txt;
             },
@@ -282,40 +256,6 @@
                     /*                        min.toFixed(0,2) + ":" + (this.$store.state.params.time/1000).toFixed(0) + " сек";*/
                     return myDate;
             },
-            TypeSensor: function () {
-                /*             if (this.flagTrip) {
-                                //if (this.$store.state.trip.trip.sensor.gnss)
-                                if (this.flagGNSSView) {
-                                    let lat = parseFloat(this.$store.state.params.lat).toFixed(5);
-                                    let lon = parseFloat(this.$store.state.params.lon).toFixed(5);
-                                    if (lat < 0) lat = "S" + lat;
-                                    else
-                                        lat = "N" + lat;
-                                    if (lon < 0) lon = "W" + lon;
-                                    else
-                                        lon = "E" + lon;
-                                    this.sensor_footer = lat + ", " + lon;
-                                     return this.$i18n.translate('settings.sensor.gnss');
-                                }
-                                else */
-/*                 {
-                    this.sensor_footer = this.$store.state.params.imp;
-                    return this.$i18n.translate('settings.sensor.impulse');
-                } */
-
-                // }
-                if (this.flagTime) {
-                    /*                    this.sensor_footer = this.$store.state.config.time.presets[0].dp_time + " сек";*/
-
-
-
-                }
-                if (this.flagMan) {
-                    return this.$i18n.translate('telemetry.manual.button');
-                }
-
-            },
-
         },
 
         methods: {

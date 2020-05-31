@@ -5,16 +5,29 @@ import vuexI18n from 'vuex-i18n';
 
 Vue.use(Vuex);
 
-function uri() {
-    console.log(document.location.host)
+function getUrlVar() {
+    var urlVar = window.location.search; // получаем параметры из урла
+    var arrayVar = []; // массив для хранения переменных
+    var valueAndKey = []; // массив для временного хранения значения и имени переменной
+    var resultArray = []; // массив для хранения переменных
+    arrayVar = (urlVar.substr(1)).split('&'); // разбираем урл на параметры
+    if (arrayVar[0] == "") return false; // если нет переменных в урле
+    for (var i = 0; i < arrayVar.length; i++) { // перебираем все переменные из урла
+        valueAndKey = arrayVar[i].split('='); // пишем в массив имя переменной и ее значение
+        resultArray[valueAndKey[0]] = valueAndKey[1]; // пишем в итоговый массив имя переменной и ее значение
+    }
+    return resultArray; // возвращаем результат
+}
 
+function uri() {
+    console.log(document.location.host);
+    console.log(getUrlVar()['ws']);
     if (document.location.host.indexOf('localhost') + 1) {
         /*store.state.connect = true;*/
-        return '192.168.1.150' // sn = 971186
+        return getUrlVar()['ws'] // sn = 971186
             //return '192.168.1.224'  // sn = D7DDFB
             //return '192.168.1.89' // sn = 6904496
-    } else
-    if (document.location.host === "")
+    } else if (document.location.host === "")
         return '192.168.4.1'
     else
         return document.location.host
@@ -34,55 +47,62 @@ let interval = setInterval(function() {
 const store = new Vuex.Store({
     state: {
         modejson: { mode: 0, preset: 0 },
-        config: {
-            correctionADC: 0,
-            gnss: false,
-            pump: { dpms: null, dpdp: null },
-            pumping: {
-                time: null,
-                pump: { dpms: null, dpdp: null }
-            },
+        gnssPresent: false,
+        trip: {
+            config: 0,
             trip: {
-                smart: { adxl: false, prediction: null, maxsp: 150 },
-                sensor: { gnss: false, extsp: false, imp: 16 },
+                smart: { prediction: 5, avgspeed: 80, maxsp: 150 },
+                sensor: { gnss: false, imp: 16, hdop: 5000 },
                 presets: [
-                    { trip_m: 4000, dp_num: 5, imptripm: 0, n: 5 },
-                    { trip_m: 7000, dp_num: 2, imptripm: 0, n: 10 },
-                    { trip_m: 3000, dp_num: 3, imptripm: 0, n: 3 },
+                    { trip_m: 4000, dp_num: 5, imptripm: 0, n: 5, cycles: 0 },
+                    { trip_m: 7000, dp_num: 2, imptripm: 0, n: 10, cycles: 0 },
+                    { trip_m: 3000, dp_num: 3, imptripm: 0, n: 3, cycles: 0 },
                 ],
                 wheel: { dia: 17, width: 150, height: 70, lenght: null }
-            },
+            }
+        },
+        time: {
+            config: 0,
             time: {
-                smart: { adxl: false, trail: true, prediction: null },
+                smart: { trail: true, prediction: 600 },
                 presets: [
                     { dp_time: 120, dp_num: 3, cycles: 0 },
                     { dp_time: 150, dp_num: 3, cycles: 0 },
                     { dp_time: 60, dp_num: 3, cycles: 0 },
                 ],
-            },
-            manual: {
-                pump: { dpms: null, dpdp: null }
             }
+        },
+
+        manual: {
+            config: 0,
+            manual: {
+                pump: { dpms: 500, dpdp: 800 }
+            }
+        },
+        pump: {
+            config: 0,
+            pump: { dpms: null, dpdp: null }
         },
         system: { bright: 32, wifi: { connect: false, ssid: null, psw: null } },
         pn: { pn: null, ssid: "Cosmoiler_", psw: null },
         ver: { fw: null, hw: null },
         params: {
-            preset: null,
-            voltage: 0,
-            sp: 0,
-            imp: 0,
-            odo: 0,
-            speed: 0,
-            maxspeed: 0,
-            avgspeed: 0,
-            time: 0,
-            kvolt: 1,
-            non: 0,
-            fix: false,
-            lat: 0.000000,
-            lon: 0.000000,
-            mod: 0,
+            preset: 0, // Предустановка
+            voltage: 0, // Напряжение бортовое
+            sp: 0, //
+            imp: 0, //
+            trip: 0, // Оставшееся расстояние до вкл насоса
+            odo: 0, // Одометр
+            speed: 0, // Скорость
+            maxspeed: 0, // Максимальная скорость
+            avgspeed: 0, // Средняя скорость
+            time: 600, // Таймер
+            kvolt: 1, // Коэфф корректировка значений с АЦП
+            non: 0, // Количество включений насоса
+            fix: false, // 3D Fix GPS
+            lat: 0.000000, // Широта
+            lon: 0.000000, // Долгота
+            mod: 0, // Режим
         },
         debug: { speed: 255 },
         connection: ws,
@@ -92,12 +112,22 @@ const store = new Vuex.Store({
     },
     mutations: {
         SET_CONFIG(state, payload) {
-            state.config = payload;
-            //debug.log('GET_CONFIG');
+            //state.config = payload;
+
+            if ("trip" in payload) {
+                state.trip = payload;
+            } else if ("time" in payload) {
+                state.time = payload;
+            } else if ("manual" in payload) {
+                state.manual = payload;
+            } else if ("pump" in payload) {
+                state.pump = payload
+            }
+            debug.log('payload');
         },
-        CHNG_CONFIG(state) {
-            //debug.log('CHNG_CONFIG');
-        },
+        /*         CHNG_CONFIG(state) {
+                    //debug.log('CHNG_CONFIG');
+                }, */
         SET_MODE(state, payload) {
             state.modejson = payload;
             state.params.mod = state.modejson.mode;
@@ -135,86 +165,86 @@ const store = new Vuex.Store({
         // Mode TRIP
         UPD_TRIP_TRIPM(state, payload) {
             //debug.log('UPD_TRIP');
-            state.config.trip.presets[payload.preset].trip_m = payload.data * 1000;
+            state.trip.trip.presets[payload.preset].trip_m = payload.data * 1000;
         },
         UPD_TRIP_DPNUM(state, payload) {
-            state.config.trip.presets[payload.preset].dp_num = payload.data;
+            state.trip.trip.presets[payload.preset].dp_num = payload.data;
         },
         UPD_TRIP_N(state, payload) {
-            state.config.trip.presets[payload.preset].n = payload.data;
+            state.trip.trip.presets[payload.preset].n = payload.data;
         },
         UPD_TRIP_CYCLES(state, payload) {
-            state.config.trip.presets[payload.preset].cycles = payload.data;
+            state.trip.trip.presets[payload.preset].cycles = payload.data;
         },
         UPD_TRIP_DPMS(state, value) {
-            state.config.pump.dpms = value.data
+            state.pump.pump.dpms = value.data
         },
         UPD_TRIP_DPDP(state, value) {
-            state.config.pump.dpdp = value.data
+            state.pump.pump.dpdp = value.data
         },
         UPD_TRIP_WHEEL_D(state, value) {
-            state.config.trip.wheel.dia = value.data
+            state.trip.trip.wheel.dia = value.data
         },
         UPD_TRIP_WHEEL_W(state, value) {
-            state.config.trip.wheel.width = value.data
+            state.trip.trip.wheel.width = value.data
         },
         UPD_TRIP_WHEEL_H(state, value) {
-            state.config.trip.wheel.height = value.data
+            state.trip.trip.wheel.height = value.data
         },
-        UPD_TRIP_SENSOR_EXTSP(state, value) {
-            state.config.trip.sensor.extsp = value.data
-        },
+        /*         UPD_TRIP_SENSOR_EXTSP(state, value) {
+                    state.trip.sensor.extsp = value.data
+                }, */
         UPD_TRIP_SENSOR_IMP(state, value) {
-            state.config.trip.sensor.imp = value.data
+            state.trip.trip.sensor.imp = value.data
         },
         UPD_TRIP_MAXSP(state, value) {
-            state.config.trip.smart.maxsp = value.data
+            state.trip.trip.smart.maxsp = value.data
         },
         CALC_IMPTRIPM(state) {
             debug.log('CALC_IMPTRIPM')
                 /* вычисление длины окружности колеса */
-            let dm = state.config.trip.wheel.dia * 25.4;
-            let hm = state.config.trip.wheel.height * state.config.trip.wheel.width / 100;
+            let dm = state.trip.trip.wheel.dia * 25.4;
+            let hm = state.trip.trip.wheel.height * state.trip.trip.wheel.width / 100;
             let Len = (dm + 2 * hm) * 3.14159;
-            state.config.trip.wheel.lenght = Len;
+            state.trip.trip.wheel.lenght = Len;
             for (let i = 0; i <= 2; i++) {
-                let a = state.config.trip.sensor.imp * state.config.trip.presets[i].trip_m / (state.config.trip.wheel.lenght / 1000);
-                state.config.trip.presets[i].imptripm = parseInt(a.toFixed(), 10);
+                let a = state.trip.trip.sensor.imp * state.trip.trip.presets[i].trip_m / (state.trip.trip.wheel.lenght / 1000);
+                state.trip.trip.presets[i].imptripm = parseInt(a.toFixed(), 10);
             }
         },
         SET_SENSOR_GNSS(state) {
-            state.config.trip.sensor.gnss = true;
+            state.trip.trip.sensor.gnss = true;
             //state.config.gnss = true;
         },
-        SET_GNSS(state, payload) {
-            state.config.gnss = payload.main_gnss;
+        SET_GNSS_PRESENT(state, payload) {
+            state.gnssPresent = payload.main_gnss;
         },
         SET_SENSOR_IMP(state) {
-            state.config.trip.sensor.gnss = false;
+            state.trip.trip.sensor.gnss = false;
         },
         // Mode TIME
         UPD_TIME_DPTIME(state, payload) {
             debug.log(payload);
-            state.config.time.presets[payload.preset].dp_time = payload.data
+            state.time.time.presets[payload.preset].dp_time = payload.data
         },
         UPD_TIME_DPNUM(state, payload) {
-            state.config.time.presets[payload.preset].dp_num = payload.data
+            state.time.time.presets[payload.preset].dp_num = payload.data
         },
         UPD_TIME_CYCLES(state, payload) {
-            state.config.time.presets[payload.preset].cycles = payload.data
+            state.time.time.presets[payload.preset].cycles = payload.data
         },
         UPD_TIME_DPMS(state, value) {
-            state.config.pump.dpms = value
+            state.pump.pump.dpms = value
         },
         UPD_TIME_DPDP(state, value) {
-            state.config.pump.dpdp = value
+            state.pump.pump.dpdp = value
         },
         // Mode MANUAL
         UPD_MAN_DPMS(state, value) {
-            state.config.manual.pump.dpms = value
+            state.manual.manual.pump.dpms = value
         },
         UPD_MAN_DPDP(state, value) {
-            state.config.manual.pump.dpdp = value
+            state.manual.manual.pump.dpdp = value
         },
         // System
         UPD_UPDATE_SSID(state, value) {
@@ -243,9 +273,20 @@ const store = new Vuex.Store({
     },
     actions: {
         // Сохранение файла config.json
-        changeConfig({ commit }) {
-            commit('CHNG_CONFIG');
-            socket.send(store.state.connection, JSON.stringify({ cmd: "post", param: ["/config.json", {...store.state.config }] }));
+        changeTripCnfg({ commit }) {
+            //commit('CHNG_CONFIG');
+            socket.send(store.state.connection, JSON.stringify({ cmd: "post", param: ["/trip.json", {...store.state.trip }] }));
+            //debug.log(JSON.stringify({ cmd: "post", param: ["/trip.json", {...store.state.trip }] }))
+        },
+        changeTimeCnfg({ commit }) {
+            socket.send(store.state.connection, JSON.stringify({ cmd: "post", param: ["/time.json", {...store.state.time }] }));
+            //debug.log(store.state.test);
+        },
+        changeManualCnfg({ commit }) {
+            socket.send(store.state.connection, JSON.stringify({ cmd: "post", param: ["/manual.json", {...store.state.manual }] }));
+        },
+        changePumpCnfg({ commit }) {
+            socket.send(store.state.connection, JSON.stringify({ cmd: "post", param: ["/pump.json", {...store.state.pump }] }));
         },
         // 1. Команда на изменение режима
         // 2. Сохранение файла mode.json
@@ -315,7 +356,7 @@ store.state.connection.onmessage = function(message) {
         } else if ("voltage" in incoming) {
             store.commit('SET_PARAMS', incoming)
         } else if ("main_gnss" in incoming) {
-            store.commit("SET_GNSS", incoming);
+            store.commit("SET_GNSS_PRESENT", incoming);
             debug.log("GNSS: ", incoming.main_gnss)
         } else if ("pn" in incoming) {
             store.commit("SET_PN", incoming);
@@ -339,7 +380,9 @@ store.state.connection.onclose = function(event) {
         debug.log('Error close connection!');
         store.commit('CONNECT', false)
         setTimeout(function() {
-            ws = socket.connect('ws://' + uri() + '/ws')
+            ws = socket.connect('ws://' + uri() + '/ws');
+            debug.log("NEW CONNECT 5000 ms");
+            store.commit('RECONNECT', ws)
         }, 5000);
     }
 }

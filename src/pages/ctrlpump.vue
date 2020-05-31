@@ -9,7 +9,7 @@
                     <f7-accordion-content>
                         <f7-list media-list>
                             <f7-list-item>
-                                <f7-input type="switch" @change="onPumping" v-model="param10"></f7-input>
+                                <f7-input type="switch" @change="onPumping" :v-model="0"></f7-input>
                             </f7-list-item>
                         </f7-list>
                     </f7-accordion-content>
@@ -35,7 +35,7 @@
 
                             </f7-list-item>
                             <f7-list-item>
-                                <f7-input type="switch" @change="onAddOil" v-model="param10"></f7-input>
+                                <f7-input type="switch" @change="onAddOil" :v-model="0"></f7-input>
                             </f7-list-item>
                         </f7-list>
                     </f7-accordion-content>

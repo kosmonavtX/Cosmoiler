@@ -69,6 +69,7 @@
     "telemetry.odo.unit2": " m",
     "telemetry.pump.title": "Pump",
     "telemetry.manual.button": "Button",
+    "telemetry.sensorGNSS.footer": "GNSS",
 
     "system.psw": "Password",
     "system.title": "System settings",

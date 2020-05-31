@@ -68,6 +68,7 @@
     "telemetry.odo.unit2": " м",
     "telemetry.pump.title": "Насос",
     "telemetry.manual.button": "Кнопка",
+    "telemetry.sensorGNSS.footer": "ГНСС",
 
     "system.psw": "Пароль",
     "system.title": "Системные настройки",

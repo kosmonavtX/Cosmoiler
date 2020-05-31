@@ -20,7 +20,7 @@ import App from './app'
 import store from './store/store.js'
 import './ba-debug.min.js'
 
-debug.setLevel(0);
+debug.setLevel("debug");
 
 // Init F7 Vue Plugin
 Vue.use(Framework7Vue);
@@ -42,17 +42,17 @@ var MainApp = new Vue({
     // Init Framework7 by passing parameters here
     framework7: {
         root: '#app',
-        pushState : true,
+        pushState: true,
         routes: Routes,
         /* Uncomment to enable Material theme: */
         material: true,
         materialPageLoadDelay: 20,
-        
+
     },
-    
+
     data: function() {
         return {
-           // uri: document.location.host,
+            // uri: document.location.host,
             //ws: null,
             //connection: { type: Boolean, default: false },
         }

@@ -232,7 +232,7 @@
             resetConf: function() {
                 // TODO: отправить команду recover_ALL
                 this.$store.dispatch('Reset');
-                console.log('reset')
+                debug.log('reset')
             }
 /*            clearPNSSID: function() {
 
